@@ -1,5 +1,5 @@
 #include "Camera.h"
-
+#include "Time.h"
 CCamera* CCamera::s_pCameraInstance = 0;
 
 /***********************
@@ -65,7 +65,7 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	glm::mat4 Model = translate * rotation * scale;
 
 	//Moves the camera when WASD input is pressed
-	float cameraSpeed = 0.05f;
+	float cameraSpeed = 0.01f * CTime::GetInstance()->GetDeltaTime();
 
 	if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD)
 	{

@@ -17,6 +17,5 @@ public:
 private:
 	glm::vec2 m_position;
 	float m_rotation;
-
 };
 

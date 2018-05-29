@@ -135,6 +135,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TextLabel.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="Time.h" />
     <ClInclude Include="UIObject.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>
@@ -152,6 +153,7 @@
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="TextLabel.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="Time.cpp" />
     <ClCompile Include="UIObject.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
