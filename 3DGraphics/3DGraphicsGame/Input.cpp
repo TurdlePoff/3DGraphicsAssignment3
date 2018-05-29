@@ -106,31 +106,32 @@ void CInput::MouseClicked(int button, int glutState, int x, int y)
 /***********************
 * MousePassiveMovement: havent used so not sure yet
 ***********************/
-glm::vec3 CInput::MousePassiveMovement(int x, int y)
+void CInput::MousePassiveMovement(int x, int y)
 {
-	if (FirstMouse == true) // Run only once to initialize the 'Last' vars 
-	{ 
-		LastX = (GLfloat)x;
-		LastY = (GLfloat)y;
-		FirstMouse = false; 
+	if (FirstMouse == true)// Run only once to initialize the 'Last' vars
+	{
+		LastX = x;
+		LastY = y;
+		FirstMouse = false;
 	}
-	GLfloat xOffset = (GLfloat)x - LastX;
-	GLfloat yOffset = (GLfloat)y - LastY;
-	LastX = (GLfloat)x;
-	LastY = (GLfloat)y;
-
-	xOffset *= MouseSensitivity; 
-	yOffset *= MouseSensitivity; 
-	Yaw -= xOffset; 
-	Pitch -= yOffset;
-
-	// Clamp 'Pitch' so screen doesn’t flip 
-	if (Pitch > 89.0f)  { Pitch = 89.0f; } 
-	if (Pitch < -89.0f) { Pitch = -89.0f; } 
-	glm::vec3 frontVector(
-		-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)) , 
-		sin(glm::radians(Pitch)), 
-		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw))); 
-	
-	return glm::normalize(frontVector); //cameraFront
-} 
+	GLfloat xOffset = x - LastX;
+	GLfloat yOffset = y - LastY;
+	LastX = x;
+	LastY = y;
+	xOffset *= MouseSensitivity;
+	yOffset *= MouseSensitivity;
+	Yaw -= xOffset;
+	Pitch -= yOffset;	// Clamp 'Pitch' so screen doesn’t flip
+	if (Pitch > 89.0f)
+	{
+		Pitch = 89.0f;
+	}
+	if (Pitch < -89.0f)
+	{
+		Pitch = -89.0f;
+	}
+	glm::vec3 frontVector(-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)),
+		sin(glm::radians(Pitch)),
+		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
+	CCamera::GetInstance()->SetCamFront(glm::normalize(frontVector));
+} // End of the MousePassiveMovement function

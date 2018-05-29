@@ -17,8 +17,8 @@
 #include <memory>
 #include <fstream>
 
-static const unsigned int SCR_WIDTH = 600;
-static const unsigned int SCR_HEIGHT = 600;
+static const unsigned int SCR_WIDTH = 800;
+static const unsigned int SCR_HEIGHT = 800;
 
 static const GLuint indices[] = {
 	0, 1, 2, // First Triangle

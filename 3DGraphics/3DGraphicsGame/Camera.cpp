@@ -1,7 +1,9 @@
 #include "Camera.h"
 #include "Time.h"
-CCamera* CCamera::s_pCameraInstance = 0;
+#include "Input.h"
 
+CCamera* CCamera::s_pCameraInstance = 0;
+glm::vec3 CCamera::cameraFront = glm::vec3(0.0f, 0.0f, -10.0f); // Time of 
 /***********************
 * CCamera: Camera constructor
 * @author: Vivian Ngo
@@ -63,6 +65,8 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	glm::mat4 scale = glm::scale(glm::mat4(), _scale);
 
 	glm::mat4 Model = translate * rotation * scale;
+
+	//cameraFront = CInput::GetInstance()->MousePassiveMovement();
 
 	//Moves the camera when WASD input is pressed
 	float cameraSpeed = 0.01f * CTime::GetInstance()->GetDeltaTime();

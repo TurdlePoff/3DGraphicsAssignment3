@@ -28,7 +28,7 @@ public:
 	static void Keyboard_Down(unsigned char keyPressed, int x, int y);
 	static void Keyboard_Up(unsigned char keyPressed, int x, int y);
 	static void MouseClicked(int buttonPressed, int glutState, int x, int y);
-	static glm::vec3 MousePassiveMovement(int x, int y);
+	static void MousePassiveMovement(int x, int y);
 	//void InputGlutFunctions();
 	//Glutspecialfunctions
 private:
