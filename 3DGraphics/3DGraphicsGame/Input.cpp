@@ -110,32 +110,32 @@ void CInput::MouseClicked(int button, int glutState, int x, int y)
 ***********************/
 void CInput::MousePassiveMovement(int x, int y)
 {
-	Utils::XYO = x;
-	Utils::YYO = y;
+	Utils::XYO = (GLfloat)x;
+	Utils::YYO = (GLfloat)y;
 
 	if (FirstMouse == true)// Run only once to initialize the 'Last' vars
 	{
-		LastX = x;
-		LastY = y;
+		LastX = (GLfloat)x;
+		LastY = (GLfloat)y;
 		FirstMouse = false;
 	}
 
-	GLfloat xOffset = x - LastX;
-	GLfloat yOffset = y - LastY;
-	LastX = x;
-	LastY = y;
+	GLfloat xOffset = (GLfloat)x - LastX;
+	GLfloat yOffset = (GLfloat)y - LastY;
+	LastX = (GLfloat)x;
+	LastY = (GLfloat)y;
 	xOffset *= MouseSensitivity;
 	yOffset *= MouseSensitivity;
 	Yaw -= xOffset;
 	Pitch -= yOffset;	// Clamp 'Pitch' so screen doesn’t flip
-	if (Pitch > 89.0f)
+	/*if (Pitch > 89.0f)
 	{
 		Pitch = 89.0f;
 	}
 	if (Pitch < -89.0f)
 	{
 		Pitch = -89.0f;
-	}
+	}*/
 	glm::vec3 frontVector(-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)),
 		sin(glm::radians(Pitch)),
 		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));

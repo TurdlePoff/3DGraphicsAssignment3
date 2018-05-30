@@ -73,19 +73,19 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	//Moves the camera when WASD input is pressed
 	float cameraSpeed = 0.01f * CTime::GetInstance()->GetDeltaTime();
 
-	if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD)
+	if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
 		cameraPos += cameraSpeed * cameraFront;
 	}
-	if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD)
+	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
 	{
 		cameraPos -= cameraSpeed * cameraFront;
 	}
-	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD)
+	else if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD) 
 	{
 		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
-	if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD)
+	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
 	{
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
