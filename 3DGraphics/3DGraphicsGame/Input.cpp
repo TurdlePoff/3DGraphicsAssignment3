@@ -144,12 +144,20 @@ void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
 	CCamera * c = CCamera::GetInstance();
 	float movement = 0.1f;
 
+
+	
+
 	//If player scrolls mouse
 	if (glutState == 1 || glutState == -1)
 	{
 		glutState *= -1; //Reverse glutstate
-
+		float i = c->GetFOV();
+		if (c->GetFOV() > 44.01f && c->GetFOV() < 46.0f)
+			c->SetFOV(c->GetFOV() + (movement * glutState));
+		else if (c->GetFOV() < 44.01f)
+			c->SetFOV(44.01f);
+		else
+			c->SetFOV(45.0f);
 		//Increase/decrease the field of view
-		c->SetFOV(c->GetFOV() + (movement * glutState));
 	}
 }
