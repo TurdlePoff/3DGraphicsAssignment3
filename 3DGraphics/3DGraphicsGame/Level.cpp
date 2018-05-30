@@ -182,7 +182,7 @@ void CLevel::MovePlayer()
 	float m_fZ = 0;
 
 	//Temporary thingy to display z position onto screen
-	m_pTextList[2]->SetText(std::to_string(player->GetPos().z));
+	m_pTextList[2]->SetText(std::to_string(SCROLLY_OFFSET));
 
 	//Moves player depending on direction moved
 	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)

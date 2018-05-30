@@ -120,6 +120,7 @@ int main(int argc, char **argv)
 	glutKeyboardUpFunc(CInput::Keyboard_Up);
 	glutMouseFunc(CInput::MouseClicked);
 	glutPassiveMotionFunc(CInput::MousePassiveMovement);
+	glutMouseWheelFunc(CInput::ScollCallback);
 
 	glutDisplayFunc(Render);
 	glutIdleFunc(Update);

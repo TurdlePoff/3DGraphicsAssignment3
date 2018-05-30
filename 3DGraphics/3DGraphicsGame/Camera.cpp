@@ -3,7 +3,9 @@
 #include "Input.h"
 
 CCamera* CCamera::s_pCameraInstance = 0;
-glm::vec3 CCamera::cameraFront = glm::vec3(0.0f, 0.0f, -10.0f); // Time of 
+glm::vec3 CCamera::cameraFront = glm::vec3(SCR_WIDTH/2, SCR_HEIGHT/2, -10.0f);
+float CCamera::m_fov = 45.0f; // field of view
+
 /***********************
 * CCamera: Camera constructor
 * @author: Vivian Ngo
@@ -11,10 +13,10 @@ glm::vec3 CCamera::cameraFront = glm::vec3(0.0f, 0.0f, -10.0f); // Time of
 ***********************/
 CCamera::CCamera()
 {
-	float iWidthScaled = SCR_WIDTH / 200;
-	float iHeightScaled = SCR_HEIGHT / 200;
+	float iWidthScaled = SCR_WIDTH;
+	float iHeightScaled = SCR_HEIGHT;
 	//projection = glm::ortho(-iWidthScaled, iWidthScaled, -iHeightScaled, iHeightScaled, 0.0f, 100.0f);
-	projection = glm::perspective(glm::radians(45.0f), (GLfloat)iWidthScaled / (GLfloat)iHeightScaled, 0.1f, 100.0f);//(-iWidthScaled, iWidthScaled, -iHeightScaled, iHeightScaled, 0.0f, 100.0f);
+	projection = glm::perspective(m_fov, (GLfloat)iWidthScaled / (GLfloat)iHeightScaled, 0.1f, 100.0f);//(-iWidthScaled, iWidthScaled, -iHeightScaled, iHeightScaled, 0.0f, 100.0f);
 }
 
 /***********************
@@ -90,6 +92,11 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 
+	float iWidthScaled = SCR_WIDTH;
+	float iHeightScaled = SCR_HEIGHT;
+
+
+	projection = glm::perspective(m_fov, (GLfloat)iWidthScaled / (GLfloat)iHeightScaled, 0.1f, 100.0f);
 	//Rotating camera - take away the camera wasd input first to test
 	//float currentTime = glutGet(GLUT_ELAPSED_TIME);
 	//currentTime = currentTime * 0.001f;
@@ -104,6 +111,22 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	glUseProgram(Utils::programTextured);
 	GLint MVPLoc = glGetUniformLocation(Utils::programTextured, "MVP");
 	glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr(MVP));
+}
+
+/***********************
+* SetFOV: Sets the field of view
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: _fov to change
+***********************/
+void CCamera::SetFOV(float _fov)
+{
+	m_fov = _fov;
+}
+
+float CCamera::GetFOV()
+{
+	return m_fov;
 }
 
 /***********************

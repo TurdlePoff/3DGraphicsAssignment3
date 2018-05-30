@@ -23,8 +23,10 @@ GLfloat CInput::MouseSensitivity = 0.05f;
 GLfloat CInput::Yaw = 0.0f;
 GLfloat CInput::Pitch = 0.0f;
 GLfloat CInput::Roll = 0.0f;
-GLfloat CInput::LastX = (float)SCR_WIDTH * 0.5f;
-GLfloat CInput::LastY = (float)SCR_HEIGHT * 0.5f;
+GLfloat CInput::LastX = (float)SCR_WIDTH;
+GLfloat CInput::LastY = (float)SCR_HEIGHT;
+float CInput::LastScrollY = 365.0f;
+
 bool CInput::FirstMouse = true;
 
 /***********************
@@ -114,6 +116,7 @@ void CInput::MousePassiveMovement(int x, int y)
 		LastY = y;
 		FirstMouse = false;
 	}
+
 	GLfloat xOffset = x - LastX;
 	GLfloat yOffset = y - LastY;
 	LastX = x;
@@ -121,7 +124,7 @@ void CInput::MousePassiveMovement(int x, int y)
 	xOffset *= MouseSensitivity;
 	yOffset *= MouseSensitivity;
 	Yaw -= xOffset;
-	Pitch -= yOffset;	// Clamp 'Pitch' so screen doesn’t flip
+	Pitch -= yOffset;	// Clamp 'Pitch' so screen doesn’t flip
 	if (Pitch > 89.0f)
 	{
 		Pitch = 89.0f;
@@ -134,4 +137,19 @@ void CInput::MousePassiveMovement(int x, int y)
 		sin(glm::radians(Pitch)),
 		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
 	CCamera::GetInstance()->SetCamFront(glm::normalize(frontVector));
-} // End of the MousePassiveMovement function
+}
+
+void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
+{
+	CCamera * c = CCamera::GetInstance();
+	float movement = 0.1f;
+
+	//If player scrolls mouse
+	if (glutState == 1 || glutState == -1)
+	{
+		glutState *= -1; //Reverse glutstate
+
+		//Increase/decrease the field of view
+		c->SetFOV(c->GetFOV() + (movement * glutState));
+	}
+}

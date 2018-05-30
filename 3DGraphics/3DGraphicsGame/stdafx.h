@@ -119,6 +119,8 @@ enum EMouse
 	LCLICK, MCLICK, RCLICK
 };
 
+static float SCROLLY_OFFSET = 0;
+
 enum InputState {
 	INPUT_FIRST_RELEASE, // First frame of Up state 
 	INPUT_RELEASED, // Default State (Up) 

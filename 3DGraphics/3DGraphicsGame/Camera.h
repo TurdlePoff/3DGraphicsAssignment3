@@ -11,6 +11,8 @@ public:
 
 	void SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot);
 
+	static void SetFOV(float _fov);
+	static float GetFOV();
 	static void SetCamFront(glm::vec3 _cFront);
 	void SetCamPos(glm::vec3 _cPos);
 	void SetCamUp(glm::vec3 _cUp);
@@ -20,13 +22,15 @@ public:
 	glm::vec3 GetCamPos();
 	glm::vec3 GetCamUp();
 	float GetCamSpeed();
-	static glm::vec3 cameraFront;
 
 
 private:
 	static CCamera* s_pCameraInstance;
 	CCamera();
-	
+
+	static glm::vec3 cameraFront;
+	static float m_fov;
+
 	glm::mat4 view;
 	glm::mat4 projection;
 

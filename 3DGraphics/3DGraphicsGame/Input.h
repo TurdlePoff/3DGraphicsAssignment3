@@ -29,6 +29,8 @@ public:
 	static void Keyboard_Up(unsigned char keyPressed, int x, int y);
 	static void MouseClicked(int buttonPressed, int glutState, int x, int y);
 	static void MousePassiveMovement(int x, int y);
+	static void ScollCallback(int button, int glutState, int xOffset, int yOffset);
+
 	//void InputGlutFunctions();
 	//Glutspecialfunctions
 private:
@@ -40,6 +42,7 @@ private:
 	static GLfloat Roll;
 	static GLfloat LastX;
 	static GLfloat LastY;
+	static float LastScrollY;
 
 	static bool FirstMouse;
 	float m_fX;
