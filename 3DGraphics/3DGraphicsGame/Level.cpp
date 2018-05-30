@@ -1,5 +1,7 @@
 #include "Level.h"
 #include "SceneManager.h"
+#include "Time.h"
+
 
 //void LevelKeyDown(unsigned char key, int x, int y);
 
@@ -40,8 +42,10 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, false));
 
-		AddToSpriteList(enemyGood->GetSprite());
-		AddToSpriteList(enemyBad->GetSprite());
+		enemyGood->SetGoodApple(true);
+
+		AddToEnemyList(enemyGood);
+		AddToEnemyList(enemyBad);
 
 		std::string score = "1000";
 		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2(5.0f, 40.0f)));//SCR_HEIGHT - 200.0f));
@@ -146,25 +150,26 @@ void CLevel::Update()
 	else if (m_iLevelNumber == 1)	//If the player is currently in level 1
 	{
 		MovePlayer();
-	}	
+	}
 
+	std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
-	//for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
-	//{
-	//	if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
-	//	{
-	//		m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
-	//		m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
+	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
+	{
+		if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
+		{
+			m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
+			m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
 
-	//		if(!m_pEnemyList[eList]->GetIsGoodApple())
-	//			m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
+			if(!m_pEnemyList[eList]->GetIsGoodApple())
+				m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
 
-	//		if (m_pPlayer->GetPlayerLives() == 0)
-	//		{
-	//			//CSceneManager::GetInstance()->SwitchScene(2);
-	//		}
-	//	}
-	//}
+			if (m_pPlayer->GetPlayerLives() == 0)
+			{
+				//CSceneManager::GetInstance()->SwitchScene(2);
+			}
+		}
+	}
 }
 
 /***********************
@@ -176,39 +181,40 @@ void CLevel::MovePlayer()
 {
 	std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
-	float val = 1.0f;
+	float val = 0.5f;// *CTime::GetInstance()->GetDeltaTime();
 	float m_fX = 0;
 	float m_fY = 0;
 	float m_fZ = 0;
 
 	//Temporary thingy to display z position onto screen
-	m_pTextList[2]->SetText(std::to_string(SCROLLY_OFFSET));
+	m_pTextList[2]->SetText(std::to_string(Utils::YYO));
+	m_pTextList[1]->SetText(std::to_string(Utils::XYO));
 
 	//Moves player depending on direction moved
 	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
 	{
-		if (player->GetPos().x < -10.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
+		if (player->GetPos().x < -100.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
 			m_fX = 0;
 		else
 			m_fX -= val;
 	}
 	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
 	{
-		if (player->GetPos().x > 10.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
+		if (player->GetPos().x > 100.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
 			m_fX = 0;
 		else
 			m_fX += val;
 	}
 	else if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
-		if (player->GetPos().z < -10.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
+		if (player->GetPos().z < -100.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ -= val;
 	}
 	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
 	{
-		if (player->GetPos().z > 10.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
+		if (player->GetPos().z > 100.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ += val;

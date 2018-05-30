@@ -11,5 +11,7 @@ public:
 	static GLuint Utils::programTextured;
 	static unsigned int KeyState[255];
 	static unsigned int MouseState[3];
+	static float Utils::XYO;
+	static float Utils::YYO;
 };
 

@@ -23,7 +23,7 @@ m_shape(TWOD)
 		}
 		case LAPPLE:
 		{
-			m_vPos = glm::vec3(-0.6f, -5.0f, 0);
+			m_vPos = glm::vec3(-1.0f, -5.0f, 0);
 			m_vScale = glm::vec3(2, 2, 2);
 			m_filename = "Resources/images/goodApple.png";
 			m_shape = CUBE;
@@ -46,7 +46,7 @@ m_shape(TWOD)
 		}
 		case ROTTENAPPLE:
 		{
-			m_vPos = glm::vec3(0.6f, 1.0f, 0);
+			m_vPos = glm::vec3(2.0f, -5.0f, 0);
 			m_vScale = glm::vec3(2, 2, 2);
 			m_filename = "Resources/images/rottenApple.png";
 			m_shape = CUBE;
@@ -226,17 +226,15 @@ void CSprite::SetIsDead(bool dead)
 
 bool CSprite::IsCollidingWith(std::shared_ptr<CSprite> _e2)//std::shared_ptr<CSprite> _e2)
 {
-	if (this->GetAxisZ() != _e2->GetAxisZ())
-	{
-		return false;
-	}
-
+	//float xVal = abs(_e2->GetPos().x - this->GetPos().x);
+	//float yVal = abs(_e2->GetPos().y - this->GetPos().y);
+	//float zVal = abs(_e2->GetPos().z - this->GetPos().z);
 	float xVal = _e2->GetPos().x - this->GetPos().x;
 	float yVal = _e2->GetPos().y - this->GetPos().y;
 	float zVal = _e2->GetPos().z - this->GetPos().z;
 
 	float distance = sqrt(pow(xVal, 2) + pow(yVal, 2) + pow(zVal, 2));
-
+	
 	float collision = ((this->GetWidth() * this->GetScale().x / 2) + (_e2->GetWidth() * _e2->GetScale().x / 2)) / 2;
 
 	if (distance <= collision)

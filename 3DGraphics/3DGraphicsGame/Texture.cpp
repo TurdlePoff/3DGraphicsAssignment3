@@ -29,75 +29,96 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 
 	m_shape = _shape;
 
-	// Create Verticies from center
-	GLfloat vertices[] = {
-		// Positions // Colors // Tex Coords
-		-halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f, // Top Left
-		halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f, // Top Right 
-		halfWidth, -halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // Bottom Right
-		-halfWidth, -halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // Bottom Left
-	};
-
-	GLfloat verticesPyramid[] = {
-		//Positions			// Colors			// Tex Coords
-		-1.0f, 0.0f, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 0 // Base
-		1.0f, 0.0f, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 1
-		1.0f, 0.0f, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f, // 2
-		-1.0f, 0.0f, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f, // 3
-
-		-1.0f, 0.0f, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 4 // Side 1
-		-1.0f, 0.0f, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 5
-
-		-1.0f, 0.0f, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 6 // Side 2
-		1.0f, 0.0f, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 7
-
-		1.0f, 0.0f, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 8 // Side 3
-		1.0f, 0.0f, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 9
-
-		1.0f, 0.0f, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 10 // Side 4
-		-1.0f, 0.0f, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 11
-
-		0.0f, 1.0f, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.5f, 0.0f, // 12 // Top Point
-	};
-
-	GLfloat nVerticesCube[216] = {
-		// Front Face
-		-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-		halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-		halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-		-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-		// Right Face
-		halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-		halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-		halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-		halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-
-		// Back Face
-		halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-		-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-		-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-		halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-		// Left Face
-		-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-		-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-		-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-		-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-
-		// Top Face
-		-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-		halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-		halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-		-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-		// Bottom Face
-		-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-		halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-		halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-		-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-	};
-
-	for (int i = 0; i < 216; ++i)
+	
+	// Create Verticies depending on shape of sprite
+	if (_shape == PYRAMID)
 	{
-		verticesCube[i] = nVerticesCube[i];
+		//3D pyramid vertices
+		GLfloat actualVerticesPyramid[] = {
+			//Positions			// Colors			// Tex Coords
+			-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 0 // Base
+			halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 1
+			halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f, // 2
+			-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f, // 3
+
+			-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 4 // Side 1
+			-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 5
+
+			-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 6 // Side 2
+			halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 7
+
+			halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 8 // Side 3
+			halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 9
+
+			halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 10 // Side 4
+			-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 11
+
+			halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.5f, 0.0f, // 12 // Top Point
+		};
+
+		for (int i = 0; i < 117; ++i)
+		{
+			verticesPyramid[i] = actualVerticesPyramid[i];
+		}
+	}
+	else if (_shape == CUBE)
+	{
+		//3D cube vertices
+		GLfloat actualVerticesCube[216] = {
+			// Front Face
+			-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+			halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+			halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+			-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+			// Right Face
+			halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+			halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+			halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+			halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+
+			// Back Face
+			halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+			-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+			-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+			halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+			// Left Face
+			-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+			-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+			-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+			-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+
+			// Top Face
+			-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+			halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+			halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+			-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+			// Bottom Face
+			-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+			halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+			halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+			-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+		};
+
+		for (int i = 0; i < 216; ++i)
+		{
+			verticesCube[i] = actualVerticesCube[i];
+		}
+	}
+	else
+	{
+		//2D vertices
+		 GLfloat actualVertices[] = {
+			// Positions // Colors // Tex Coords
+			-halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f, // Top Left
+			halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f, // Top Right 
+			halfWidth, -halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // Bottom Right
+			-halfWidth, -halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // Bottom Left
+		};
+
+		 for (int i = 0; i < 36; ++i)
+		 {
+			 vertices[i] = actualVertices[i];
+		 }
 	}
 
 	// Create local variables (Not needed after binding complete
@@ -141,6 +162,7 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 	// Bind objects and texture
 	glBindVertexArray(_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+
 	if (m_shape == PYRAMID)
 	{
 		glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPyramid), verticesPyramid, GL_STATIC_DRAW);
@@ -183,7 +205,7 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 	glEnableVertexAttribArray(2);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicesPyramid), indicesPyramid, GL_STATIC_DRAW);
+
 	if (m_shape == PYRAMID)
 	{
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicesPyramid), indicesPyramid, GL_STATIC_DRAW);
