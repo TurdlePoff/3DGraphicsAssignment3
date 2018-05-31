@@ -26,7 +26,6 @@ GLfloat CInput::Roll = 0.0f;
 GLfloat CInput::LastX = (float)SCR_WIDTH;
 GLfloat CInput::LastY = (float)SCR_HEIGHT;
 float CInput::LastScrollY = 365.0f;
-
 bool CInput::FirstMouse = true;
 
 /***********************
@@ -138,12 +137,11 @@ void CInput::MousePassiveMovement(int x, int y)
 	{
 		Pitch = -89.0f;
 	}*/
+	
 	glm::vec3 frontVector(-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)),
 		sin(glm::radians(Pitch)),
 		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
 	CCamera::GetInstance()->SetCamFront(glm::normalize(frontVector));
-	//glutWarpPointer(SCR_WIDTH/2, SCR_HEIGHT/2);
-
 }
 
 void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
