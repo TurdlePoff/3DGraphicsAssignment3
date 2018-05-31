@@ -53,7 +53,7 @@ CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 		{ 
 			texture, glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows), 
 			glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top), 
-			face->glyph->advance.x 
+			(GLuint)face->glyph->advance.x
 		}; 
 		Characters.insert(std::pair<GLchar, Character>(c, character));
 	} 
@@ -126,5 +126,3 @@ void CTextLabel::Render()
 	glDisable(GL_CULL_FACE); 
 	glDisable(GL_BLEND);
 }
-
-

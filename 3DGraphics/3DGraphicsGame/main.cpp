@@ -12,11 +12,6 @@
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
-
-//Do dying snes noise
-//sleep and shrink
-
-
 #include "stdafx.h"
 #include "ShaderLoader.h"
 #include "Texture.h"
@@ -28,7 +23,6 @@
 #include "Level.h"
 #include "SceneManager.h"
 //#include <vld.h>
-
 
 void Init();
 void Render(void);
@@ -45,12 +39,15 @@ std::unique_ptr<CInput> InputFunc(CInput::GetInstance());
 ***********************/
 void Init() 
 {
+	//Set up the scenes of the game
 	scManager->SetUpScenes();
 
+	//Create programs with shaderloader
 	ShaderLoader sLoader;
 	Utils::program = sLoader.CreateProgram("Shaders/VertexShader.txt", "Shaders/FragmentShader.txt");
 	Utils::programTextured = sLoader.CreateProgram("Shaders/TextureVertexShader.txt", "Shaders/TextureFragmentShader.txt");
 	
+	//Initialise fmod, load the audio and play it
 	sndManager->InitFmod();
 	sndManager->LoadAudio();
 	sndManager->InitSound();
@@ -65,12 +62,8 @@ void Render(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	glUseProgram(Utils::programTextured);
-
+	//Render everything from the current scene
 	scManager->RenderScene(scManager->GetCurrentScene());
-
-	glUseProgram(0);
-
 	glutSwapBuffers();
 }
 
@@ -81,6 +74,7 @@ void Render(void)
 ***********************/
 void Update()
 {
+	//Update everything in the current scene
 	scManager->UpdateScene(scManager->GetCurrentScene());
 	glutPostRedisplay(); //render function is called
 }
@@ -116,6 +110,7 @@ int main(int argc, char **argv)
 	glewInit();
 	Init();
 
+	//Take in inputs
 	glutKeyboardFunc(CInput::Keyboard_Down);
 	glutKeyboardUpFunc(CInput::Keyboard_Up);
 	glutMouseFunc(CInput::MouseClicked);
@@ -128,7 +123,6 @@ int main(int argc, char **argv)
 
 	glutCloseFunc(Exit);
 
-	
 	glutMainLoop();
 	return 0;
 }

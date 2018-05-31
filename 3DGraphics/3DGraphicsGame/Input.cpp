@@ -127,7 +127,9 @@ void CInput::MousePassiveMovement(int x, int y)
 	xOffset *= MouseSensitivity;
 	yOffset *= MouseSensitivity;
 	Yaw -= xOffset;
-	Pitch -= yOffset;	// Clamp 'Pitch' so screen doesn’t flip
+	Pitch -= yOffset;
+
+	// Clamp 'Pitch' so screen doesn’t flip
 	/*if (Pitch > 89.0f)
 	{
 		Pitch = 89.0f;
@@ -140,6 +142,8 @@ void CInput::MousePassiveMovement(int x, int y)
 		sin(glm::radians(Pitch)),
 		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
 	CCamera::GetInstance()->SetCamFront(glm::normalize(frontVector));
+	//glutWarpPointer(SCR_WIDTH/2, SCR_HEIGHT/2);
+
 }
 
 void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
