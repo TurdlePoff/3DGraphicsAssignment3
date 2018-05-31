@@ -63,9 +63,7 @@ void CInput::DestroyInstance()
 * @author: Vivian Ngo
 * @date: 08/05/18
 ***********************/
-CInput::~CInput()
-{
-}
+CInput::~CInput() {}
 
 /***********************
 * Keyboard_Down: Sets the KeyState of the given pressed key as INPUT_HOLD
@@ -105,12 +103,16 @@ void CInput::MouseClicked(int button, int glutState, int x, int y)
 }
 
 /***********************
-* MousePassiveMovement: havent used so not sure yet
+* MousePassiveMovement: Allows screen to change pitch and yaw when navigating window
+* @author: Vivian Ngo
+* @date: 29/05/18
+* @parameter: x - x position of the mouse
+* @parameter: y - y position of the mouse
 ***********************/
 void CInput::MousePassiveMovement(int x, int y)
 {
-	Utils::XYO = (GLfloat)x;
-	Utils::YYO = (GLfloat)y;
+	Utils::XYO = (GLfloat)LastX;
+	Utils::YYO = (GLfloat)LastY;
 
 	if (FirstMouse == true)// Run only once to initialize the 'Last' vars
 	{
@@ -125,7 +127,21 @@ void CInput::MousePassiveMovement(int x, int y)
 	LastY = (GLfloat)y;
 	xOffset *= MouseSensitivity;
 	yOffset *= MouseSensitivity;
-	Yaw -= xOffset;
+
+	/*if ((float)x > (float)SCR_WIDTH)
+	{
+		Yaw -= 0.5f;
+
+	}
+	else if (x < 0)
+	{
+		Yaw -= -0.5f;
+	}
+	else
+	{*/
+		Yaw -= xOffset;
+	//}
+
 	Pitch -= yOffset;
 
 	// Clamp 'Pitch' so screen doesn’t flip
@@ -137,7 +153,7 @@ void CInput::MousePassiveMovement(int x, int y)
 	{
 		Pitch = -89.0f;
 	}*/
-	
+
 	glm::vec3 frontVector(-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)),
 		sin(glm::radians(Pitch)),
 		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
