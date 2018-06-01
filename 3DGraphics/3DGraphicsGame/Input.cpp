@@ -193,6 +193,15 @@ void CInput::MouseScrollHold(int x, int y)
 	}
 }
 
+/***********************
+* ScollCallback: Controls scrolling/zooming in and out
+* @author: Vivian Ngo
+* @date: 29/05/18
+* @parameter: button - button pressed //not used
+* @parameter: glutState - mouse click pressed
+* @parameter: xOffset - x offset //not used
+* @parameter: yOffset - y offset //not used
+***********************/
 void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
 {
 	CCamera * c = CCamera::GetInstance();

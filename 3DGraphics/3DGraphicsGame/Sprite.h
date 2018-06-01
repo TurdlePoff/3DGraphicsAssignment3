@@ -25,8 +25,6 @@ public:
 	CSprite() {};
 
 	CSprite(EImage spriteType);
-	CSprite(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale, glm::vec4 Colour,
-		float width, float height, const char* filename);
 
 	~CSprite() {};
 
@@ -53,8 +51,6 @@ public:
 	void SetIsDead(bool dead);
 
 	bool IsCollidingWith(std::shared_ptr<CSprite> _e2);//std::shared_ptr<CSprite> e);
-
-	bool TestGet();
 
 private:
 	EImage m_eSpriteType;

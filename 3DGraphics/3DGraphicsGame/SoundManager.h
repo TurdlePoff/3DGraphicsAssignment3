@@ -12,7 +12,7 @@ public:
 	~CSoundManager();
 
 	bool InitFmod();
-	const bool LoadAudio();
+	void LoadAudio();
 	void InitSound();
 
 private: 

@@ -2,6 +2,12 @@
 
 CSoundManager* CSoundManager::s_pSoundInstance = 0;
 
+/***********************
+* GetInstance: Gets the instance of the sound manager
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: s_pSoundInstance - instance of the sound manager
+***********************/
 CSoundManager* CSoundManager::GetInstance()
 {
 	if (s_pSoundInstance == 0)
@@ -11,6 +17,11 @@ CSoundManager* CSoundManager::GetInstance()
 	return s_pSoundInstance;
 }
 
+/***********************
+* DestroyInstance: Destroys the instance of the sound manager
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 void CSoundManager::DestroyInstance()
 {
 	if (s_pSoundInstance != 0) // If there is an instance of this class
@@ -21,8 +32,18 @@ void CSoundManager::DestroyInstance()
 	}
 }
 
+/***********************
+* ~CSoundManager: Destructor of the sound manager
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 CSoundManager::~CSoundManager() {}
 
+/***********************
+* InitFmod: Initialise fmod
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 bool CSoundManager::InitFmod() 
 {
 	FMOD_RESULT result; result = FMOD::System_Create(&audioMgr); 
@@ -41,7 +62,12 @@ bool CSoundManager::InitFmod()
 	return true;
 }
 
-const bool CSoundManager::LoadAudio() 
+/*********************** //	NEED TO CHANGE METHOD TO ALLOW DIF BG SOUNDS
+* LoadAudio: Load the sound to play
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+void CSoundManager::LoadAudio() 
 {
 	FMOD_RESULT result;
 
@@ -49,10 +75,13 @@ const bool CSoundManager::LoadAudio()
 	result = audioMgr->createSound("Resources/sounds/Background.mp3", FMOD_DEFAULT, 0, &bgmTheme);
 
 	bgmTheme->setMode(FMOD_LOOP_NORMAL);
-
-	return true;
 }
 
+/***********************
+* InitSound: Initialise the sound to play
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 void CSoundManager::InitSound()
 {
 	InitFmod(); 
