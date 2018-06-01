@@ -28,6 +28,9 @@ GLfloat CInput::LastY = (float)SCR_HEIGHT;
 float CInput::LastScrollY = 365.0f;
 bool CInput::FirstMouse = true;
 
+GLfloat xOffset;
+GLfloat yOffset;
+
 /***********************
 * GetInstance: Gets the instance of the Singleton Input class
 * @author: Vivian Ngo
@@ -111,8 +114,8 @@ void CInput::MouseClicked(int button, int glutState, int x, int y)
 ***********************/
 void CInput::MousePassiveMovement(int x, int y)
 {
-	Utils::XYO = (GLfloat)LastX;
-	Utils::YYO = (GLfloat)LastY;
+	Utils::XYO = (GLfloat)x;
+	Utils::YYO = (GLfloat)y;
 
 	if (FirstMouse == true)// Run only once to initialize the 'Last' vars
 	{
@@ -121,43 +124,88 @@ void CInput::MousePassiveMovement(int x, int y)
 		FirstMouse = false;
 	}
 
-	GLfloat xOffset = (GLfloat)x - LastX;
-	GLfloat yOffset = (GLfloat)y - LastY;
+
+	/*if (x <= 800 || y <= 800)
+	{
+		xOffset = (GLfloat)x - LastX;
+		yOffset = (GLfloat)y - LastY;
+	}
+	else if (x > 800)
+	{
+		yOffset = (GLfloat)y - LastY;
+	}
+	else if(y > 800)
+	{
+		xOffset = (GLfloat)x - LastX;
+	}*/
+
 	LastX = (GLfloat)x;
 	LastY = (GLfloat)y;
+
 	xOffset *= MouseSensitivity;
 	yOffset *= MouseSensitivity;
 
-	/*if ((float)x > (float)SCR_WIDTH)
-	{
-		Yaw -= 0.5f;
-
-	}
-	else if (x < 0)
-	{
-		Yaw -= -0.5f;
-	}
-	else
-	{*/
-		Yaw -= xOffset;
-	//}
-
+	Yaw -= xOffset;
 	Pitch -= yOffset;
 
 	// Clamp 'Pitch' so screen doesn’t flip
-	/*if (Pitch > 89.0f)
+	if (Pitch > 89.0f)
 	{
-		Pitch = 89.0f;
+	Pitch = 89.0f;
 	}
 	if (Pitch < -89.0f)
 	{
-		Pitch = -89.0f;
-	}*/
+	Pitch = -89.0f;
+	}
 
 	glm::vec3 frontVector(-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)),
 		sin(glm::radians(Pitch)),
 		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
 	CCamera::GetInstance()->SetCamFront(glm::normalize(frontVector));
+	glutWarpPointer(LastX, LastY);
+}
+
+
+/***********************
+* MousePassiveMovement: Allows screen to change pitch and yaw when navigating window
+* @author: Vivian Ngo
+* @date: 29/05/18
+* @parameter: x - x position of the mouse
+* @parameter: y - y position of the mouse
+***********************/
+void CInput::MouseScrollHold(int x, int y)
+{
+	if (Utils::MouseState[1] == INPUT_HOLD)
+	{
+		Utils::XYO = (GLfloat)LastX;
+		Utils::YYO = (GLfloat)LastY;
+
+		if (FirstMouse == true)// Run only once to initialize the 'Last' vars
+		{
+			LastX = (GLfloat)x;
+			LastY = (GLfloat)y;
+			FirstMouse = false;
+		}
+
+		GLfloat xOffset = (GLfloat)x - LastX;
+		GLfloat yOffset = (GLfloat)y - LastY;
+
+		LastX = (GLfloat)x;
+		LastY = (GLfloat)y;
+
+		xOffset *= MouseSensitivity + 0.05f;
+		yOffset *= MouseSensitivity + 0.05f;
+
+		Yaw -= xOffset;
+
+		Pitch -= yOffset;
+
+
+		glm::vec3 frontVector(-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)),
+			sin(glm::radians(Pitch)),
+			-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
+		CCamera::GetInstance()->SetCamFront(glm::normalize(frontVector));
+	}
 }
 
 void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)

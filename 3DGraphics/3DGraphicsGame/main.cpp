@@ -115,7 +115,7 @@ int main(int argc, char **argv)
 	glutKeyboardUpFunc(CInput::Keyboard_Up);
 	glutMouseFunc(CInput::MouseClicked);
 	glutPassiveMotionFunc(CInput::MousePassiveMovement);
-	glutMotionFunc(CInput::MousePassiveMovement);
+	glutMotionFunc(CInput::MouseScrollHold);
 	glutMouseWheelFunc(CInput::ScollCallback);
 
 	glutDisplayFunc(Render);
