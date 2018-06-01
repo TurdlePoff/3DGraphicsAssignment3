@@ -32,7 +32,7 @@ void CSceneManager::DestroyInstance()
 
 void CSceneManager::SetUpScenes()
 {
-	std::shared_ptr<CSprite> playerSprite(new CSprite(LAPPLE));
+	std::shared_ptr<CSprite> playerSprite(new CSprite(BIRB1));
 	std::shared_ptr<CPlayer> playerWithSprite(new CPlayer(playerSprite));
 
 	std::shared_ptr<CScene> startScreen(new CLevel(0, STARTSCR, playerWithSprite));

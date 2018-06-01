@@ -124,21 +124,6 @@ void CInput::MousePassiveMovement(int x, int y)
 		FirstMouse = false;
 	}
 
-
-	/*if (x <= 800 || y <= 800)
-	{
-		xOffset = (GLfloat)x - LastX;
-		yOffset = (GLfloat)y - LastY;
-	}
-	else if (x > 800)
-	{
-		yOffset = (GLfloat)y - LastY;
-	}
-	else if(y > 800)
-	{
-		xOffset = (GLfloat)x - LastX;
-	}*/
-
 	LastX = (GLfloat)x;
 	LastY = (GLfloat)y;
 
@@ -177,8 +162,8 @@ void CInput::MouseScrollHold(int x, int y)
 {
 	if (Utils::MouseState[1] == INPUT_HOLD)
 	{
-		Utils::XYO = (GLfloat)LastX;
-		Utils::YYO = (GLfloat)LastY;
+		Utils::XYO = CCamera::GetInstance()->GetCamFront().x;
+		Utils::YYO = CCamera::GetInstance()->GetCamFront().y;
 
 		if (FirstMouse == true)// Run only once to initialize the 'Last' vars
 		{

@@ -23,7 +23,7 @@ m_shape(TWOD)
 		}
 		case LAPPLE:
 		{
-			m_vPos = glm::vec3(-1.0f, -5.0f, 0);
+			m_vPos = glm::vec3(-0.0f, 0.0f, -6.0f);
 			m_vScale = glm::vec3(2, 2, 2);
 			m_filename = "Resources/images/goodApple.png";
 			m_shape = CUBE;
@@ -31,7 +31,7 @@ m_shape(TWOD)
 		}
 		case MAPPLE:
 		{
-			m_vPos = glm::vec3(-5.0f, 2.8f, 0);
+			m_vPos = glm::vec3(-0.0f, 0.0f, 0);
 			m_vScale = glm::vec3(0.25f, 0.38f, 1);
 			m_filename = "Resources/images/goodApple.png";
 			break;
@@ -46,7 +46,7 @@ m_shape(TWOD)
 		}
 		case ROTTENAPPLE:
 		{
-			m_vPos = glm::vec3(2.0f, -5.0f, 0);
+			m_vPos = glm::vec3(-5.0f, 0.0f, 4.0f);
 			m_vScale = glm::vec3(2, 2, 2);
 			m_filename = "Resources/images/rottenApple.png";
 			m_shape = CUBE;
@@ -55,9 +55,10 @@ m_shape(TWOD)
 		}
 		case BIRB1:
 		{
-			m_vPos = glm::vec3(0, 0, 0);
-			m_vScale = glm::vec3(0.25f, 0.38f, 1);
+			m_vPos = glm::vec3(-0.0f, 0.0f, 0);
+			m_vScale = glm::vec3(2, 2, 2);
 			m_filename = "Resources/images/birb1.png";
+			m_shape = CUBE;
 			break;
 		}
 		case BIRB2:
@@ -91,11 +92,11 @@ m_shape(TWOD)
 		}
 		case BG:
 		{
-			m_vPos = glm::vec3(-0, -19.6f, 0);
-			m_vScale = glm::vec3(10, 5, 10);
-			m_vRotation = glm::vec3(-0.0f, 0.5f, 1);
+			m_vPos = glm::vec3(0, -10.0, 0);
+			m_vScale = glm::vec3(10, 0.2f, 50);
+			m_vRotation = glm::vec3(0.0f, 0.0f, 0.0);
 			m_shape = CUBE;			
-			m_filename = "Resources/images/treePortrait.png";
+			m_filename = "Resources/images/treePortrait.jpg";
 			break;
 		}
 		case STARTSCR:
@@ -116,9 +117,9 @@ m_shape(TWOD)
 		}
 	}
 	m_fWidth = m_vScale.x;
-	m_fHeight = m_vScale.y;
-	m_vTopLeft = glm::vec3(-((m_fWidth / 2) + m_vPos.x), (m_fHeight / 2) + m_vPos.y, 0.0f);
-	m_fBotRight = glm::vec3((m_fWidth / 2) + m_vPos.x, -((m_fHeight / 2) + m_vPos.y), 0.0f);
+	m_fHeight = m_vScale.z;
+	m_vTopLeft = glm::vec3(-((m_fWidth / 2) + m_vPos.x), (m_fHeight / 2) + m_vPos.z, 0.0f);
+	m_fBotRight = glm::vec3((m_fWidth / 2) + m_vPos.x, -((m_fHeight / 2) + m_vPos.z), 0.0f);
 
 	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, m_vColour, m_vao, m_texture, m_shape);
 }
@@ -226,25 +227,27 @@ void CSprite::SetIsDead(bool dead)
 
 bool CSprite::IsCollidingWith(std::shared_ptr<CSprite> _e2)//std::shared_ptr<CSprite> _e2)
 {
-	//float xVal = abs(_e2->GetPos().x - this->GetPos().x);
-	//float yVal = abs(_e2->GetPos().y - this->GetPos().y);
-	//float zVal = abs(_e2->GetPos().z - this->GetPos().z);
-	float xVal = _e2->GetPos().x - this->GetPos().x;
-	float yVal = _e2->GetPos().y - this->GetPos().y;
-	float zVal = _e2->GetPos().z - this->GetPos().z;
 
-	float distance = sqrt(pow(xVal, 2) + pow(yVal, 2) + pow(zVal, 2));
-	
-	float collision = ((this->GetWidth() * this->GetScale().x / 2) + (_e2->GetWidth() * _e2->GetScale().x / 2)) / 2;
+	bool colliding = false;
 
-	if (distance <= collision)
+	float e1 = this->GetHeight()*2;
+	float e1X = this->GetPos().x* this->GetScale().x;
+	float e1Y = this->GetPos().z* this->GetScale().z;
+
+	float e2 = _e2->GetHeight()*2;
+	float e2X = _e2->GetPos().x * _e2->GetScale().x;
+	float e2Y = _e2->GetPos().z * _e2->GetScale().z;
+
+	float collision = e1 + e2;
+
+	float actualdistance = (sqrt(pow(abs(e2X - e1X), 2) + pow(abs(e2Y - e1Y), 2)));
+
+	if (actualdistance < collision)
 	{
-		return true;
+		colliding = true;
 	}
-	else
-	{
-		return false;
-	}
+
+	return colliding;
 }
 
 bool CSprite::TestGet()

@@ -3,7 +3,7 @@
 #include "Input.h"
 
 CCamera* CCamera::s_pCameraInstance = 0;
-glm::vec3 CCamera::cameraFront = glm::vec3(SCR_WIDTH/2, SCR_HEIGHT/2, -10.0f);
+glm::vec3 CCamera::cameraFront = glm::vec3(-0.2f, -0.7f, 0.0f);
 float CCamera::m_fov = 45.0f; // field of view
 
 /***********************
@@ -13,6 +13,8 @@ float CCamera::m_fov = 45.0f; // field of view
 ***********************/
 CCamera::CCamera()
 {
+
+	cameraFront = glm::vec3(-0.2f, -0.7f, 0.0f);
 	float iWidthScaled = SCR_WIDTH;
 	float iHeightScaled = SCR_HEIGHT;
 	//projection = glm::ortho(-iWidthScaled, iWidthScaled, -iHeightScaled, iHeightScaled, 0.0f, 100.0f);
@@ -73,7 +75,9 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	//Moves the camera when WASD input is pressed
 	float cameraSpeed = 0.01f * CTime::GetInstance()->GetDeltaTime();
 
-	if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
+
+	//UNCOMMENT TO MOVE CAMERA
+	/*if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
 		cameraPos += cameraSpeed * cameraFront;
 	}
@@ -88,13 +92,16 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
 	{
 		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
+	}*/
 
-	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	//ROTATE CAMERA TO VIEW AS EAGLE EYE
+	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
+
+	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * ROT;
 
 	float iWidthScaled = SCR_WIDTH;
 	float iHeightScaled = SCR_HEIGHT;
-
 
 	projection = glm::perspective(m_fov, (GLfloat)iWidthScaled / (GLfloat)iHeightScaled, 0.1f, 100.0f);
 	//Rotating camera - take away the camera wasd input first to test

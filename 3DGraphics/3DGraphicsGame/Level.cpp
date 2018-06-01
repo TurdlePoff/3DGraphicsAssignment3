@@ -24,11 +24,9 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	if (m_iLevelNumber == 0)
 	{
 		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("Robotron ??", "Resources/Fonts/bubble.TTF", glm::vec2(40.0f, SCR_HEIGHT / 2 + 140)));
-		titleText1->SetScale(0.35f);
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
 
 		std::shared_ptr<CTextLabel> startText(new CTextLabel("START", "Resources/Fonts/bubble.TTF", glm::vec2(45.0f, ((SCR_HEIGHT / 2) - 100.0f))));//SCR_HEIGHT - 200.0f));
-		startText->SetScale(0.35f);
 		startText->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
 
 		AddToTextList(titleText1);
@@ -150,26 +148,27 @@ void CLevel::Update()
 	else if (m_iLevelNumber == 1)	//If the player is currently in level 1
 	{
 		MovePlayer();
-	}
+		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
-	std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
-
-	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
-	{
-		if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
+		for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
 		{
-			m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
-			m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
-
-			if(!m_pEnemyList[eList]->GetIsGoodApple())
-				m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
-
-			if (m_pPlayer->GetPlayerLives() == 0)
+			if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
 			{
-				//CSceneManager::GetInstance()->SwitchScene(2);
+				m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
+				m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
+
+				if (!m_pEnemyList[eList]->GetIsGoodApple())
+					m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
+
+				if (m_pPlayer->GetPlayerLives() == 0)
+				{
+					//CSceneManager::GetInstance()->SwitchScene(2);
+				}
 			}
 		}
 	}
+
+	
 }
 
 /***********************
@@ -187,34 +186,34 @@ void CLevel::MovePlayer()
 	float m_fZ = 0;
 
 	//Temporary thingy to display z position onto screen
-	m_pTextList[2]->SetText(std::to_string(Utils::YYO));
-	m_pTextList[1]->SetText(std::to_string(Utils::XYO));
+	m_pTextList[2]->SetText(std::to_string(player->GetPos().x));
+	m_pTextList[1]->SetText(std::to_string(player->GetPos().z));
 
 	//Moves player depending on direction moved
 	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
 	{
-		if (player->GetPos().x < -100.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
+		if (player->GetPos().x < -45.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
 			m_fX = 0;
 		else
 			m_fX -= val;
 	}
 	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
 	{
-		if (player->GetPos().x > 100.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
+		if (player->GetPos().x > 45.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
 			m_fX = 0;
 		else
 			m_fX += val;
 	}
 	else if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
-		if (player->GetPos().z < -100.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
+		if (player->GetPos().z < -25.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ -= val;
 	}
 	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
 	{
-		if (player->GetPos().z > 100.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
+		if (player->GetPos().z > 45.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ += val;
