@@ -3,10 +3,10 @@
 CSoundManager* CSoundManager::s_pSoundInstance = 0;
 
 /***********************
-* GetInstance: Gets the instance of the sound manager
+* GetInstance: Gets Sound manager Instance
 * @author: Vivian Ngo
-* @date: 08/05/18
-* @return: s_pSoundInstance - instance of the sound manager
+* @date: 08 / 05 / 18
+* return s_pSoundInstance - instance of sound manager
 ***********************/
 CSoundManager* CSoundManager::GetInstance()
 {
@@ -18,9 +18,9 @@ CSoundManager* CSoundManager::GetInstance()
 }
 
 /***********************
-* DestroyInstance: Destroys the instance of the sound manager
+* DestroyInstance: Destroys Sound manager Instance
 * @author: Vivian Ngo
-* @date: 08/05/18
+* @date: 08 / 05 / 18
 ***********************/
 void CSoundManager::DestroyInstance()
 {
@@ -33,16 +33,10 @@ void CSoundManager::DestroyInstance()
 }
 
 /***********************
-* ~CSoundManager: Destructor of the sound manager
+* InitFmod: Initialises FMOD
 * @author: Vivian Ngo
-* @date: 08/05/18
-***********************/
-CSoundManager::~CSoundManager() {}
-
-/***********************
-* InitFmod: Initialise fmod
-* @author: Vivian Ngo
-* @date: 08/05/18
+* @date: 08 / 05 / 18
+* @return bool - true if initialised, else, false.
 ***********************/
 bool CSoundManager::InitFmod() 
 {
@@ -62,12 +56,13 @@ bool CSoundManager::InitFmod()
 	return true;
 }
 
-/*********************** //	NEED TO CHANGE METHOD TO ALLOW DIF BG SOUNDS
-* LoadAudio: Load the sound to play
+/***********************
+* LoadAudio: Loads audio
 * @author: Vivian Ngo
-* @date: 08/05/18
+* @date: 08 / 05 / 18
+* @return const bool - true if loaded successfully
 ***********************/
-void CSoundManager::LoadAudio() 
+const bool CSoundManager::LoadAudio() 
 {
 	FMOD_RESULT result;
 
@@ -75,12 +70,14 @@ void CSoundManager::LoadAudio()
 	result = audioMgr->createSound("Resources/sounds/Background.mp3", FMOD_DEFAULT, 0, &bgmTheme);
 
 	bgmTheme->setMode(FMOD_LOOP_NORMAL);
+
+	return true;
 }
 
 /***********************
-* InitSound: Initialise the sound to play
+* InitSound: Plays sound
 * @author: Vivian Ngo
-* @date: 08/05/18
+* @date: 08 / 05 / 18
 ***********************/
 void CSoundManager::InitSound()
 {

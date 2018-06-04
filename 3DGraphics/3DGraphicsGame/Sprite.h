@@ -33,7 +33,7 @@ public:
 	void OnDestroy();
 
 	void Translate(glm::vec3 Movement);
-	void Rotate(glm::vec3 Rotation);
+	void SetRotatation(glm::vec3 Rotation);
 	void SetScale(glm::vec3 scale);
 
 	glm::vec3 GetPos();

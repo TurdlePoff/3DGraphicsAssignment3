@@ -150,7 +150,6 @@ void CInput::MousePassiveMovement(int x, int y)
 	glutWarpPointer(LastX, LastY);
 }
 
-
 /***********************
 * MousePassiveMovement: Allows screen to change pitch and yaw when navigating window
 * @author: Vivian Ngo
@@ -194,13 +193,13 @@ void CInput::MouseScrollHold(int x, int y)
 }
 
 /***********************
-* ScollCallback: Controls scrolling/zooming in and out
+* ScollCallback: Scroll window
 * @author: Vivian Ngo
 * @date: 29/05/18
-* @parameter: button - button pressed //not used
-* @parameter: glutState - mouse click pressed
-* @parameter: xOffset - x offset //not used
-* @parameter: yOffset - y offset //not used
+* @parameter: button - button 
+* @parameter: glutState - scroll state
+* @parameter: xOffset - x offset
+* @parameter: yOffset - y offset
 ***********************/
 void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
 {

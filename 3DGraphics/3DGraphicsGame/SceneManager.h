@@ -4,7 +4,7 @@
 class CSceneManager
 {
 public:
-	~CSceneManager();
+	~CSceneManager() {};
 	static CSceneManager* GetInstance();
 	static void DestroyInstance();
 
@@ -19,7 +19,7 @@ public:
 
 private:
 	static CSceneManager* s_pSceneInstance;
-	CSceneManager();
+	CSceneManager() {};
 
 	std::vector<std::shared_ptr<CScene>>::iterator it;
 	std::vector<std::shared_ptr<CScene>> scenesList;
