@@ -1,5 +1,13 @@
 #include "TextLabel.h"
 
+/***********************
+* CTextLabel: CTextLabel constructor
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+* @parameter: newText - text to set up
+* @parameter: newFont - font of text
+* @parameter: pos - position of text
+***********************/
 CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 {
 	static ShaderLoader shaderLoader;
@@ -74,12 +82,13 @@ CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	glBindVertexArray(0);
 	glUseProgram(0);
 
-} // End of constructor
-
-CTextLabel::~CTextLabel()
-{
 }
 
+/***********************
+* Render: Renders Textlabel onto screen
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+***********************/
 void CTextLabel::Render()
 {
 	glm::vec2 textPos = position;

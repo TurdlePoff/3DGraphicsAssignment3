@@ -2,6 +2,12 @@
 
 CSoundManager* CSoundManager::s_pSoundInstance = 0;
 
+/***********************
+* GetInstance: Gets Sound manager Instance
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+* return s_pSoundInstance - instance of sound manager
+***********************/
 CSoundManager* CSoundManager::GetInstance()
 {
 	if (s_pSoundInstance == 0)
@@ -11,6 +17,11 @@ CSoundManager* CSoundManager::GetInstance()
 	return s_pSoundInstance;
 }
 
+/***********************
+* DestroyInstance: Destroys Sound manager Instance
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+***********************/
 void CSoundManager::DestroyInstance()
 {
 	if (s_pSoundInstance != 0) // If there is an instance of this class
@@ -21,8 +32,12 @@ void CSoundManager::DestroyInstance()
 	}
 }
 
-CSoundManager::~CSoundManager() {}
-
+/***********************
+* InitFmod: Initialises FMOD
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+* @return bool - true if initialised, else, false.
+***********************/
 bool CSoundManager::InitFmod() 
 {
 	FMOD_RESULT result; result = FMOD::System_Create(&audioMgr); 
@@ -41,6 +56,12 @@ bool CSoundManager::InitFmod()
 	return true;
 }
 
+/***********************
+* LoadAudio: Loads audio
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+* @return const bool - true if loaded successfully
+***********************/
 const bool CSoundManager::LoadAudio() 
 {
 	FMOD_RESULT result;
@@ -53,6 +74,11 @@ const bool CSoundManager::LoadAudio()
 	return true;
 }
 
+/***********************
+* InitSound: Plays sound
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+***********************/
 void CSoundManager::InitSound()
 {
 	InitFmod(); 
