@@ -26,6 +26,7 @@ public:
 
 	int GetPowPoint();
 	EPowUps GetPowType();
+	std::shared_ptr<CSprite> GetSprite();
 
 private:
 	int m_point;

@@ -57,3 +57,14 @@ EPowUps CPowerUp::GetPowType()
 {
 	return m_powType;
 }
+
+/***********************
+* GetSprite: Gets the enemy's sprite
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_pEnemySprite - returns the enemy's sprite
+***********************/
+std::shared_ptr<CSprite> CPowerUp::GetSprite()
+{
+	return m_pPowSprite;
+}

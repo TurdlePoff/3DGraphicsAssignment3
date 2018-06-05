@@ -31,6 +31,8 @@
 #include <memory>
 #include <fstream>
 
+#include "Time.h"
+
 static const unsigned int SCR_WIDTH = 900;
 static const unsigned int SCR_HEIGHT = 800;
 

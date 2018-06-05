@@ -23,7 +23,6 @@ public:
 	CEnemy(std::shared_ptr<CSprite> enemySprite, bool isGoodApple);
 	~CEnemy();
 
-
 	std::shared_ptr<CSprite> GetSprite();
 	void SetKillPoint(int point);
 	int GetKillPoint();
@@ -34,6 +33,7 @@ private:
 	int m_killPoint;
 	bool goodApple;
 	std::shared_ptr<CSprite> m_pEnemySprite;
+
 
 };
 

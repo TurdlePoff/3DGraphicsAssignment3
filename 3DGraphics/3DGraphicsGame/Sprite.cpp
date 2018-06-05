@@ -141,6 +141,9 @@ CSprite::CSprite(EImage _spriteType) :
 	m_vTopLeft = glm::vec3(-((m_fWidth / 2) + m_vPos.x), (m_fHeight / 2) + m_vPos.z, 0.0f);
 	m_fBotRight = glm::vec3((m_fWidth / 2) + m_vPos.x, -((m_fHeight / 2) + m_vPos.z), 0.0f);
 
+	SetHitStartTime();
+	SetHitEndTime();
+
 	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, m_vColour, m_vao, m_texture, m_shape);
 }
 
@@ -151,12 +154,8 @@ CSprite::CSprite(EImage _spriteType) :
 ***********************/
 void CSprite::Draw()
 {
-	if (m_bIsDead == false)
-	{
-		//CCamera::GetInstance()->SetMVP(m_vPos, m_vScale, m_vRotation);
-		CCamera::GetInstance()->SetMVP(m_vPos, m_vScale, m_vRotation);
-		Texture::Render(m_vao, m_texture);
-	}
+	CCamera::GetInstance()->SetMVP(m_vPos, m_vScale, m_vRotation);
+	Texture::Render(m_vao, m_texture);
 }
 
 /***********************
@@ -209,6 +208,11 @@ void CSprite::SetRotatation(glm::vec3 Rotation)
 void CSprite::SetScale(glm::vec3 scale)
 {
 	m_vScale = scale;
+}
+
+void CSprite::SetColour(glm::vec4 colour)
+{
+	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, colour, m_vao, m_texture, m_shape);
 }
 
 /***********************
@@ -351,4 +355,77 @@ bool CSprite::IsCollidingWith(std::shared_ptr<CSprite> _e2)//std::shared_ptr<CSp
 	}
 
 	return colliding;
+}
+
+/***********************
+* SetHitStartTime: Sets start time of when collided with
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+void CSprite::SetHitStartTime()
+{
+	m_StartTime = CTime::GetCurTimeSecs();
+}
+
+/***********************
+* SetHitEndTime: Sets latest time of when collided with
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+void CSprite::SetHitEndTime()
+{
+	m_EndTime = CTime::GetCurTimeSecs();
+}
+
+/***********************
+* SetHitEndTime: Sets latest time of when collided with
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_StartTime - time of when enemy was first collided
+***********************/
+float CSprite::GetHitStartTime()
+{
+	return m_StartTime;
+}
+
+/***********************
+* SetHitEndTime: Sets latest time of when collided with
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+float CSprite::GetHitEndTime()
+{
+	return m_EndTime;
+}
+
+/***********************
+* GetElapsedHitTime: Gets the elapsed hit time from when the enemy was first collided to now
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+float CSprite::GetElapsedHitTime()
+{
+	return m_EndTime - m_StartTime;
+}
+
+/***********************
+* SetHit: Set sprite is hit
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: _isHit - Set whether sprite entity is hit or not
+***********************/
+void CSprite::SetIsHit(bool _isHit)
+{
+	m_isHit = _isHit;
+}
+
+/***********************
+* GetIsHit: Get sprite is hit
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_isHit - Gets whether sprite entity is hit or not
+***********************/
+bool CSprite::GetIsHit()
+{
+	return m_isHit;
 }

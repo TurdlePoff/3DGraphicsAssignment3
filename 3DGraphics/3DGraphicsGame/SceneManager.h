@@ -29,6 +29,7 @@ public:
 	void UpdateScene(std::shared_ptr<CScene> scene);
 	void RenderScene(std::shared_ptr<CScene> scene);
 	std::shared_ptr<CScene> GetCurrentScene();
+	int GetCurrentSceneNumber();
 
 
 private:

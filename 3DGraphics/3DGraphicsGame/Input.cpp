@@ -14,6 +14,7 @@
 
 #include "Input.h"
 #include "Camera.h"
+#include "SceneManager.h"
 
 CInput* CInput::s_pInputInstance = 0;
 
@@ -75,7 +76,14 @@ CInput::~CInput() {}
 ***********************/
 void CInput::Keyboard_Down(unsigned char key, int x, int y)
 { 
-	Utils::KeyState[key] = INPUT_HOLD; 
+	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 0 || CSceneManager::GetInstance()->GetCurrentSceneNumber() == 2)
+	{
+		Utils::KeyState[key] = INPUT_FIRST_PRESS;
+	}
+	else
+	{
+		Utils::KeyState[key] = INPUT_HOLD;
+	}
 }
 
 /***********************
@@ -146,7 +154,6 @@ void CInput::MousePassiveMovement(int x, int y)
 		sin(glm::radians(Pitch)),
 		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
 	CCamera::GetInstance()->SetCamFront(glm::normalize(frontVector));
-	glutWarpPointer(LastX, LastY);
 }
 
 /***********************

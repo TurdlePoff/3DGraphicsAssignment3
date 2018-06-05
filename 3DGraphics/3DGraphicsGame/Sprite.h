@@ -37,6 +37,7 @@ public:
 	void Translate(glm::vec3 Movement);
 	void SetRotatation(glm::vec3 Rotation);
 	void SetScale(glm::vec3 scale);
+	void SetColour(glm::vec4 colour);
 
 	glm::vec3 GetPos();
 	glm::vec3 GetRot();
@@ -51,6 +52,15 @@ public:
 
 	bool GetIsDead();
 	void SetIsDead(bool dead);
+
+	//Times
+	void SetHitStartTime();
+	void SetHitEndTime();
+	float GetHitStartTime();
+	float GetHitEndTime();
+	float GetElapsedHitTime();
+	void SetIsHit(bool _isHit);
+	bool GetIsHit();
 
 	bool IsCollidingWith(std::shared_ptr<CSprite> _e2);//std::shared_ptr<CSprite> e);
 
@@ -67,6 +77,10 @@ private:
 
 	float m_fWidth;
 	float m_fHeight;
+
+	float m_StartTime;
+	float m_EndTime;
+	bool m_isHit;
 
 	GLuint m_vao;
 	GLuint m_texture;

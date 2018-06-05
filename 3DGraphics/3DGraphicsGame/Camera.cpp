@@ -87,7 +87,7 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	//cameraFront = CInput::GetInstance()->MousePassiveMovement();
 
 	//Moves the camera when WASD input is pressed
-	float cameraSpeed = 0.01f * CTime::GetInstance()->GetDeltaTime();
+	float cameraSpeed = 0.01f * CTime::GetInstance()->GetCurTimeSecs();
 
 
 	//UNCOMMENT TO MOVE CAMERA

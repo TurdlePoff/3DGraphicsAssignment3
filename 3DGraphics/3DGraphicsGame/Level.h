@@ -24,7 +24,10 @@ public:
 
 	void Render();
 	void Update();
-	void MovePlayer();
+	void MovePlayer(std::shared_ptr<CSprite> player);
+	void CheckEnemyCollision(std::shared_ptr<CSprite> player);
+	void CheckPowerUpCollision(std::shared_ptr<CSprite> player);
+
 	bool GetIsGameOver();
 	void SetGameOver();
 
@@ -34,5 +37,4 @@ private:
 	bool m_bGameOver;
 	
 	std::string sc;
-
 };

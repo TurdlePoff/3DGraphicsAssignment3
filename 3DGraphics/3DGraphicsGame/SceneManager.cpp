@@ -141,3 +141,16 @@ std::shared_ptr<CScene> CSceneManager::GetCurrentScene()
 {
 	return currentScene;
 }
+
+int CSceneManager::GetCurrentSceneNumber()
+{
+	int sceneNum = 0;
+	for (unsigned int i = 0; i < scenesList.size(); ++i)
+	{
+		if (currentScene == scenesList[i])
+		{
+			sceneNum = i;
+		}
+	}
+	return sceneNum;
+}

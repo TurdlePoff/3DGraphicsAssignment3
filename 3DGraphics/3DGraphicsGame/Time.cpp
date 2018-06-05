@@ -71,11 +71,9 @@ void CTime::DestroyInstance()
 * GetDeltaTime: Gets the current time on the system
 * @author: Vivian Ngo
 * @date: 9/04/18
+* @return current time in seconds;
 ***********************/
-float CTime::GetDeltaTime()
+float CTime::GetCurTimeSecs()
 {
-	float curTime = (float)glutGet(GLUT_ELAPSED_TIME);
-	deltaTime = curTime - lastFrame;
-	lastFrame = curTime;
-	return deltaTime;
+	return (float)glutGet(GLUT_ELAPSED_TIME)/1000;
 }

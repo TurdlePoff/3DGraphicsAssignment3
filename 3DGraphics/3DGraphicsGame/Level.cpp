@@ -46,7 +46,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE));
-		std::shared_ptr<CPowerUp> goodApple(new CEnemy(lAppleSprite1, true));
+		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_1POINT));
 
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, false));
@@ -81,17 +81,16 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		AddToSpriteList(mAppleSprite1);*/
 	}
 	else if (m_iLevelNumber == 2)	//IF THE LEVEL IS THE GAME OVER SCREEN
-
 	{
-		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("But its the only", "Resources/Fonts/bubble.TTF", glm::vec2(40.0f, SCR_HEIGHT / 2 + 140)));
+		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("But its the only", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_WIDTH / 2, SCR_HEIGHT / 2 + 140)));
 		titleText1->SetScale(0.35f);
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
 
-		std::shared_ptr<CTextLabel> titleText2(new CTextLabel("apple tree out there", "Resources/Fonts/bubble.TTF", glm::vec2(15.0f, (SCR_HEIGHT / 2 + 100))));
+		std::shared_ptr<CTextLabel> titleText2(new CTextLabel("apple tree out there", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_WIDTH/2, (SCR_HEIGHT / 2 + 100))));
 		titleText2->SetScale(0.35f);
 		titleText2->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
 
-		std::shared_ptr<CTextLabel> startText(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2(40.0f, ((SCR_HEIGHT / 2) - 100.0f))));//SCR_HEIGHT - 200.0f));
+		std::shared_ptr<CTextLabel> startText(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_WIDTH / 2, ((SCR_HEIGHT / 2) - 100.0f))));//SCR_HEIGHT - 200.0f));
 		startText->SetScale(0.5f);
 		startText->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
 
@@ -121,24 +120,28 @@ void CLevel::Render()
 	//Render all items in sprite list
 	for (unsigned int sList = 0; sList < m_pSpriteList.size(); ++sList)
 	{
-		m_pSpriteList[sList]->Draw();
+		if(m_pSpriteList[sList]->GetIsDead() != true)
+			m_pSpriteList[sList]->Draw();
 	}
 
 	//Render all items in enemy list
 	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
 	{
-		m_pEnemyList[eList]->GetSprite()->Draw();
+		if (m_pEnemyList[eList]->GetIsDead() != true)
+			m_pEnemyList[eList]->GetSprite()->Draw();
 	}
 
-	//Render all items in enemy list
+	//Render all powerups in powerups list
 	for (unsigned int pList = 0; pList < m_pPowerUpList.size(); ++pList)
 	{
-		//m_pPowerUpList[pList]->GetSprite()->Draw();
+		if (m_pPowerUpList[pList]->GetIsDead() != true)
+			m_pPowerUpList[pList]->GetSprite()->Draw();
 	}
 
+	//Render all text in text list
 	for (unsigned int tList = 0; tList < m_pTextList.size(); ++tList)
 	{
-		m_pTextList[tList]->Render();
+			m_pTextList[tList]->Render();
 	}
 }
 
@@ -152,7 +155,7 @@ void CLevel::Update()
 	//If the player is currently in level 0 or 2
 	if (m_iLevelNumber == 0 || m_iLevelNumber == 2)
 	{
-		if (Utils::KeyState[(unsigned int)' '] == INPUT_HOLD)
+		if (Utils::KeyState[(unsigned int)' '] == INPUT_FIRST_PRESS)
 		{
 			if(m_iLevelNumber == 0)
 				CSceneManager::GetInstance()->SwitchScene(1);
@@ -163,24 +166,32 @@ void CLevel::Update()
 	}
 	else if (m_iLevelNumber == 1)	//If the player is currently in level 1
 	{
-		MovePlayer();
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
-		for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
+		MovePlayer(player);
+
+		CheckEnemyCollision(player);
+		CheckPowerUpCollision(player);
+
+		m_pTextList[1]->SetText(std::to_string(GetPlayer()->GetScore()));
+		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
+
+		//If player was hit, player is temporarily red
+		if (m_pPlayer->GetSprite()->GetIsHit())
 		{
-			if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
+			//Calculate the time since it was hit
+			m_pPlayer->GetSprite()->SetHitEndTime();
+
+			//If time since hit is bigger than 1 second, revert colour back to normal
+			if (m_pPlayer->GetSprite()->GetHitEndTime() - m_pPlayer->GetSprite()->GetHitStartTime() > 1)
 			{
-				m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
-				m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
-
-				if (!m_pEnemyList[eList]->GetIsGoodApple())
-					m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
-
-				if (m_pPlayer->GetPlayerLives() == 0)
-				{
-					//CSceneManager::GetInstance()->SwitchScene(2);
-				}
+				m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
 			}
+		}
+
+		if (m_pPlayer->GetPlayerLives() <= 0)
+		{
+			CSceneManager::GetInstance()->SwitchScene(2);
 		}
 	}
 }
@@ -190,18 +201,12 @@ void CLevel::Update()
 * @author: Vivian Ngo
 * @date: 08/05/18
 ***********************/
-void CLevel::MovePlayer()
+void CLevel::MovePlayer(std::shared_ptr<CSprite> player)
 {
-	std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
-
 	float val = 0.5f;// *CTime::GetInstance()->GetDeltaTime();
 	float m_fX = 0;
 	float m_fY = 0;
 	float m_fZ = 0;
-
-	//Temporary thingy to display z position onto screen
-	m_pTextList[2]->SetText(std::to_string(player->GetPos().x));
-	m_pTextList[1]->SetText(std::to_string(player->GetPos().z));
 
 	//Moves player depending on direction moved
 	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
@@ -243,6 +248,63 @@ void CLevel::MovePlayer()
 
 	//Translate player depending on key pressed
 	player->Translate(glm::vec3(m_fX + player->GetPos().x, m_fY + player->GetPos().y, m_fZ + player->GetPos().z));
+}
+
+/***********************
+* CheckEnemyCollision: Check enemy collision
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: player - player to check collision with enemies
+***********************/
+void CLevel::CheckEnemyCollision(std::shared_ptr<CSprite> player)
+{
+	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
+	{
+		if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
+		{
+			//m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
+			//m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
+
+			/*if (m_pPowerUpList[pList]->GetIsDead() == false)
+			{*/
+
+
+			m_pEnemyList[eList]->GetSprite()->SetHitEndTime();
+
+			if (m_pEnemyList[eList]->GetSprite()->GetHitEndTime() - m_pEnemyList[eList]->GetSprite()->GetHitStartTime() > 2)
+			{
+				m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
+				m_pEnemyList[eList]->GetSprite()->SetHitStartTime();
+
+				m_pPlayer->GetSprite()->SetHitStartTime();
+				m_pPlayer->GetSprite()->SetIsHit(true);
+
+				m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+			}
+		}
+	}
+}
+
+/***********************
+* CheckEnemyCollision: Check enemy collision
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: player - player to check collision with enemies
+***********************/
+void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
+{
+	for (unsigned int pList = 0; pList < m_pPowerUpList.size(); ++pList)
+	{
+		if (player->IsCollidingWith(m_pPowerUpList[pList]->GetSprite()))
+		{
+			if (m_pPowerUpList[pList]->GetIsDead() == false)
+			{
+				m_pPowerUpList[pList]->SetIsDead(true);
+				m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pPowerUpList[pList]->GetPowPoint());
+			}
+		}
+	}
+
 }
 
 /***********************

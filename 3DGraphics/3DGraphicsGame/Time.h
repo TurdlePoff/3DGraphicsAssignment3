@@ -19,10 +19,11 @@ public:
 	static CTime* GetInstance();
 	static void DestroyInstance();
 
-	static float GetDeltaTime();
+	static float GetCurTimeSecs();
 
 	static float deltaTime;	// Time between current frame and last frame
 	static float lastFrame; // Time of last frame
+
 private:
 	CTime();
 	~CTime();
