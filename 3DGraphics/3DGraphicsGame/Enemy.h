@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
-class CEnemy
+class CEnemy : public CSprite
 {
 public:
 	CEnemy() {};

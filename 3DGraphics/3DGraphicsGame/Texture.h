@@ -26,8 +26,7 @@ public:
 	static void Render(GLuint vao, GLuint texture);
 
 	GLuint tex;
+private:
 	static EShape m_shape;
 
-
-private:
 };

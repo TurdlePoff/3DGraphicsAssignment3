@@ -19,7 +19,7 @@ class CTextLabel
 {
 public: 
 	CTextLabel(std::string text, std::string font, glm::vec2 pos); 
-	~CTextLabel();
+	~CTextLabel() {};
 
 	void Render(); 
 	void SetText(std::string newText) { text = newText; }; 

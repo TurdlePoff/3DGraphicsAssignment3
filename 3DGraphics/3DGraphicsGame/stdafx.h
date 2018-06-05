@@ -150,3 +150,13 @@ enum InputState {
 	INPUT_FIRST_PRESS, // First frame of Down state 
 	INPUT_HOLD, // Key is held Down
 };
+
+enum EPowUps {
+	POW_BULLET_DAMAGE,
+	POW_INVINCIBLE,
+	POW_1POINT
+};
+
+enum EBullets {
+	BLT_NORM
+};

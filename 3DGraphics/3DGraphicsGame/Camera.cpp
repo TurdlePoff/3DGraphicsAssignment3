@@ -6,11 +6,11 @@ CCamera* CCamera::s_pCameraInstance = 0;
 glm::vec3 CCamera::cameraFront = glm::vec3(-0.2f, -0.7f, 0.0f);
 float CCamera::m_fov = 45.0f; // field of view
 
-/***********************
-* CCamera: Camera constructor
-* @author: Vivian Ngo
-* @date: 08/05/18
-***********************/
+							  /***********************
+							  * CCamera: Camera constructor
+							  * @author: Vivian Ngo
+							  * @date: 08/05/18
+							  ***********************/
 CCamera::CCamera()
 {
 
@@ -79,19 +79,19 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	//UNCOMMENT TO MOVE CAMERA
 	/*if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
-		cameraPos += cameraSpeed * cameraFront;
+	cameraPos += cameraSpeed * cameraFront;
 	}
 	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
 	{
-		cameraPos -= cameraSpeed * cameraFront;
+	cameraPos -= cameraSpeed * cameraFront;
 	}
-	else if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD) 
+	else if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
 	{
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
 	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
 	{
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}*/
 
 	//ROTATE CAMERA TO VIEW AS EAGLE EYE
@@ -137,10 +137,10 @@ float CCamera::GetFOV()
 }
 
 /***********************
-* SetCamFront: Sets the camera front 
+* SetCamFront: Sets the camera front
 * @author: Vivian Ngo
 * @date: 08/05/18
-* @parameter: _cFront - the coordinates of the camera front to change to 
+* @parameter: _cFront - the coordinates of the camera front to change to
 ***********************/
 void CCamera::SetCamFront(glm::vec3 _cFront)
 {
@@ -173,7 +173,7 @@ void CCamera::SetCamUp(glm::vec3 _cUp)
 * SetCamSpeed: Sets the speed of the camera
 * @author: Vivian Ngo
 * @date: 08/05/18
-* @parameter: _cSpeed - the camera speed to change to 
+* @parameter: _cSpeed - the camera speed to change to
 ***********************/
 void CCamera::SetCamSpeed(float _cSpeed)
 {

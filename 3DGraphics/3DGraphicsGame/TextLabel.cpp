@@ -3,10 +3,10 @@
 /***********************
 * CTextLabel: CTextLabel constructor
 * @author: Vivian Ngo
-* @date: 08/05/18
-* @parameter: newText - text to render 
-* @parameter: newFont - font to render the text as
-* @parameter: pos - position to render the text
+* @date: 08 / 05 / 18
+* @parameter: newText - text to set up
+* @parameter: newFont - font of text
+* @parameter: pos - position of text
 ***********************/
 CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 {
@@ -81,19 +81,13 @@ CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	glBindBuffer(GL_ARRAY_BUFFER, 0); 
 	glBindVertexArray(0);
 	glUseProgram(0);
-} // End of constructor
+
+}
 
 /***********************
-* ~CTextLabel: CTextLabel destructor
+* Render: Renders Textlabel onto screen
 * @author: Vivian Ngo
-* @date: 08/05/18
-***********************/
-CTextLabel::~CTextLabel(){}
-
-/***********************
-* Render: Render text
-* @author: Vivian Ngo
-* @date: 08/05/18
+* @date: 08 / 05 / 18
 ***********************/
 void CTextLabel::Render()
 {

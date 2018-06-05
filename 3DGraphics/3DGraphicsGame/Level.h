@@ -27,8 +27,6 @@ public:
 	void MovePlayer();
 	bool GetIsGameOver();
 	void SetGameOver();
-	void SpawnEnemies();
-	void SpawnApple();
 
 private:
 	int m_iTimeTilHive;

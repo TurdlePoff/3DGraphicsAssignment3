@@ -25,6 +25,8 @@ public:
 	CSprite() {};
 
 	CSprite(EImage spriteType);
+	CSprite(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale, glm::vec4 Colour,
+		float width, float height, const char* filename);
 
 	~CSprite() {};
 
@@ -33,7 +35,7 @@ public:
 	void OnDestroy();
 
 	void Translate(glm::vec3 Movement);
-	void Rotate(glm::vec3 Rotation);
+	void SetRotatation(glm::vec3 Rotation);
 	void SetScale(glm::vec3 scale);
 
 	glm::vec3 GetPos();

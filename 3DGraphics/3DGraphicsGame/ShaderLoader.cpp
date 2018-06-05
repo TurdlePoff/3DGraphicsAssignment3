@@ -1,12 +1,25 @@
 #include "ShaderLoader.h" 
 
+/***********************
+* ShaderLoader: ShaderLoader Constructor
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 ShaderLoader::ShaderLoader(void) {}
-ShaderLoader::~ShaderLoader(void) 
-{
-	//glDeleteBuffers();
- }
 
+/***********************
+* ~ShaderLoader: ShaderLoader destructor
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+ShaderLoader::~ShaderLoader(void) {}
 
+/***********************
+* ReadShader: Read Shader file
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: filename - file to read from
+***********************/
 std::string ShaderLoader::ReadShader(char *filename)
 {
 	std::string shaderCode;
@@ -25,10 +38,17 @@ std::string ShaderLoader::ReadShader(char *filename)
 	return shaderCode;
 }
 
+/***********************
+* CreateShader: Creates Shader file
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: shaderType - type of shader
+* @parameter: source - shader source
+* @parameter: shaderName - name of shader
+***********************/
 GLuint ShaderLoader::CreateShader(GLenum shaderType, std::string
 	source, char* shaderName)
 {
-
 	int compile_result = 0;
 
 	GLuint shader = glCreateShader(shaderType);
@@ -53,10 +73,16 @@ GLuint ShaderLoader::CreateShader(GLenum shaderType, std::string
 	return shader;
 }
 
+/***********************
+* CreateProgram: Creates Shader program
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: vertexShaderFilename - vertex shader file
+* @parameter: fragmentShaderFilename - fragment shader file
+***********************/
 GLuint ShaderLoader::CreateProgram(char* vertexShaderFilename,
 	char* fragmentShaderFilename)
 {
-
 	//read the shader files and save the code
 	std::string vertex_shader_code = ReadShader(vertexShaderFilename);
 	std::string fragment_shader_code = ReadShader(fragmentShaderFilename);

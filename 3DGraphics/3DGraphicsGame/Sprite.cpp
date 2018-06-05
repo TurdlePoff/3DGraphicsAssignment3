@@ -9,118 +9,118 @@
 * @parameter: _spriteType - type of the sprite
 ***********************/
 CSprite::CSprite(EImage _spriteType) :
-m_eSpriteType(_spriteType),
-m_vRotation(glm::vec3(0, 0, 0)),
-m_vColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)),
-m_bIsDead(false),
-m_shape(TWOD)
+	m_eSpriteType(_spriteType),
+	m_vRotation(glm::vec3(0, 0, 0)),
+	m_vColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)),
+	m_bIsDead(false),
+	m_shape(TWOD)
 {
 	switch (_spriteType)
 	{
-		case BASKET:
-		{
-			m_vPos = glm::vec3(0, -1.9f, -50);
-			//m_vScale = glm::vec3(0.55f, 0.5f, 1);
-			m_vScale = glm::vec3(2, 2, 2);
-			m_vRotation = glm::vec3(-60.0f, 0.5f, 1);
-			//m_shape = CUBE;
-			m_filename = "Resources/images/basket.png";
-			break;
-		}
-		case LAPPLE:
-		{
-			m_vPos = glm::vec3(-0.0f, 0.0f, -6.0f);
-			m_vScale = glm::vec3(2, 2, 2);
-			m_filename = "Resources/images/goodApple.png";
-			m_shape = CUBE;
-			break;
-		}
-		case MAPPLE:
-		{
-			m_vPos = glm::vec3(-0.0f, 0.0f, 0);
-			m_vScale = glm::vec3(0.25f, 0.38f, 1);
-			m_filename = "Resources/images/goodApple.png";
-			break;
-		}
-		case RAPPLE:
-		{
-			m_vPos = glm::vec3(0.6F, 2.8f, 0.0f);
-			m_vScale = glm::vec3(0.25f, 0.38f, 1);
-			m_filename = "Resources/images/goodApple.png";
+	case BASKET:
+	{
+		m_vPos = glm::vec3(0, -1.9f, -50);
+		//m_vScale = glm::vec3(0.55f, 0.5f, 1);
+		m_vScale = glm::vec3(2, 2, 2);
+		m_vRotation = glm::vec3(-60.0f, 0.5f, 1);
+		//m_shape = CUBE;
+		m_filename = "Resources/images/basket.png";
+		break;
+	}
+	case LAPPLE:
+	{
+		m_vPos = glm::vec3(-0.0f, 0.0f, -6.0f);
+		m_vScale = glm::vec3(2, 2, 2);
+		m_filename = "Resources/images/goodApple.png";
+		m_shape = CUBE;
+		break;
+	}
+	case MAPPLE:
+	{
+		m_vPos = glm::vec3(-0.0f, 0.0f, 0);
+		m_vScale = glm::vec3(0.25f, 0.38f, 1);
+		m_filename = "Resources/images/goodApple.png";
+		break;
+	}
+	case RAPPLE:
+	{
+		m_vPos = glm::vec3(0.6F, 2.8f, 0.0f);
+		m_vScale = glm::vec3(0.25f, 0.38f, 1);
+		m_filename = "Resources/images/goodApple.png";
 
-			break;
-		}
-		case ROTTENAPPLE:
-		{
-			m_vPos = glm::vec3(-5.0f, 0.0f, 4.0f);
-			m_vScale = glm::vec3(2, 2, 2);
-			m_filename = "Resources/images/rottenApple.png";
-			m_shape = CUBE;
+		break;
+	}
+	case ROTTENAPPLE:
+	{
+		m_vPos = glm::vec3(-5.0f, 0.0f, 4.0f);
+		m_vScale = glm::vec3(2, 2, 2);
+		m_filename = "Resources/images/rottenApple.png";
+		m_shape = CUBE;
 
-			break;
-		}
-		case BIRB1:
-		{
-			m_vPos = glm::vec3(-0.0f, 0.0f, 0);
-			m_vScale = glm::vec3(2, 2, 2);
-			m_filename = "Resources/images/birb1.png";
-			m_shape = CUBE;
-			break;
-		}
-		case BIRB2:
-		{
-			m_vPos = glm::vec3(0, 0, 0);
-			m_vScale = glm::vec3(0.33f, 0.43f, 1);
-			m_filename = "Resources/images/birb2.png";
-			break;
-		}
-		case HIVE:
-		{
-			m_vPos = glm::vec3(0, 2.6f, 0);
-			m_vScale = glm::vec3(0.5f, 0.7f, 1);
-			m_filename = "Resources/images/hive.png";
-			break;
-		}
-		case BEEKEE:
-		{
-			m_vPos = glm::vec3(0, -2.3f, 0);
-			m_vScale = glm::vec3(0.5f, 0.7f, 1);
-			m_filename = "Resources/images/beeKeeper.png";
-			//GET DAT PIC
-			break;
-		}
-		case LIFEAPPLE:
-		{
-			m_vPos = glm::vec3(-0.45f, -2.85f, 0); //-0.15
-			m_vScale = glm::vec3(0.25f, 0.38f, 1);
-			m_filename = "Resources/images/goodApple.png";
-			break;
-		}
-		case BG:
-		{
-			m_vPos = glm::vec3(0, -10.0, 0);
-			m_vScale = glm::vec3(10, 0.2f, 50);
-			m_vRotation = glm::vec3(0.0f, 0.0f, 0.0);
-			m_shape = CUBE;			
-			m_filename = "Resources/images/treePortrait.jpg";
-			break;
-		}
-		case STARTSCR:
-		{
-			m_vPos = glm::vec3(-5, 1, -10);
-			m_vScale = glm::vec3(2, 2, 2);
-			m_vRotation = glm::vec3(-60.0f, 0.5f, 1);
-			m_shape = CUBE;
-			m_filename = "Resources/images/startScreen.png";
-			break;
-		}
-		case ENDSCR:
-		{
-			m_vPos = glm::vec3(0.06f, 1, -1);
-			m_vScale = glm::vec3(6, 8, 1);
-			m_filename = "Resources/images/endScreen.png";
-			break;
-		}
+		break;
+	}
+	case BIRB1:
+	{
+		m_vPos = glm::vec3(-0.0f, 0.0f, 0);
+		m_vScale = glm::vec3(2, 2, 2);
+		m_filename = "Resources/images/birb1.png";
+		m_shape = CUBE;
+		break;
+	}
+	case BIRB2:
+	{
+		m_vPos = glm::vec3(0, 0, 0);
+		m_vScale = glm::vec3(0.33f, 0.43f, 1);
+		m_filename = "Resources/images/birb2.png";
+		break;
+	}
+	case HIVE:
+	{
+		m_vPos = glm::vec3(0, 2.6f, 0);
+		m_vScale = glm::vec3(0.5f, 0.7f, 1);
+		m_filename = "Resources/images/hive.png";
+		break;
+	}
+	case BEEKEE:
+	{
+		m_vPos = glm::vec3(0, -2.3f, 0);
+		m_vScale = glm::vec3(0.5f, 0.7f, 1);
+		m_filename = "Resources/images/beeKeeper.png";
+		//GET DAT PIC
+		break;
+	}
+	case LIFEAPPLE:
+	{
+		m_vPos = glm::vec3(-0.45f, -2.85f, 0); //-0.15
+		m_vScale = glm::vec3(0.25f, 0.38f, 1);
+		m_filename = "Resources/images/goodApple.png";
+		break;
+	}
+	case BG:
+	{
+		m_vPos = glm::vec3(0, -10.0, 0);
+		m_vScale = glm::vec3(10, 0.2f, 50);
+		m_vRotation = glm::vec3(0.0f, 0.0f, 0.0);
+		m_shape = CUBE;
+		m_filename = "Resources/images/treePortrait.jpg";
+		break;
+	}
+	case STARTSCR:
+	{
+		m_vPos = glm::vec3(-5, 1, -10);
+		m_vScale = glm::vec3(2, 2, 2);
+		m_vRotation = glm::vec3(-60.0f, 0.5f, 1);
+		m_shape = CUBE;
+		m_filename = "Resources/images/startScreen.png";
+		break;
+	}
+	case ENDSCR:
+	{
+		m_vPos = glm::vec3(0.06f, 1, -1);
+		m_vScale = glm::vec3(6, 8, 1);
+		m_filename = "Resources/images/endScreen.png";
+		break;
+	}
 	}
 	m_fWidth = m_vScale.x;
 	m_fHeight = m_vScale.z;
@@ -176,12 +176,12 @@ void CSprite::Translate(glm::vec3 Movement)
 }
 
 /***********************
-* Rotate: Rotate the sprite
+* SetRotatation: SetRotatation of sprite
 * @author: Vivian Ngo
 * @date: 08/05/18
-* @parameter: Rotation - rotate sprite
+* @parameter: Rotation - new rotation of sprite
 ***********************/
-void CSprite::Rotate(glm::vec3 Rotation)
+void CSprite::SetRotatation(glm::vec3 Rotation)
 {
 	m_vRotation = Rotation;
 }
@@ -316,13 +316,14 @@ void CSprite::SetIsDead(bool dead)
 ***********************/
 bool CSprite::IsCollidingWith(std::shared_ptr<CSprite> _e2)//std::shared_ptr<CSprite> _e2)
 {
+
 	bool colliding = false;
 
-	float e1 = this->GetHeight()*2;
+	float e1 = this->GetHeight() * 2;
 	float e1X = this->GetPos().x* this->GetScale().x;
 	float e1Y = this->GetPos().z* this->GetScale().z;
 
-	float e2 = _e2->GetHeight()*2;
+	float e2 = _e2->GetHeight() * 2;
 	float e2X = _e2->GetPos().x * _e2->GetScale().x;
 	float e2Y = _e2->GetPos().z * _e2->GetScale().z;
 

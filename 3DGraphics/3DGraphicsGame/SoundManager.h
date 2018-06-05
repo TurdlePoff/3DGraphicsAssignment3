@@ -9,10 +9,10 @@ public:
 	static CSoundManager* GetInstance();
 	static void DestroyInstance();
 
-	~CSoundManager();
+	~CSoundManager() {};
 
 	bool InitFmod();
-	void LoadAudio();
+	const bool LoadAudio();
 	void InitSound();
 
 private: 
