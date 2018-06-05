@@ -5,8 +5,6 @@
 #include "TextLabel.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "PowerUp.h"
-#include "Bullet.h"
 
 class CScene
 {
@@ -18,10 +16,8 @@ public:
 	virtual void Update();
 	void CreateBackground(EImage bg);
 	void AddToSpriteList(std::shared_ptr<CSprite> _spr);
-	void AddToTextList(std::shared_ptr<CTextLabel> _txt);
-	void AddToEnemyList(std::shared_ptr<CEnemy> _ene);
-	void AddToPowerUpList(std::shared_ptr<CPowerUp> _pow);
-	void AddToBulletList(std::shared_ptr<CBullet> _blt);
+	void AddToTextList(std::shared_ptr<CTextLabel> _spr);
+	void AddToEnemyList(std::shared_ptr<CEnemy> _spr);
 
 	std::shared_ptr<CPlayer> GetPlayer();
 
@@ -33,8 +29,8 @@ protected:
 	std::vector<std::shared_ptr<CSprite>> m_pSpriteList;
 	std::vector<std::shared_ptr<CEnemy>> m_pEnemyList;
 	std::vector<std::shared_ptr<CTextLabel>> m_pTextList;
-	std::vector<std::shared_ptr<CPowerUp>> m_pPowerUpList;
-	std::vector<std::shared_ptr<CBullet>> m_pBulletList;
+	std::vector<std::shared_ptr<CTextLabel>> m_pPowerUpList;
+	std::vector<std::shared_ptr<CTextLabel>> m_pBulletList;
 
 	std::shared_ptr<CSprite> m_pBackgroundSprite;
 	bool m_bDisplay;	

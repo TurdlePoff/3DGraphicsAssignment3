@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
-class CPlayer : public CSprite
+class CPlayer
 {
 public:
 	CPlayer(){};

@@ -147,7 +147,7 @@ void CInput::MousePassiveMovement(int x, int y)
 		sin(glm::radians(Pitch)),
 		-cos(glm::radians(Pitch)) * cos(glm::radians(Yaw)));
 	CCamera::GetInstance()->SetCamFront(glm::normalize(frontVector));
-	//glutWarpPointer(LastX, LastY);
+	glutWarpPointer(LastX, LastY);
 }
 
 /***********************

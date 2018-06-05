@@ -1,18 +1,36 @@
 #include "Scene.h"
 
 /***********************
-* Render: Render Scene	//VIRTUAL
+* Render: Render Scene
 * @author: Vivian Ngo
 * @date: 08/05/18
 ***********************/
-void CScene::Render(){}
+void CScene::Render()
+{
+	m_pBackgroundSprite->Draw();
+
+	//remember to add bg first, with text being last
+	for (unsigned int i = 0; i < m_pSpriteList.size(); ++i)
+	{
+		m_pSpriteList[i]->Draw();
+	}
+
+
+	for (unsigned int i = 0; i < m_pTextList.size(); ++i)
+	{
+		m_pTextList[i]->Render();
+	}
+}
 
 /***********************
-* Render: Update Scene	//VIRTUAL
+* Render: Update Scene
 * @author: Vivian Ngo
 * @date: 08/05/18
 ***********************/
-void CScene::Update(){}
+void CScene::Update()
+{
+
+}
 
 /***********************
 * CreateBackground: Create Background for Scene
@@ -58,28 +76,6 @@ void CScene::AddToEnemyList(std::shared_ptr<CEnemy> _ene)
 {
 	m_pEnemyList.push_back(_ene);
 
-}
-
-/***********************
-* AddToPowerUpList: Add powerup to the scene's powerup list
-* @author: Vivian Ngo
-* @date: 08/05/18
-* @parameter: _spr - powerup to add to powerup list
-***********************/
-void CScene::AddToPowerUpList(std::shared_ptr<CPowerUp> _pow)
-{
-	m_pPowerUpList.push_back(_pow);
-}
-
-/***********************
-* AddToBulletList: Add bullet to the scene's bullet list
-* @author: Vivian Ngo
-* @date: 08/05/18
-* @parameter: _blt - bullet to add to bullet list
-***********************/
-void CScene::AddToBulletList(std::shared_ptr<CBullet> _blt)
-{
-	m_pBulletList.push_back(_blt);
 }
 
 /***********************

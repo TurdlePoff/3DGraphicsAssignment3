@@ -154,9 +154,5 @@ enum InputState {
 enum EPowUps {
 	POW_BULLET_DAMAGE,
 	POW_INVINCIBLE,
-	POW_1POINT
-};
-
-enum EBullets {
-	BLT_NORM
+	POW_
 };

@@ -2,12 +2,13 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
-class CEnemy : public CSprite
+class CEnemy
 {
 public:
 	CEnemy() {};
 	CEnemy(std::shared_ptr<CSprite> enemySprite, bool isGoodApple);
 	~CEnemy();
+
 
 	std::shared_ptr<CSprite> GetSprite();
 	void SetKillPoint(int point);

@@ -8,7 +8,7 @@
 // (c) 2018 Media Design School
 //
 // File Name	: "Texture.cpp"
-// Description	: Texture declaration file
+// Description	: Texture implementation file
 // Author		: Vivian Ngo
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
