@@ -3,12 +3,14 @@
 
 CSceneManager* CSceneManager::s_pSceneInstance = 0;
 
-/***********************
-* GetInstance: Gets scene manager Instance
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-* return s_pSoundInstance - instance of sound manager
-***********************/
+CSceneManager::CSceneManager()
+{
+}
+
+CSceneManager::~CSceneManager()
+{
+}
+
 CSceneManager* CSceneManager::GetInstance()
 {
 	if (s_pSceneInstance == 0)
@@ -18,11 +20,6 @@ CSceneManager* CSceneManager::GetInstance()
 	return s_pSceneInstance;
 }
 
-/***********************
-* DestroyInstance: Destroys scene manager Instance
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-***********************/
 void CSceneManager::DestroyInstance()
 {
 	if (s_pSceneInstance != 0) // If there is an instance of this class
@@ -33,11 +30,6 @@ void CSceneManager::DestroyInstance()
 	}
 }
 
-/***********************
-* SetUpScenes: Set up scene items
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-***********************/
 void CSceneManager::SetUpScenes()
 {
 	std::shared_ptr<CSprite> playerSprite(new CSprite(BIRB1));
@@ -54,24 +46,12 @@ void CSceneManager::SetUpScenes()
 	SwitchScene(0);
 }
 
-/***********************
-* AddScene: Add scene to scene manager
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-* @parameter: scene - scene to add
-***********************/
 void CSceneManager::AddScene(std::shared_ptr<CScene> scene)
 {
 	scenesList.push_back(scene);
 	SwitchScene(scene->GetLevelNum());
 }
 
-/***********************
-* RemoveScene: Remove scene from scene manager
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-* @parameter: scene - scene to add
-***********************/
 void CSceneManager::RemoveScene(std::shared_ptr<CScene> scene)
 {
 	it = scenesList.begin();
@@ -84,45 +64,21 @@ void CSceneManager::RemoveScene(std::shared_ptr<CScene> scene)
 	}
 }
 
-/***********************
-* SwitchScene: Switch scene to the number specified
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-* @parameter: level - scene to change to
-***********************/
 void CSceneManager::SwitchScene(int level)
 {
 	currentScene = scenesList[level];
 }
 
-/***********************
-* UpdateScene: Update the scene specified
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-* @parameter: scene - scene to update
-***********************/
 void CSceneManager::UpdateScene(std::shared_ptr<CScene> scene)
 {
 	scene->Update();
 }
 
-/***********************
-* RenderScene: Render the scene specified
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-* @parameter: scene - scene to render
-***********************/
 void CSceneManager::RenderScene(std::shared_ptr<CScene> scene)
 {
 	scene->Render();
 }
 
-/***********************
-* GetCurrentScene: Gets the current scene
-* @author: Vivian Ngo
-* @date: 08 / 05 / 18
-* @return: currentScene - the current scene
-***********************/
 std::shared_ptr<CScene> CSceneManager::GetCurrentScene()
 {
 	return currentScene;

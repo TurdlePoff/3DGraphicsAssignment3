@@ -9,7 +9,7 @@ public:
 	static CSoundManager* GetInstance();
 	static void DestroyInstance();
 
-	~CSoundManager() {};
+	~CSoundManager();
 
 	bool InitFmod();
 	void LoadAudio();

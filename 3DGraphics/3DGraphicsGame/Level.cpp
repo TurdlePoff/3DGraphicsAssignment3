@@ -2,6 +2,9 @@
 #include "SceneManager.h"
 #include "Time.h"
 
+
+//void LevelKeyDown(unsigned char key, int x, int y);
+
 CLevel::CLevel(){}
 
 /***********************
@@ -164,6 +167,8 @@ void CLevel::Update()
 			}
 		}
 	}
+
+	
 }
 
 /***********************
@@ -191,8 +196,6 @@ void CLevel::MovePlayer()
 			m_fX = 0;
 		else
 			m_fX -= val;
-
-			player->SetRotatation(glm::vec3(0.0f, 0.0f, 90.0f));
 	}
 	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
 	{
@@ -200,8 +203,6 @@ void CLevel::MovePlayer()
 			m_fX = 0;
 		else
 			m_fX += val;
-
-			player->SetRotatation(glm::vec3(0.0f, 0.0f, -90.0f));
 	}
 	else if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
@@ -209,8 +210,6 @@ void CLevel::MovePlayer()
 			m_fZ = 0;
 		else
 			m_fZ -= val;
-
-		player->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
 	{
@@ -218,8 +217,6 @@ void CLevel::MovePlayer()
 			m_fZ = 0;
 		else
 			m_fZ += val;
-
-		player->SetRotatation(glm::vec3(0.0f, 0.0f, 180.0f));
 	}
 
 	//Translate player depending on key pressed
@@ -246,3 +243,12 @@ void CLevel::SetGameOver()
 {
 	m_bGameOver = true;
 }
+
+void CLevel::SpawnEnemies()
+{
+}
+
+void CLevel::SpawnApple()
+{
+}
+

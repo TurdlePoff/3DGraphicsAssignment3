@@ -9,11 +9,13 @@
 class CScene
 {
 public:
-	CScene() {};
-	~CScene() {};
+	CScene();
+	~CScene();
 
 	virtual void Render();
 	virtual void Update();
+	void SetDisplayScene(bool m_bDisplay);
+	bool GetIsDisplaying();
 	void CreateBackground(EImage bg);
 	void AddToSpriteList(std::shared_ptr<CSprite> _spr);
 	void AddToTextList(std::shared_ptr<CTextLabel> _spr);
@@ -29,8 +31,6 @@ protected:
 	std::vector<std::shared_ptr<CSprite>> m_pSpriteList;
 	std::vector<std::shared_ptr<CEnemy>> m_pEnemyList;
 	std::vector<std::shared_ptr<CTextLabel>> m_pTextList;
-	std::vector<std::shared_ptr<CTextLabel>> m_pPowerUpList;
-	std::vector<std::shared_ptr<CTextLabel>> m_pBulletList;
 
 	std::shared_ptr<CSprite> m_pBackgroundSprite;
 	bool m_bDisplay;	

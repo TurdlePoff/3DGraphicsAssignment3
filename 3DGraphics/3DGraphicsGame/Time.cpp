@@ -5,23 +5,15 @@ CTime* CTime::s_pTimeInstance = 0;
 float CTime::deltaTime = 0.0f;	// Time between current frame and last frame
 float CTime::lastFrame = 0.0f; // Time of last frame
 
-/***********************
-* CTime constructor
-* @author: Vivian Ngo
-* @date: 9/04/18
-***********************/
 CTime::CTime()
 {
 	deltaTime = 0.0f;	// Time between current frame and last frame
 	lastFrame = 0.0f; // Time of last frame
 }
 
-/***********************
-* ~CTime destructor
-* @author: Vivian Ngo
-* @date: 9/04/18
-***********************/
-CTime::~CTime(){}
+CTime::~CTime()
+{
+}
 
 /***********************
 * GetInstance: Gets the instance of the time singleton class
@@ -53,11 +45,6 @@ void CTime::DestroyInstance()
 	}
 }
 
-/***********************
-* GetDeltaTime: Gets the current time on the system
-* @author: Vivian Ngo
-* @date: 9/04/18
-***********************/
 float CTime::GetDeltaTime()
 {
 	float curTime = (float)glutGet(GLUT_ELAPSED_TIME);
