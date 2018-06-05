@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name	: "Level.cpp"
+// Description	: Level implementation file
+// Author		: Vivian Ngo
+// Mail			: vivian.ngo7572@mediadesign.school.nz
+//
+
 #include "Level.h"
 #include "SceneManager.h"
 #include "Time.h"
@@ -32,14 +46,13 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE));
-		std::shared_ptr<CEnemy> enemyGood(new CEnemy(lAppleSprite1, true));
+		std::shared_ptr<CPowerUp> goodApple(new CEnemy(lAppleSprite1, true));
 
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, false));
 
-		enemyGood->SetGoodApple(true);
-
-		AddToEnemyList(enemyGood);
+		AddToPowerUpList(goodApple);
+		//(goodApple);
 		AddToEnemyList(enemyBad);
 
 		std::string score = "1000";
@@ -115,6 +128,12 @@ void CLevel::Render()
 	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
 	{
 		m_pEnemyList[eList]->GetSprite()->Draw();
+	}
+
+	//Render all items in enemy list
+	for (unsigned int pList = 0; pList < m_pPowerUpList.size(); ++pList)
+	{
+		//m_pPowerUpList[pList]->GetSprite()->Draw();
 	}
 
 	for (unsigned int tList = 0; tList < m_pTextList.size(); ++tList)

@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name	: "SoundManager.cpp"
+// Description	: SoundManager implementation file
+// Author		: Vivian Ngo
+// Mail			: vivian.ngo7572@mediadesign.school.nz
+//
+
 #include "SoundManager.h"
 
 CSoundManager* CSoundManager::s_pSoundInstance = 0;

@@ -8,7 +8,7 @@
 // (c) 2005 - 2018 Media Design School
 //
 // File Name : Level.h
-// Description : The logic of the game/every level and not the level itself.
+// Description : Level declaration file
 // Author : Vivian Ngo
 // Mail : vivian.ngo7572@mediadesignschool.com
 //

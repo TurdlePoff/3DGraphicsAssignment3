@@ -12,9 +12,7 @@
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
-
 #include "Texture.h"
-
 
 Texture::Texture() {}
 

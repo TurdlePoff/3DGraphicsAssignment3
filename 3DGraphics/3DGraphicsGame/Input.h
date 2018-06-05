@@ -14,7 +14,6 @@
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
-
 #include "stdafx.h"
 
 class CInput

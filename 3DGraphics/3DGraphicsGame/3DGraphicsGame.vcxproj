@@ -78,10 +78,8 @@
     <LibraryPath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(IncludePath)
-</IncludePath>
-    <LibraryPath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(LibraryPath)
-</LibraryPath>
+    <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(IncludePath)

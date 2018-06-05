@@ -1,4 +1,19 @@
 #pragma once
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name	: "PowerUp.h"
+// Description	: PowerUp declaration file
+// Author		: Vivian Ngo
+// Mail			: vivian.ngo7572@mediadesign.school.nz
+//
+
+
 #include "Player.h"
 #include "Enemy.h"
 

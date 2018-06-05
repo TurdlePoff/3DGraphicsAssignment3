@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name	: "TextLabel.cpp"
+// Description	: TextLabel implementation file
+// Author		: Vivian Ngo
+// Mail			: vivian.ngo7572@mediadesign.school.nz
+//
+
 #include "TextLabel.h"
 
 /***********************

@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name	: "Camera.cpp"
+// Description	: Camera implementation file
+// Author		: Vivian Ngo
+// Mail			: vivian.ngo7572@mediadesign.school.nz
+//
+
 #include "Camera.h"
 #include "Time.h"
 #include "Input.h"
@@ -6,11 +20,11 @@ CCamera* CCamera::s_pCameraInstance = 0;
 glm::vec3 CCamera::cameraFront = glm::vec3(-0.2f, -0.7f, 0.0f);
 float CCamera::m_fov = 45.0f; // field of view
 
-							  /***********************
-							  * CCamera: Camera constructor
-							  * @author: Vivian Ngo
-							  * @date: 08/05/18
-							  ***********************/
+/***********************
+* CCamera: Camera constructor
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 CCamera::CCamera()
 {
 
@@ -18,7 +32,7 @@ CCamera::CCamera()
 	float iWidthScaled = SCR_WIDTH;
 	float iHeightScaled = SCR_HEIGHT;
 	//projection = glm::ortho(-iWidthScaled, iWidthScaled, -iHeightScaled, iHeightScaled, 0.0f, 100.0f);
-	projection = glm::perspective(m_fov, (GLfloat)iWidthScaled / (GLfloat)iHeightScaled, 0.1f, 100.0f);//(-iWidthScaled, iWidthScaled, -iHeightScaled, iHeightScaled, 0.0f, 100.0f);
+	projection = glm::perspective(m_fov, (GLfloat)iWidthScaled / (GLfloat)iHeightScaled, 0.1f, 1000.0f);//(-iWidthScaled, iWidthScaled, -iHeightScaled, iHeightScaled, 0.0f, 100.0f);
 }
 
 /***********************
@@ -103,7 +117,7 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	float iWidthScaled = SCR_WIDTH;
 	float iHeightScaled = SCR_HEIGHT;
 
-	projection = glm::perspective(m_fov, (GLfloat)iWidthScaled / (GLfloat)iHeightScaled, 0.1f, 100.0f);
+	projection = glm::perspective(m_fov, (GLfloat)iWidthScaled / (GLfloat)iHeightScaled, 0.1f, 1000.0f);
 	//Rotating camera - take away the camera wasd input first to test
 	//float currentTime = glutGet(GLUT_ELAPSED_TIME);
 	//currentTime = currentTime * 0.001f;

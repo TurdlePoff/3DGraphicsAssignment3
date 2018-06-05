@@ -5,12 +5,12 @@
 // Auckland
 // New Zealand
 //
-// (c) 2005 - 2018 Media Design School
+// (c) 2018 Media Design School
 //
-// File Name : Sprite.h
-// Description : Sprite declaration file;
-// Author : Vivian Ngo
-// Mail : vivian.ngo7572@mediadesignschool.com
+// File Name	: "Sprite.h"
+// Description	: Sprite declaration file
+// Author		: Vivian Ngo
+// Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
 #ifndef __SPRITE_H__

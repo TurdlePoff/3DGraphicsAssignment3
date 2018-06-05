@@ -12,7 +12,6 @@
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
-
 #include "Input.h"
 #include "Camera.h"
 
