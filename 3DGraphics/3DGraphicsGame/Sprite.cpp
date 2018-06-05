@@ -135,28 +135,6 @@ m_shape(TWOD)
 * @author: Vivian Ngo
 * @date: 08/05/18
 ***********************/
-CSprite::CSprite(glm::vec3 _pos, glm::vec3 _rot, glm::vec3 _scale, glm::vec4 _colour, float _width, float _height, const char* _filename) :
-	m_vPos(_pos),
-	m_vRotation(_rot),
-	m_vScale(_scale),
-	m_vColour(_colour),
-	m_filename(_filename)
-{
-	m_fWidth = 1;
-	m_fHeight = 1;
-
-	m_bIsDead = false;
-	m_vTopLeft = glm::vec3(-((m_fWidth / 2) + _pos.x), (m_fHeight / 2) + _pos.y, 0.0f);
-	m_fBotRight = glm::vec3((m_fWidth / 2) + _pos.x, -((m_fHeight / 2)+_pos.y), 0.0f);
-	m_shape = PYRAMID;;
-	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, m_vColour, m_vao, m_texture, m_shape);
-}
-
-/***********************
-* Draw: Draaw the sprite
-* @author: Vivian Ngo
-* @date: 08/05/18
-***********************/
 void CSprite::Draw()
 {
 	if (m_bIsDead == false)

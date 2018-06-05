@@ -15,34 +15,23 @@
 
 #include "Texture.h"
 
+
 Texture::Texture() {}
+
 Texture::~Texture() {}
+
 EShape Texture::m_shape = TWOD;
 
-/***********************
-* BindTexture: Binds the texture
-* @author: Vivian Ngo
-* @date: 08/05/18
-* @parameter: filename - file name of the texture
-* @parameter: _fWidth - the width of the texture specified by the creator
-* @parameter: _fHeight - the height of the texture specified by the creator
-* @parameter: _colour - the specified colour vec of the texture
-* @parameter: _vao - the vertex array object passed in by reference
-* @parameter: _texture - the texture variable passed in by reference
-* @parameter: _shape - the specific shape of the object (enum)
-***********************/
-void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight,
-	glm::vec4 _colour, GLuint & _vao, GLuint & _texture, EShape _shape)
+void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, glm::vec4 _colour, GLuint & _vao, GLuint & _texture, EShape _shape)
 {
-	float halfHeight = _fHeight;
-	float halfWidth = _fWidth;
+	float halfHeight = _fHeight / 2;
+	float halfWidth = _fWidth / 2;
 
 	m_shape = _shape;
 
-	// Initialise Verticies depending on shape of sprite
-	switch (m_shape)
-	{
-	case PYRAMID:
+
+	// Create Verticies depending on shape of sprite
+	if (_shape == PYRAMID)
 	{
 		//3D pyramid vertices
 		GLfloat actualVerticesPyramid[] = {
@@ -71,9 +60,8 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight,
 		{
 			verticesPyramid[i] = actualVerticesPyramid[i];
 		}
-		break;
 	}
-	case CUBE:
+	else if (_shape == CUBE)
 	{
 		//3D cube vertices
 		GLfloat actualVerticesCube[216] = {
@@ -115,9 +103,8 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight,
 		{
 			verticesCube[i] = actualVerticesCube[i];
 		}
-		break;
 	}
-	default: //2D box
+	else
 	{
 		//2D vertices
 		GLfloat actualVertices[] = {
@@ -132,8 +119,6 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight,
 		{
 			vertices[i] = actualVertices[i];
 		}
-		break;
-	}
 	}
 
 	// Create local variables (Not needed after binding complete
@@ -238,13 +223,6 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight,
 
 }
 
-/***********************
-* Render: Render the texture
-* @author: Vivian Ngo
-* @date: 08/05/18
-* @parameter: vao - vertex array object
-* @parameter: texture - texture of the object
-***********************/
 void Texture::Render(GLuint vao, GLuint texture)
 {
 	glEnable(GL_DEPTH_TEST); //TEXT WILL NOT WORK IF ON IN PERSPECTIVE CAM
@@ -261,27 +239,21 @@ void Texture::Render(GLuint vao, GLuint texture)
 	glUniform1i(glGetUniformLocation(Utils::programTextured, "tex"), 0); //not sending in texture itself
 	glUseProgram(Utils::programTextured);
 	glBindVertexArray(vao);
-
-	switch (m_shape)
-	{
-	case PYRAMID:
+	if (m_shape == PYRAMID)
 	{
 		glDrawElements(GL_TRIANGLES, sizeof(indicesPyramid) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
-		break;
 	}
-	case CUBE:
+	else if (m_shape == CUBE)
 	{
 		glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
-		break;
 	}
-	default:
+	else
 	{
 		glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
-		break;
 	}
-	}
-
 	glUseProgram(0);
+
+	//glDrawElements(GL_TRIANGLES, sizeof(indicesPyramid) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 	glBindVertexArray(0);
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glDisable(GL_BLEND);

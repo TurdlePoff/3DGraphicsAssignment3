@@ -1,3 +1,17 @@
+//
+// Bachelor of Software Engineering
+// Media Design School
+// Auckland
+// New Zealand
+//
+// (c) 2018 Media Design School
+//
+// File Name	: "Level.cpp"
+// Description	: Level implementation file
+// Author		: Vivian Ngo
+// Mail			: vivian.ngo7572@mediadesign.school.nz
+//
+
 #include "Level.h"
 #include "SceneManager.h"
 #include "Time.h"
@@ -15,7 +29,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	CreateBackground(bgSprite);
 	m_pPlayer = player;
 	m_pPlayer->SetPlayerLives(2);
-	AddToSpriteList(m_pPlayer->GetSprite());
+	AddToSpriteList(m_pPlayer);
 
 	//IF THE LEVEL IS THE TITLE SCREEN
 	if (m_iLevelNumber == 0)
@@ -32,14 +46,12 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE));
-		std::shared_ptr<CEnemy> enemyGood(new CEnemy(lAppleSprite1, true));
+		std::shared_ptr<CPowerUp> powerUp(new CPowerUp(lAppleSprite1, 1, POW_1POINT));
 
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, false));
 
-		enemyGood->SetGoodApple(true);
-
-		AddToEnemyList(enemyGood);
+		AddToPowerUpList(powerUp);
 		AddToEnemyList(enemyBad);
 
 		std::string score = "1000";
@@ -114,7 +126,7 @@ void CLevel::Render()
 	//Render all items in enemy list
 	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
 	{
-		m_pEnemyList[eList]->GetSprite()->Draw();
+		m_pEnemyList[eList]->Draw();
 	}
 
 	for (unsigned int tList = 0; tList < m_pTextList.size(); ++tList)
@@ -144,17 +156,16 @@ void CLevel::Update()
 	}
 	else if (m_iLevelNumber == 1)	//If the player is currently in level 1
 	{
-		MovePlayer();
-		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
+		MovePlayer(); //Handles player movement
 
-		for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
+		for (unsigned int enemyNumber = 0; enemyNumber < m_pEnemyList.size(); ++enemyNumber)
 		{
-			if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
+			if (m_pPlayer->IsCollidingWith(m_pEnemyList[enemyNumber]))
 			{
-				m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
-				m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
+				m_pEnemyList[enemyNumber]->SetIsDead(true);
+				m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[enemyNumber]->GetKillPoint());
 
-				if (!m_pEnemyList[eList]->GetIsGoodApple())
+				if (!m_pEnemyList[enemyNumber]->GetIsGoodApple())
 					m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
 
 				if (m_pPlayer->GetPlayerLives() == 0)
@@ -173,57 +184,55 @@ void CLevel::Update()
 ***********************/
 void CLevel::MovePlayer()
 {
-	std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
-
 	float val = 0.5f;// *CTime::GetInstance()->GetDeltaTime();
 	float m_fX = 0;
 	float m_fY = 0;
 	float m_fZ = 0;
 
 	//Temporary thingy to display z position onto screen
-	m_pTextList[2]->SetText(std::to_string(player->GetPos().x));
-	m_pTextList[1]->SetText(std::to_string(player->GetPos().z));
+	m_pTextList[2]->SetText(std::to_string(m_pPlayer->GetPos().x));
+	m_pTextList[1]->SetText(std::to_string(m_pPlayer->GetPos().z));
 
 	//Moves player depending on direction moved
 	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
 	{
-		if (player->GetPos().x < -45.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
+		if (m_pPlayer->GetPos().x < -45.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
 			m_fX = 0;
 		else
 			m_fX -= val;
 
-			player->SetRotatation(glm::vec3(0.0f, 0.0f, 90.0f));
+		m_pPlayer->SetRotatation(glm::vec3(0.0f, 0.0f, 90.0f));
 	}
 	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
 	{
-		if (player->GetPos().x > 45.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
+		if (m_pPlayer->GetPos().x > 45.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
 			m_fX = 0;
 		else
 			m_fX += val;
 
-			player->SetRotatation(glm::vec3(0.0f, 0.0f, -90.0f));
+		m_pPlayer->SetRotatation(glm::vec3(0.0f, 0.0f, -90.0f));
 	}
 	else if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
-		if (player->GetPos().z < -25.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
+		if (m_pPlayer->GetPos().z < -25.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ -= val;
 
-		player->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
+		m_pPlayer->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
 	}
 	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
 	{
-		if (player->GetPos().z > 45.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
+		if (m_pPlayer->GetPos().z > 45.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ += val;
 
-		player->SetRotatation(glm::vec3(0.0f, 0.0f, 180.0f));
+		m_pPlayer->SetRotatation(glm::vec3(0.0f, 0.0f, 180.0f));
 	}
 
 	//Translate player depending on key pressed
-	player->Translate(glm::vec3(m_fX + player->GetPos().x, m_fY + player->GetPos().y, m_fZ + player->GetPos().z));
+	m_pPlayer->Translate(glm::vec3(m_fX + m_pPlayer->GetPos().x, m_fY + m_pPlayer->GetPos().y, m_fZ + m_pPlayer->GetPos().z));
 }
 
 /***********************
