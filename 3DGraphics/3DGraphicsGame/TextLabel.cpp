@@ -124,6 +124,9 @@ void CTextLabel::Render()
 		GLfloat ypos = textPos.y - (ch.Size.y - ch.Bearing.y) * scale;
 		GLfloat w = ch.Size.x * scale; 
 		GLfloat h = ch.Size.y * scale;
+		m_heightText = h;
+		m_widthText = w;
+
 		// Update VBO for each character 
 		GLfloat vertices[6][4] = { 
 			{ xpos, ypos + h, 0.0, 0.0 }, 
@@ -142,10 +145,16 @@ void CTextLabel::Render()
 		// Now advance cursors for the next glyph 
 		textPos.x += (ch.Advance >> 6) * scale;
 	}
+	m_widthText *= text.size() + scale/2;
 	glUseProgram(0);
 
 	glBindVertexArray(0); 
 	glBindTexture(GL_TEXTURE_2D, 0); 
 	glDisable(GL_CULL_FACE); 
 	glDisable(GL_BLEND);
+}
+
+glm::vec2 CTextLabel::GetPosition()
+{
+	return position;
 }

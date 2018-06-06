@@ -41,6 +41,12 @@ public:
 	void SetColor(glm::vec3 newColor) { color = newColor; }; 
 	void SetScale(GLfloat newScale) { scale = newScale; }; 
 	void SetPosition(glm::vec2 newPosition) { position = newPosition; };
+	glm::vec2 GetPosition();
+	float GetTextWidth() { return m_widthText; }
+	float GetTextHeight() { return m_heightText; }
+	void SetIsHovering(bool hover) { m_isHovered = hover; }
+	bool GetIsHovering() { return m_isHovered; }
+
 
 private: 
 	std::string text; 
@@ -50,5 +56,9 @@ private:
 	GLuint VAO, VBO, program; 
 	std::map<GLchar, Character> Characters; 
 	static ShaderLoader shaderLoader;
+
+	float m_widthText;
+	float m_heightText;
+	bool m_isHovered;
 };
 
