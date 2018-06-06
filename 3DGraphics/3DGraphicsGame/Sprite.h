@@ -24,9 +24,9 @@ class CSprite
 public:
 	CSprite() {};
 
-	CSprite(EImage spriteType);
-	CSprite(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale, glm::vec4 Colour,
-		float width, float height, const char* filename);
+	CSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos);
+	/*CSprite(glm::vec3 pos, glm::vec3 rot, glm::vec3 scale, glm::vec4 Colour,
+		float width, float height, const char* filename);*/
 
 	~CSprite() {};
 
@@ -38,6 +38,7 @@ public:
 	void SetRotatation(glm::vec3 Rotation);
 	void SetScale(glm::vec3 scale);
 	void SetColour(glm::vec4 colour);
+	void ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 pos);
 
 	glm::vec3 GetPos();
 	glm::vec3 GetRot();
@@ -86,7 +87,7 @@ private:
 	GLuint m_texture;
 	const char* m_filename;
 
-	EShape m_shape;
+	EShape m_eShape;
 
 	bool m_bIsDead;
 };

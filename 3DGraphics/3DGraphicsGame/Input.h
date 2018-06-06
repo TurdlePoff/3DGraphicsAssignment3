@@ -31,6 +31,16 @@ public:
 	static void MouseScrollHold(int x, int y);
 	static void ScollCallback(int button, int glutState, int xOffset, int yOffset);
 
+	//Times
+	static void SetStartPressed();
+	static void SetLastPressed();
+	static float GetStartPressed();
+	static float GetEndPressed();
+	static float GetElapsedPressedTime();
+	static void SetIsPressed(bool _isHit);
+	static bool GetIsPressed();
+
+
 	//void InputGlutFunctions();
 	//Glutspecialfunctions
 private:
@@ -47,5 +57,9 @@ private:
 	static bool FirstMouse;
 	float m_fX;
 	float m_fY;
+
+	static float m_StartTime;
+	static float m_EndTime;
+	static bool m_isPressed;
 };
 

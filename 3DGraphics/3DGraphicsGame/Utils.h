@@ -25,7 +25,12 @@ public:
 	static GLuint Utils::programTextured;
 	static unsigned int KeyState[255];
 	static unsigned int MouseState[3];
-	static float Utils::XYO;
-	static float Utils::YYO;
+	static float Utils::mouseX;
+	static float Utils::mouseY;
+
+	static float testX;
+	static float testY;
+	static float testZ;
+
 };
 

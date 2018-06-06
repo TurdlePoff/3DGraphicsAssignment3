@@ -22,129 +22,13 @@
 * @date: 08/05/18
 * @parameter: _spriteType - type of the sprite
 ***********************/
-CSprite::CSprite(EImage _spriteType) :
-	m_eSpriteType(_spriteType),
-	m_vRotation(glm::vec3(0, 0, 0)),
-	m_vColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f)),
-	m_bIsDead(false),
-	m_shape(TWOD)
+CSprite::CSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 {
-	switch (_spriteType)
-	{
-	case BASKET:
-	{
-		m_vPos = glm::vec3(0, -1.9f, -50);
-		//m_vScale = glm::vec3(0.55f, 0.5f, 1);
-		m_vScale = glm::vec3(2, 2, 2);
-		m_vRotation = glm::vec3(-60.0f, 0.5f, 1);
-		//m_shape = CUBE;
-		m_filename = "Resources/images/basket.png";
-		break;
-	}
-	case LAPPLE:
-	{
-		m_vPos = glm::vec3(-0.0f, 0.0f, -6.0f);
-		m_vScale = glm::vec3(2, 2, 2);
-		m_filename = "Resources/images/goodApple.png";
-		m_shape = CUBE;
-		break;
-	}
-	case MAPPLE:
-	{
-		m_vPos = glm::vec3(-0.0f, 0.0f, 0);
-		m_vScale = glm::vec3(0.25f, 0.38f, 1);
-		m_filename = "Resources/images/goodApple.png";
-		break;
-	}
-	case RAPPLE:
-	{
-		m_vPos = glm::vec3(0.6F, 2.8f, 0.0f);
-		m_vScale = glm::vec3(0.25f, 0.38f, 1);
-		m_filename = "Resources/images/goodApple.png";
+	ChangeSprite(_spriteType, _shape, _pos);
 
-		break;
-	}
-	case ROTTENAPPLE:
-	{
-		m_vPos = glm::vec3(-5.0f, 0.0f, 4.0f);
-		m_vScale = glm::vec3(2, 2, 2);
-		m_filename = "Resources/images/rottenApple.png";
-		m_shape = CUBE;
-
-		break;
-	}
-	case BIRB1:
-	{
-		m_vPos = glm::vec3(-0.0f, 0.0f, 0);
-		m_vScale = glm::vec3(2, 2, 2);
-		m_filename = "Resources/images/birb1.png";
-		m_shape = CUBE;
-		break;
-	}
-	case BIRB2:
-	{
-		m_vPos = glm::vec3(0, 0, 0);
-		m_vScale = glm::vec3(0.33f, 0.43f, 1);
-		m_filename = "Resources/images/birb2.png";
-		break;
-	}
-	case HIVE:
-	{
-		m_vPos = glm::vec3(0, 2.6f, 0);
-		m_vScale = glm::vec3(0.5f, 0.7f, 1);
-		m_filename = "Resources/images/hive.png";
-		break;
-	}
-	case BEEKEE:
-	{
-		m_vPos = glm::vec3(0, -2.3f, 0);
-		m_vScale = glm::vec3(0.5f, 0.7f, 1);
-		m_filename = "Resources/images/beeKeeper.png";
-		//GET DAT PIC
-		break;
-	}
-	case LIFEAPPLE:
-	{
-		m_vPos = glm::vec3(-0.45f, -2.85f, 0); //-0.15
-		m_vScale = glm::vec3(0.25f, 0.38f, 1);
-		m_filename = "Resources/images/goodApple.png";
-		break;
-	}
-	case BG:
-	{
-		m_vPos = glm::vec3(0, -10.0, 0);
-		m_vScale = glm::vec3(10, 0.2f, 50);
-		m_vRotation = glm::vec3(0.0f, 0.0f, 0.0);
-		m_shape = CUBE;
-		m_filename = "Resources/images/treePortrait.jpg";
-		break;
-	}
-	case STARTSCR:
-	{
-		m_vPos = glm::vec3(-5, 1, -10);
-		m_vScale = glm::vec3(2, 2, 2);
-		m_vRotation = glm::vec3(-60.0f, 0.5f, 1);
-		m_shape = CUBE;
-		m_filename = "Resources/images/startScreen.png";
-		break;
-	}
-	case ENDSCR:
-	{
-		m_vPos = glm::vec3(0.06f, 1, -1);
-		m_vScale = glm::vec3(6, 8, 1);
-		m_filename = "Resources/images/endScreen.png";
-		break;
-	}
-	}
-	m_fWidth = m_vScale.x;
-	m_fHeight = m_vScale.z;
-	m_vTopLeft = glm::vec3(-((m_fWidth / 2) + m_vPos.x), (m_fHeight / 2) + m_vPos.z, 0.0f);
-	m_fBotRight = glm::vec3((m_fWidth / 2) + m_vPos.x, -((m_fHeight / 2) + m_vPos.z), 0.0f);
-
+	//Initialise initial times
 	SetHitStartTime();
 	SetHitEndTime();
-
-	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, m_vColour, m_vao, m_texture, m_shape);
 }
 
 /***********************
@@ -212,7 +96,66 @@ void CSprite::SetScale(glm::vec3 scale)
 
 void CSprite::SetColour(glm::vec4 colour)
 {
-	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, colour, m_vao, m_texture, m_shape);
+	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, colour, m_vao, m_texture, m_eShape);
+}
+
+void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
+{
+	m_vRotation = glm::vec3(0.0f, 0.0f, 0.0f);
+	switch (_spriteType)
+	{
+		case LAPPLE:
+		{
+			m_filename = "Resources/images/goodApple.png";
+			m_vScale = glm::vec3(2.0f, 2.0f, 2.0f);
+			break;
+		}
+		case ROTTENAPPLE:
+		{
+			m_filename = "Resources/images/rottenApple.png";
+			m_vScale = glm::vec3(2.0f, 2.0f, 2.0f);
+			break;
+		}
+		case BIRB1:
+		{
+			m_filename = "Resources/images/birb1.png";
+			m_vScale = glm::vec3(2.0f, 2.0f, 2.0f);
+
+			break;
+		}
+		case BG:
+		{
+			m_filename = "Resources/images/floorBg.jpg";
+			m_vScale = glm::vec3(10, 0.2f, 50);
+			break;
+		}
+		case STARTSCR:
+		{
+			m_filename = "Resources/images/bubblesBg.jpg";
+			m_vScale = glm::vec3(15, 0.2f, 60);
+			m_vRotation = glm::vec3(0.0f, 0.0f, 180.0f);
+			break;
+		}
+		case ENDSCR:
+		{
+			m_filename = "Resources/images/bubblesBg.jpg";
+			m_vScale = glm::vec3(15, 0.2f, 60);
+			m_vRotation = glm::vec3(0.0f, 0.0f, 180.0f);
+			break;
+		}
+	}
+
+	m_vPos = _pos;
+	m_eShape = _shape;
+
+	m_vColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
+	m_bIsDead = false;
+	m_fWidth = m_vScale.x;
+	m_fHeight = m_vScale.z;
+	m_vTopLeft = glm::vec3(-((m_fWidth / 2) + m_vPos.x), (m_fHeight / 2) + m_vPos.z, 0.0f);
+	m_fBotRight = glm::vec3((m_fWidth / 2) + m_vPos.x, -((m_fHeight / 2) + m_vPos.z), 0.0f);
+
+	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, m_vColour, m_vao, m_texture, m_eShape);
 }
 
 /***********************

@@ -24,8 +24,9 @@ public:
 
 	void SetUpScenes();
 	void AddScene(std::shared_ptr<CScene> scene);
-	void RemoveScene(std::shared_ptr<CScene> scene);
+	void RemoveScene(int scene);
 	void SwitchScene(int level);
+	void ResetLevels(std::shared_ptr<CPlayer> _player);
 	void UpdateScene(std::shared_ptr<CScene> scene);
 	void RenderScene(std::shared_ptr<CScene> scene);
 	std::shared_ptr<CScene> GetCurrentScene();
@@ -40,5 +41,6 @@ private:
 	std::vector<std::shared_ptr<CScene>> scenesList;
 	std::shared_ptr<CScene> currentScene;
 
+	
 };
 

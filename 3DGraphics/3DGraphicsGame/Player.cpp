@@ -24,6 +24,7 @@
 CPlayer::CPlayer(std::shared_ptr<CSprite> playerSprite)
 {
 	m_pPlayerSprite = playerSprite;
+	ResetPlayerStats();
 }
 
 /***********************
@@ -76,6 +77,14 @@ int CPlayer::GetScore()
 void CPlayer::SetScore(int _newScore)
 {
 	m_iScore = _newScore;
+}
+
+void CPlayer::ResetPlayerStats()
+{
+	m_iCurrentLives = 2;
+	m_iScore = 0;
+	m_bulletStrength = 1;
+	m_invisible = false;
 }
 
 /***********************

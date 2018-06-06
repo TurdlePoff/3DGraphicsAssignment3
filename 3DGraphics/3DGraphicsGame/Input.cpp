@@ -27,6 +27,9 @@ GLfloat CInput::LastX = (float)SCR_WIDTH;
 GLfloat CInput::LastY = (float)SCR_HEIGHT;
 float CInput::LastScrollY = 365.0f;
 bool CInput::FirstMouse = true;
+float CInput::m_StartTime = 0.0f;
+float CInput::m_EndTime = 0.0f;
+bool CInput::m_isPressed = false;
 
 GLfloat xOffset;
 GLfloat yOffset;
@@ -76,14 +79,15 @@ CInput::~CInput() {}
 ***********************/
 void CInput::Keyboard_Down(unsigned char key, int x, int y)
 { 
-	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 0 || CSceneManager::GetInstance()->GetCurrentSceneNumber() == 2)
+	/*if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 0 
+		|| CSceneManager::GetInstance()->GetCurrentSceneNumber() == 2)
 	{
 		Utils::KeyState[key] = INPUT_FIRST_PRESS;
 	}
 	else
-	{
+	{*/
 		Utils::KeyState[key] = INPUT_HOLD;
-	}
+	//}
 }
 
 /***********************
@@ -94,7 +98,20 @@ void CInput::Keyboard_Down(unsigned char key, int x, int y)
 ***********************/
 void CInput::Keyboard_Up(unsigned char key, int x, int y)
 {
-	Utils::KeyState[key] = INPUT_RELEASED;
+	/*if (Utils::KeyState[key] == INPUT_FIRST_PRESS)
+	{
+		SetLastPressed();
+
+		if (m_EndTime - m_StartTime > 5)
+		{
+			Utils::KeyState[key] = INPUT_FIRST_RELEASE;
+			SetStartPressed();
+		}
+	}
+	else
+	{*/
+		Utils::KeyState[key] = INPUT_RELEASED;
+	//}
 }
 
 /***********************
@@ -109,6 +126,12 @@ void CInput::MouseClicked(int button, int glutState, int x, int y)
 	if (button < 3) 
 	{ 
 		Utils::MouseState[button] = (glutState == GLUT_DOWN) ? INPUT_HOLD : INPUT_RELEASED;
+
+		/*if (Utils::MouseState[button] == INPUT_HOLD)
+		{
+			Utils::mouseX = (float)x;
+			Utils::mouseY = (float)y;
+		}*/
 	} 
 }
 
@@ -121,9 +144,8 @@ void CInput::MouseClicked(int button, int glutState, int x, int y)
 ***********************/
 void CInput::MousePassiveMovement(int x, int y)
 {
-	Utils::XYO = (GLfloat)x;
-	Utils::YYO = (GLfloat)y;
-
+	Utils::mouseX = (float)x;
+	Utils::mouseY = (float)y;
 	if (FirstMouse == true)// Run only once to initialize the 'Last' vars
 	{
 		LastX = (GLfloat)x;
@@ -143,11 +165,11 @@ void CInput::MousePassiveMovement(int x, int y)
 	// Clamp 'Pitch' so screen doesn’t flip
 	if (Pitch > 89.0f)
 	{
-	Pitch = 89.0f;
+		Pitch = 89.0f;
 	}
 	if (Pitch < -89.0f)
 	{
-	Pitch = -89.0f;
+		Pitch = -89.0f;
 	}
 
 	glm::vec3 frontVector(-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)),
@@ -167,9 +189,6 @@ void CInput::MouseScrollHold(int x, int y)
 {
 	if (Utils::MouseState[1] == INPUT_HOLD)
 	{
-		Utils::XYO = CCamera::GetInstance()->GetCamFront().x;
-		Utils::YYO = CCamera::GetInstance()->GetCamFront().y;
-
 		if (FirstMouse == true)// Run only once to initialize the 'Last' vars
 		{
 			LastX = (GLfloat)x;
@@ -230,4 +249,78 @@ void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
 			c->SetFOV(46.1f);
 		}
 	}
+}
+
+/***********************
+* SetHitStartTime: Sets start time of when collided with
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+void CInput::SetStartPressed()
+{
+	m_StartTime = CTime::GetCurTimeSecs();
+	m_isPressed = true;
+}
+
+/***********************
+* SetHitEndTime: Sets latest time of when collided with
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+void CInput::SetLastPressed()
+{
+	m_EndTime = CTime::GetCurTimeSecs();
+}
+
+/***********************
+* SetHitEndTime: Sets latest time of when collided with
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_StartTime - time of when enemy was first collided
+***********************/
+float CInput::GetStartPressed()
+{
+	return m_StartTime;
+}
+
+/***********************
+* SetHitEndTime: Sets latest time of when collided with
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+float CInput::GetEndPressed()
+{
+	return m_EndTime;
+}
+
+/***********************
+* GetElapsedHitTime: Gets the elapsed hit time from when the enemy was first collided to now
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+float CInput::GetElapsedPressedTime()
+{
+	return m_EndTime - m_StartTime;
+}
+
+/***********************
+* SetHit: Set sprite is hit
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: _isHit - Set whether sprite entity is hit or not
+***********************/
+void CInput::SetIsPressed(bool _isHit)
+{
+	m_isPressed = _isHit;
+}
+
+/***********************
+* GetIsHit: Get sprite is hit
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_isHit - Gets whether sprite entity is hit or not
+***********************/
+bool CInput::GetIsPressed()
+{
+	return m_isPressed;
 }

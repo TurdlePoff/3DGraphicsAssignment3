@@ -29,6 +29,8 @@ public:
 	void SetPlayerLives(int _lives);	//Sets num player lives available
 	int GetScore();						//Get player's current score
 	void SetScore(int _newScore);		//Set player's current score
+	void ResetPlayerStats();
+
 	std::shared_ptr<CSprite> GetSprite();	//Get player's sprite
 	
 private:

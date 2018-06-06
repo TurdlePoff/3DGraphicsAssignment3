@@ -39,6 +39,7 @@ public:
 	std::shared_ptr<CPlayer> GetPlayer();
 
 	int GetLevelNum();
+
 protected:
 
 	int m_iLevelNumber;
