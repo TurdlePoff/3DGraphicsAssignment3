@@ -27,7 +27,9 @@ public:
 	void MovePlayer(std::shared_ptr<CSprite> player);
 	void CheckEnemyCollision(std::shared_ptr<CSprite> player);
 	void CheckPowerUpCollision(std::shared_ptr<CSprite> player);
-	bool IsMouseOverButton();
+	bool IsMouseOverButton(std::shared_ptr<CTextLabel> t);
+	void CheckButtonHovered();
+	void HandleStartScreenButtons();
 
 	bool GetIsGameOver();
 	void SetGameOver();

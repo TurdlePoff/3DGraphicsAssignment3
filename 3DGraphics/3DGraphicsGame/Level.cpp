@@ -50,43 +50,31 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		AddToTextList(titleText1);
 
 		std::shared_ptr<CTextLabel> startText(new CTextLabel("START", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 5.0f, ((SCR_HEIGHT / 2)))));
-		startText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		startText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(startText);
 
 		std::shared_ptr<CTextLabel> multiText(new CTextLabel("MULTIPLAYER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 100))));
-		multiText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		multiText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(multiText);
 
 		std::shared_ptr<CTextLabel> instrText(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, ((SCR_HEIGHT / 2) - 200))));
-		instrText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		instrText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(instrText);
-
-		std::shared_ptr<CTextLabel> exText(new CTextLabel("EXIT", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f + 25.0f, ((SCR_HEIGHT / 2) - 300))));
-		exText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
-		AddToTextList(exText);
 	}
 	else if (m_iLevelNumber == 11)	//IF THE LEVEL IS THE INSTRUCTIONS SCREEN
 	{
 		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
-		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("BUBBLETRON", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, SCR_HEIGHT / 2 + 200)));
+		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, SCR_HEIGHT / 2 + 200)));
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(titleText1);
 
-		std::shared_ptr<CTextLabel> startText(new CTextLabel("START", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 5.0f, ((SCR_HEIGHT / 2)))));
+		std::shared_ptr<CTextLabel> startText(new CTextLabel("W H Y", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 5.0f, ((SCR_HEIGHT / 2)))));
 		startText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		AddToTextList(startText);
 
-		std::shared_ptr<CTextLabel> multiText(new CTextLabel("MULTIPLAYER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 100))));
-		multiText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
-		AddToTextList(multiText);
-
-		std::shared_ptr<CTextLabel> instrText(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, ((SCR_HEIGHT / 2) - 200))));
-		instrText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
-		AddToTextList(instrText);
-
-		std::shared_ptr<CTextLabel> exText(new CTextLabel("EXIT", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f + 25.0f, ((SCR_HEIGHT / 2) - 300))));
-		exText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		std::shared_ptr<CTextLabel> exText(new CTextLabel("BACK", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f + 25.0f, ((SCR_HEIGHT / 2) - 300))));
+		exText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(exText);
 	}
 	else if (m_iLevelNumber == 12)	//IF THE LEVEL IS THE GAME OVER SCREEN
@@ -103,10 +91,10 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		actualScoreText->SetColor(glm::vec3(0.6f, 0.1f, 0.3f));
 		AddToTextList(actualScoreText);
 
-		std::shared_ptr<CTextLabel> startText(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, SCR_HEIGHT / 2)));//SCR_HEIGHT - 200.0f));
-		startText->SetScale(1.0f);
-		startText->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
-		AddToTextList(startText);
+		std::shared_ptr<CTextLabel> gameOver(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, SCR_HEIGHT / 2)));//SCR_HEIGHT - 200.0f));
+		gameOver->SetScale(1.0f);
+		gameOver->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
+		AddToTextList(gameOver);
 	}
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
@@ -250,10 +238,10 @@ void CLevel::Update()
 		}
 	}
 	
-	if (m_iLevelNumber == 10)
-	{
 
-	}
+	CheckButtonHovered();
+	HandleStartScreenButtons();
+
 
 	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 12)
 	{
@@ -378,19 +366,110 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 * IsMouseOverButton: Detects if mouse is hovering over a button location
 * @author: Vivian Ngo
 * @date: 08/05/18
+* @parameter: text - text button being hovered
+* @return: true if button is hovered
+***********************/
+bool CLevel::IsMouseOverButton(std::shared_ptr<CTextLabel> text)
+{
+	if (Utils::mouseX > (text->GetPosition().x)
+		&& Utils::mouseX < (text->GetPosition().x + text->GetTextWidth()) &&
+		abs(SCR_HEIGHT - Utils::mouseY) > ((text->GetPosition().y))
+		&& abs(SCR_HEIGHT - Utils::mouseY) < ((text->GetPosition().y + text->GetTextHeight())))
+	{
+		std::cout << "BLAYUM";
+
+		text->SetIsHovering(true);
+		return true;
+	}
+	else
+	{
+		text->SetIsHovering(false);
+		return false;
+	}
+}
+
+/***********************
+* IsMouseOverButton: Detects if mouse is hovering over a button location
+* @author: Vivian Ngo
+* @date: 08/05/18
 * @return: m_bGameOver
 ***********************/
-bool CLevel::IsMouseOverButton()
+void CLevel::CheckButtonHovered()
 {
-	bool isHovering = false;
-
-	/*if (m_iLevelNumber == 10)
+	if (m_iLevelNumber == 10) //3456
 	{
-		if(Utils::mouseX )
-	}*/
+		for (unsigned int i = 3; i <= 5; ++i)
+		{
+			if (IsMouseOverButton(m_pTextList[i]))
+			{
+				m_pTextList[i]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+			}
+			else
+			{
+				m_pTextList[i]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+			}
+		}
+	}
+	else if (m_iLevelNumber == 11)
+	{
+		//Change text item if more text is added
+		if (IsMouseOverButton(m_pTextList[4]))
+		{
+			m_pTextList[4]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		}
+		else
+		{
+			m_pTextList[4]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		}
+	}
+}
 
+/***********************
+* HandleStartScreenButtons: Decides what to do with the buttons in the starting screen
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_bGameOver
+***********************/
+void CLevel::HandleStartScreenButtons()
+{
+	if (m_iLevelNumber == 10) //3456
+	{
+		if (m_pTextList[3]->GetIsHovering())
+		{
+			if (Utils::MouseState[0] == INPUT_HOLD)
+			{
+				CSceneManager::GetInstance()->SwitchScene(1);
+			}
+		}
+		
+		if(m_pTextList[4]->GetIsHovering())
+		{
+			if (Utils::MouseState[0] == INPUT_HOLD)
+			{
+				//Multiplayer
+			}
+		}
 
-	return isHovering;
+		if (m_pTextList[5]->GetIsHovering())
+		{
+			if (Utils::MouseState[0] == INPUT_HOLD)
+			{
+				//Instructions
+				CSceneManager::GetInstance()->SwitchScene(11);
+			}
+		}
+	}
+	else if(m_iLevelNumber == 11)
+	{
+		if (m_pTextList[4]->GetIsHovering())
+		{
+			if (Utils::MouseState[0] == INPUT_HOLD)
+			{
+				//Multiplayer
+				CSceneManager::GetInstance()->SwitchScene(10);
+			}
+		}
+	}
 }
 
 /***********************

@@ -131,7 +131,7 @@ void CSceneManager::SwitchScene(int level)
 }
 
 /***********************
-* ResetLevels: Method resetting all levels of the game
+* ResetLevels: Method resetting all levels of the game + player stats
 * @author: Vivian Ngo
 * @date: 08 / 05 / 18
 ***********************/
