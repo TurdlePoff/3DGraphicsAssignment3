@@ -36,7 +36,7 @@ void CScene::Update() {}
 ***********************/
 void CScene::CreateBackground(EImage bg)
 {
-	std::shared_ptr<CSprite> newBg(new CSprite(bg));
+	std::shared_ptr<CSprite> newBg(new CSprite(bg, CUBE, glm::vec3(0.0f, -10.0f, 5.0f)));
 	m_pBackgroundSprite = newBg;
 }
 

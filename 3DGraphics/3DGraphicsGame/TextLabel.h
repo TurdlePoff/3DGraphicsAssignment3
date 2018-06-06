@@ -32,6 +32,7 @@ struct Character {
 class CTextLabel
 {
 public: 
+	CTextLabel() {};
 	CTextLabel(std::string text, std::string font, glm::vec2 pos); 
 	~CTextLabel() {};
 

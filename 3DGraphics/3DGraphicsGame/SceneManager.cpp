@@ -16,7 +16,7 @@
 #include "Level.h"
 
 CSceneManager* CSceneManager::s_pSceneInstance = 0;
-
+//std::shared_ptr<CSprite> playerSprite = std::make_shared(BIRB1, CUBE, glm::vec3(0.0f, 0.0f, 0.0f));
 /***********************
 * GetInstance: Gets scene manager Instance
 * @author: Vivian Ngo
@@ -54,18 +54,23 @@ void CSceneManager::DestroyInstance()
 ***********************/
 void CSceneManager::SetUpScenes()
 {
-	std::shared_ptr<CSprite> playerSprite(new CSprite(BIRB1));
-	std::shared_ptr<CPlayer> playerWithSprite(new CPlayer(playerSprite));
-
-	std::shared_ptr<CScene> startScreen(new CLevel(0, STARTSCR, playerWithSprite));
-	std::shared_ptr<CScene> level1(new CLevel(1, BG, playerWithSprite));
-	std::shared_ptr<CScene> endScreen(new CLevel(2, STARTSCR, playerWithSprite));
-
-	AddScene(startScreen);
+	std::shared_ptr<CSprite> playerSprite = std::make_shared<CSprite>(BIRB1, CUBE, glm::vec3(0.0f, 0.0f, 0.0f));
+	std::shared_ptr<CPlayer> playerWithSprite = std::make_shared<CPlayer>(playerSprite);
+	std::shared_ptr<CScene> level1 = std::make_shared<CLevel>(1, BG, playerWithSprite);
+	std::shared_ptr<CScene> level2 = std::make_shared<CLevel>(2, BG, playerWithSprite);
+	std::shared_ptr<CScene> level3 = std::make_shared<CLevel>(3, BG, playerWithSprite);
 	AddScene(level1);
+	AddScene(level2);
+	AddScene(level3);
+
+	std::shared_ptr<CScene> startScreen = std::make_shared<CLevel>(10, STARTSCR, playerWithSprite);
+	std::shared_ptr<CScene> instructions = std::make_shared<CLevel>(11, STARTSCR, playerWithSprite);
+	std::shared_ptr<CScene> endScreen = std::make_shared<CLevel>(12, STARTSCR, playerWithSprite);
+	AddScene(startScreen);
+	AddScene(instructions);
 	AddScene(endScreen);
 
-	SwitchScene(0);
+	SwitchScene(10); //Start with start screen
 }
 
 /***********************
@@ -77,7 +82,6 @@ void CSceneManager::SetUpScenes()
 void CSceneManager::AddScene(std::shared_ptr<CScene> scene)
 {
 	scenesList.push_back(scene);
-	SwitchScene(scene->GetLevelNum());
 }
 
 /***********************
@@ -86,11 +90,21 @@ void CSceneManager::AddScene(std::shared_ptr<CScene> scene)
 * @date: 08 / 05 / 18
 * @parameter: scene - scene to add
 ***********************/
-void CSceneManager::RemoveScene(std::shared_ptr<CScene> scene)
+void CSceneManager::RemoveScene(int scene)
 {
+	std::shared_ptr<CScene> tempScene;
+	for (unsigned int i = 0; i < scenesList.size(); ++i)
+	{
+		if (scene == scenesList[i]->GetLevelNum())
+		{
+			tempScene = scenesList[i];
+			break;
+		}
+	}
+
 	it = scenesList.begin();
 
-	it = std::find(scenesList.begin(), scenesList.end(), scene);
+	it = std::find(scenesList.begin(), scenesList.end(), tempScene);
 	if (it != scenesList.end())
 	{
 		scenesList.erase(it);
@@ -106,7 +120,35 @@ void CSceneManager::RemoveScene(std::shared_ptr<CScene> scene)
 ***********************/
 void CSceneManager::SwitchScene(int level)
 {
-	currentScene = scenesList[level];
+	for (unsigned int i = 0; i < scenesList.size(); ++i)
+	{
+		if (level == scenesList[i]->GetLevelNum())
+		{
+			currentScene = scenesList[i];
+			break;
+		}
+	}
+}
+
+/***********************
+* ResetLevels: Method resetting all levels of the game
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+***********************/
+void CSceneManager::ResetLevels(std::shared_ptr<CPlayer> _player)
+{
+	RemoveScene(1);
+	RemoveScene(2);
+	RemoveScene(3);
+
+	_player->ResetPlayerStats();
+
+	std::shared_ptr<CScene> level1 = std::make_shared<CLevel>(1, BG, _player);
+	std::shared_ptr<CScene> level2 = std::make_shared<CLevel>(2, BG, _player);
+	std::shared_ptr<CScene> level3 = std::make_shared<CLevel>(3, BG, _player);
+	AddScene(level1);
+	AddScene(level2);
+	AddScene(level3);
 }
 
 /***********************
@@ -142,15 +184,13 @@ std::shared_ptr<CScene> CSceneManager::GetCurrentScene()
 	return currentScene;
 }
 
+/***********************
+* GetCurrentSceneNumber: Gets the current scene number
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+* @return: currentScene->GetLevelNum() - the current scene's level number
+***********************/
 int CSceneManager::GetCurrentSceneNumber()
 {
-	int sceneNum = 0;
-	for (unsigned int i = 0; i < scenesList.size(); ++i)
-	{
-		if (currentScene == scenesList[i])
-		{
-			sceneNum = i;
-		}
-	}
-	return sceneNum;
+	return currentScene->GetLevelNum();
 }

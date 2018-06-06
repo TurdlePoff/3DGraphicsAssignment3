@@ -28,75 +28,119 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	m_iLevelNumber = levelNum;
 	CreateBackground(bgSprite);
 	m_pPlayer = player;
-	m_pPlayer->SetPlayerLives(2);
 	AddToSpriteList(m_pPlayer->GetSprite());
 
-	//IF THE LEVEL IS THE TITLE SCREEN
-	if (m_iLevelNumber == 0)
+	//Mouse position text
+	std::shared_ptr<CTextLabel> xText(new CTextLabel("x: ", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_WIDTH - 200.0f, 40.0f)));
+	xText->SetScale(0.3f);
+	xText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddToTextList(xText);
+
+	std::shared_ptr<CTextLabel> yText(new CTextLabel("y: ", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_WIDTH - 200.0f, 60.0f)));
+	yText->SetScale(0.3f);
+	yText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+	AddToTextList(yText);
+
+	if (m_iLevelNumber == 10)	//IF THE LEVEL IS THE START SCREEN
 	{
-		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("Robotron ??", "Resources/Fonts/bubble.TTF", glm::vec2(40.0f, SCR_HEIGHT / 2 + 140)));
-		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
+		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
-		std::shared_ptr<CTextLabel> startText(new CTextLabel("START", "Resources/Fonts/bubble.TTF", glm::vec2(45.0f, ((SCR_HEIGHT / 2) - 100.0f))));//SCR_HEIGHT - 200.0f));
-		startText->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
-
+		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("BUBBLETRON", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, SCR_HEIGHT / 2 + 200)));
+		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(titleText1);
+
+		std::shared_ptr<CTextLabel> startText(new CTextLabel("START", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 5.0f, ((SCR_HEIGHT / 2)))));
+		startText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		AddToTextList(startText);
+
+		std::shared_ptr<CTextLabel> multiText(new CTextLabel("MULTIPLAYER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 100))));
+		multiText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		AddToTextList(multiText);
+
+		std::shared_ptr<CTextLabel> instrText(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, ((SCR_HEIGHT / 2) - 200))));
+		instrText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		AddToTextList(instrText);
+
+		std::shared_ptr<CTextLabel> exText(new CTextLabel("EXIT", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f + 25.0f, ((SCR_HEIGHT / 2) - 300))));
+		exText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		AddToTextList(exText);
+	}
+	else if (m_iLevelNumber == 11)	//IF THE LEVEL IS THE INSTRUCTIONS SCREEN
+	{
+		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
+
+		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("BUBBLETRON", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, SCR_HEIGHT / 2 + 200)));
+		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+		AddToTextList(titleText1);
+
+		std::shared_ptr<CTextLabel> startText(new CTextLabel("START", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 5.0f, ((SCR_HEIGHT / 2)))));
+		startText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		AddToTextList(startText);
+
+		std::shared_ptr<CTextLabel> multiText(new CTextLabel("MULTIPLAYER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 100))));
+		multiText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		AddToTextList(multiText);
+
+		std::shared_ptr<CTextLabel> instrText(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, ((SCR_HEIGHT / 2) - 200))));
+		instrText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		AddToTextList(instrText);
+
+		std::shared_ptr<CTextLabel> exText(new CTextLabel("EXIT", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f + 25.0f, ((SCR_HEIGHT / 2) - 300))));
+		exText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		AddToTextList(exText);
+	}
+	else if (m_iLevelNumber == 12)	//IF THE LEVEL IS THE GAME OVER SCREEN
+	{
+
+		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 100.0f, (SCR_HEIGHT / 2) - 100.0f)));
+		scoreText->SetScale(0.8f);
+		scoreText->SetColor(glm::vec3(0.6f, 0.1f, 0.3f));
+		AddToTextList(scoreText);
+
+		sc = std::to_string(GetPlayer()->GetScore());
+		std::shared_ptr<CTextLabel> actualScoreText(new CTextLabel(sc, "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 20.0f + 100.0f, (SCR_HEIGHT / 2) - 100.0f)));
+		actualScoreText->SetScale(0.8f);
+		actualScoreText->SetColor(glm::vec3(0.6f, 0.1f, 0.3f));
+		AddToTextList(actualScoreText);
+
+		std::shared_ptr<CTextLabel> startText(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, SCR_HEIGHT / 2)));//SCR_HEIGHT - 200.0f));
+		startText->SetScale(1.0f);
+		startText->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
 		AddToTextList(startText);
 	}
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
-		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE));
+		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_1POINT));
-
-		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE));
+		//lAppleSprite1->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
+		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, false));
 
 		AddToPowerUpList(goodApple);
-		//(goodApple);
 		AddToEnemyList(enemyBad);
 
 		std::string score = "1000";
-		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2(5.0f, 40.0f)));//SCR_HEIGHT - 200.0f));
+		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2(5.0f, 40.0f)));
 		scoreText->SetScale(0.3f);
-		scoreText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
+		scoreText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(scoreText);
 
 		sc = std::to_string(m_pPlayer->GetScore());
-		std::shared_ptr<CTextLabel> actualScoreText(new CTextLabel(sc, "Resources/Fonts/bubble.TTF", glm::vec2(80.0f, 40.0f)));//SCR_HEIGHT - 200.0f));
+		std::shared_ptr<CTextLabel> actualScoreText(new CTextLabel(sc, "Resources/Fonts/bubble.TTF", glm::vec2(80.0f, 40.0f)));
 		actualScoreText->SetScale(0.3f);
-		actualScoreText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
+		actualScoreText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(actualScoreText);
 
 		std::shared_ptr<CTextLabel> livesText(new CTextLabel("Lives: ", "Resources/Fonts/bubble.TTF", glm::vec2(5.0, 10.0f)));
 		livesText->SetScale(0.3f);
-		livesText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
+		livesText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(livesText);
 
 		std::string playerLives = std::to_string(m_pPlayer->GetPlayerLives());
-		std::shared_ptr<CTextLabel> actualLivesText(new CTextLabel(playerLives, "Resources/Fonts/bubble.TTF", glm::vec2(80.0f, 10.0f)));//SCR_HEIGHT - 200.0f));
+		std::shared_ptr<CTextLabel> actualLivesText(new CTextLabel(playerLives, "Resources/Fonts/bubble.TTF", glm::vec2(80.0f, 10.0f)));
 		actualLivesText->SetScale(0.3f);
-		actualLivesText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
+		actualLivesText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(actualLivesText);
-		/*AddToSpriteList(lAppleSprite1);
-		AddToSpriteList(mAppleSprite1);*/
-	}
-	else if (m_iLevelNumber == 2)	//IF THE LEVEL IS THE GAME OVER SCREEN
-	{
-		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("But its the only", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_WIDTH / 2, SCR_HEIGHT / 2 + 140)));
-		titleText1->SetScale(0.35f);
-		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
-
-		std::shared_ptr<CTextLabel> titleText2(new CTextLabel("apple tree out there", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_WIDTH/2, (SCR_HEIGHT / 2 + 100))));
-		titleText2->SetScale(0.35f);
-		titleText2->SetColor(glm::vec3(1.0f, 1.0f, 1.0f)); //0.4f, 0.8f, 1.0f)); 
-
-		std::shared_ptr<CTextLabel> startText(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_WIDTH / 2, ((SCR_HEIGHT / 2) - 100.0f))));//SCR_HEIGHT - 200.0f));
-		startText->SetScale(0.5f);
-		startText->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
-
-		AddToTextList(titleText1);
-		AddToTextList(titleText2);
-		AddToTextList(startText);
 	}
 }
 
@@ -152,19 +196,27 @@ void CLevel::Render()
 ***********************/
 void CLevel::Update()
 {
+	m_pTextList[0]->SetText(std::to_string(Utils::mouseX));
+	m_pTextList[1]->SetText(std::to_string(Utils::mouseY));
 	//If the player is currently in level 0 or 2
-	if (m_iLevelNumber == 0 || m_iLevelNumber == 2)
+	if (m_iLevelNumber == 10 || m_iLevelNumber == 12) //Need to change
 	{
-		if (Utils::KeyState[(unsigned int)' '] == INPUT_FIRST_PRESS)
+		if (Utils::KeyState[(unsigned int)' '] == INPUT_HOLD)
 		{
-			if(m_iLevelNumber == 0)
+			if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 10)
+			{
+				CSceneManager::GetInstance()->ResetLevels(GetPlayer()); //Rest player stats when starting new game
 				CSceneManager::GetInstance()->SwitchScene(1);
+			}
 
-			if(m_iLevelNumber == 2)
-				CSceneManager::GetInstance()->SwitchScene(0);
+			if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 12)
+			{
+				CSceneManager::GetInstance()->SwitchScene(10);
+			}
 		}
 	}
-	else if (m_iLevelNumber == 1)	//If the player is currently in level 1
+	
+	if (m_iLevelNumber == 1)	//If the player is currently in level 1
 	{
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
@@ -173,8 +225,8 @@ void CLevel::Update()
 		CheckEnemyCollision(player);
 		CheckPowerUpCollision(player);
 
-		m_pTextList[1]->SetText(std::to_string(GetPlayer()->GetScore()));
-		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
+		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
+		m_pTextList[5]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
 
 		//If player was hit, player is temporarily red
 		if (m_pPlayer->GetSprite()->GetIsHit())
@@ -191,8 +243,21 @@ void CLevel::Update()
 
 		if (m_pPlayer->GetPlayerLives() <= 0)
 		{
-			CSceneManager::GetInstance()->SwitchScene(2);
+			m_pPlayer->GetSprite()->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
+			m_pPlayer->GetSprite()->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
+			m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+			CSceneManager::GetInstance()->SwitchScene(12);
 		}
+	}
+	
+	if (m_iLevelNumber == 10)
+	{
+
+	}
+
+	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 12)
+	{
+		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
 	}
 }
 
@@ -229,7 +294,7 @@ void CLevel::MovePlayer(std::shared_ptr<CSprite> player)
 	}
 	else if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
-		if (player->GetPos().z < -25.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
+		if (player->GetPos().z < -40.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ -= val;
@@ -238,7 +303,7 @@ void CLevel::MovePlayer(std::shared_ptr<CSprite> player)
 	}
 	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
 	{
-		if (player->GetPos().z > 45.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
+		if (player->GetPos().z > 50.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ += val;
@@ -262,6 +327,8 @@ void CLevel::CheckEnemyCollision(std::shared_ptr<CSprite> player)
 	{
 		if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
 		{
+			//Set if making enemy that dies via touch
+
 			//m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
 			//m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
 
@@ -305,6 +372,25 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 		}
 	}
 
+}
+
+/***********************
+* IsMouseOverButton: Detects if mouse is hovering over a button location
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_bGameOver
+***********************/
+bool CLevel::IsMouseOverButton()
+{
+	bool isHovering = false;
+
+	/*if (m_iLevelNumber == 10)
+	{
+		if(Utils::mouseX )
+	}*/
+
+
+	return isHovering;
 }
 
 /***********************

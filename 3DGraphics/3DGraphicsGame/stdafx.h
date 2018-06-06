@@ -176,3 +176,9 @@ enum EPowUps {
 enum EBullets {
 	BLT_NORM
 };
+
+enum EUIObject {
+	UI_TEXT,
+	UI_BOX,
+	UI_BUTTON
+};

@@ -14,20 +14,24 @@
 //
 
 #include "stdafx.h"
+#include "TextLabel.h"
+#include "Texture.h"
+#include "Sprite.h"
 
-class UIObject
+class UIObject : public CSprite
 {
 public:
-	UIObject();
+	UIObject() {};
+	UIObject(EUIObject _uiType, EImage _sprImage, EShape _shape, std::string _text, glm::vec3 _pos);
 	~UIObject();
 
-	virtual void DrawUI();
-	virtual void UpdateUI();
-
-	void SetPosition(glm::vec2 newPos);
-	void SetRotate(float newRotation);
+	virtual void Draw();
+	virtual void Update();
 
 private:
+	CTextLabel m_text;
+	CSprite m_UISprite;
+
 	glm::vec2 m_position;
 	float m_rotation;
 };

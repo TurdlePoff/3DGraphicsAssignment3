@@ -21,5 +21,9 @@ unsigned int Utils::KeyState[255];
 unsigned int Utils::MouseState[3];
 
 
-float Utils::XYO = 0;
-float Utils::YYO = 0;
+float Utils::mouseX = 0;
+float Utils::mouseY = 0;
+
+float Utils::testX = 0;
+float Utils::testY = 0;
+float Utils::testZ = 0;
