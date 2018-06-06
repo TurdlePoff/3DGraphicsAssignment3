@@ -24,13 +24,20 @@ public:
 	static void DestroyInstance();
 	~CAIManager() {};
 
-	void Seek(CPlayer& _player, CEnemy& _enemy);
-	void Flee(CPlayer& _player, CEnemy& _enemy);
+	void Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy);
+	void Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy>  _enemy);
 
-	void Wander(CPlayer& _player, CEnemy& _enemy);
+	void Wander(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy);
 
 private:
 	static CAIManager* s_pAIInstance;
 	CAIManager() {};
+
+	float m_maxspeed = 10.0f;
+	float maxforce = 1.0f;
+
+	float m_xSpeed = 0.5f;
+	float m_ySpeed = 1.5f;
+
 };
 

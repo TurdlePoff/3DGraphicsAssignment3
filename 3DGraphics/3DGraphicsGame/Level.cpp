@@ -15,6 +15,7 @@
 #include "Level.h"
 #include "SceneManager.h"
 #include "Time.h"
+#include "AI.h"
 
 CLevel::CLevel(){}
 
@@ -45,7 +46,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	{
 		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
-		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("BUBBLETRON", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, SCR_HEIGHT / 2 + 200)));
+		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("BUBBLETRON", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 100.0f, SCR_HEIGHT / 2 + 200)));
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(titleText1);
 
@@ -65,7 +66,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	{
 		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
-		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, SCR_HEIGHT / 2 + 200)));
+		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, SCR_HEIGHT / 2 + 200)));
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(titleText1);
 
@@ -79,7 +80,6 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	}
 	else if (m_iLevelNumber == 12)	//IF THE LEVEL IS THE GAME OVER SCREEN
 	{
-
 		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 100.0f, (SCR_HEIGHT / 2) - 100.0f)));
 		scoreText->SetScale(0.8f);
 		scoreText->SetColor(glm::vec3(0.6f, 0.1f, 0.3f));
@@ -95,6 +95,10 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		gameOver->SetScale(1.0f);
 		gameOver->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
 		AddToTextList(gameOver);
+
+		std::shared_ptr<CTextLabel> mmText(new CTextLabel("MAIN MENU", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, ((SCR_HEIGHT / 2) - 300))));
+		mmText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(mmText);
 	}
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
@@ -187,28 +191,14 @@ void CLevel::Update()
 	m_pTextList[0]->SetText(std::to_string(Utils::mouseX));
 	m_pTextList[1]->SetText(std::to_string(Utils::mouseY));
 	//If the player is currently in level 0 or 2
-	if (m_iLevelNumber == 10 || m_iLevelNumber == 12) //Need to change
-	{
-		if (Utils::KeyState[(unsigned int)' '] == INPUT_HOLD)
-		{
-			if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 10)
-			{
-				CSceneManager::GetInstance()->ResetLevels(GetPlayer()); //Rest player stats when starting new game
-				CSceneManager::GetInstance()->SwitchScene(1);
-			}
-
-			if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 12)
-			{
-				CSceneManager::GetInstance()->SwitchScene(10);
-			}
-		}
-	}
+	
 	
 	if (m_iLevelNumber == 1)	//If the player is currently in level 1
 	{
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
 		MovePlayer(player);
+		CAIManager::GetInstance()->Seek(GetPlayer(), m_pEnemyList[0]);
 
 		CheckEnemyCollision(player);
 		CheckPowerUpCollision(player);
@@ -241,7 +231,6 @@ void CLevel::Update()
 
 	CheckButtonHovered();
 	HandleStartScreenButtons();
-
 
 	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 12)
 	{
@@ -376,8 +365,6 @@ bool CLevel::IsMouseOverButton(std::shared_ptr<CTextLabel> text)
 		abs(SCR_HEIGHT - Utils::mouseY) > ((text->GetPosition().y))
 		&& abs(SCR_HEIGHT - Utils::mouseY) < ((text->GetPosition().y + text->GetTextHeight())))
 	{
-		std::cout << "BLAYUM";
-
 		text->SetIsHovering(true);
 		return true;
 	}
@@ -412,7 +399,6 @@ void CLevel::CheckButtonHovered()
 	}
 	else if (m_iLevelNumber == 11)
 	{
-		//Change text item if more text is added
 		if (IsMouseOverButton(m_pTextList[4]))
 		{
 			m_pTextList[4]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
@@ -420,6 +406,17 @@ void CLevel::CheckButtonHovered()
 		else
 		{
 			m_pTextList[4]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		}
+	}
+	else if (m_iLevelNumber == 12)
+	{
+		if (IsMouseOverButton(m_pTextList[5]))
+		{
+			m_pTextList[5]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		}
+		else
+		{
+			m_pTextList[5]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		}
 	}
 }
@@ -438,6 +435,7 @@ void CLevel::HandleStartScreenButtons()
 		{
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{
+				GetPlayer()->ResetPlayerStats();
 				CSceneManager::GetInstance()->SwitchScene(1);
 			}
 		}
@@ -466,7 +464,19 @@ void CLevel::HandleStartScreenButtons()
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{
 				//Multiplayer
-				CSceneManager::GetInstance()->SwitchScene(10);
+				CSceneManager::GetInstance()->SwitchScene(10);		//RETURN TO MAIN MENU FROM INSTRUCTIONS
+			}
+		}
+	}
+	else if (m_iLevelNumber == 12)
+	{
+		if (m_pTextList[5]->GetIsHovering())
+		{
+			if (Utils::MouseState[0] == INPUT_HOLD)
+			{
+				//Multiplayer
+				CSceneManager::GetInstance()->ResetLevels(GetPlayer());
+				CSceneManager::GetInstance()->SwitchScene(10);		//RETURN TO MAIN MENU
 			}
 		}
 	}

@@ -22,7 +22,8 @@
 #include "Scene.h"
 #include "Level.h"
 #include "SceneManager.h"
-//#include <vld.h>
+#include "AI.h"
+#include <vld.h>
 
 void Init();
 void Render(void);
@@ -90,6 +91,8 @@ void Exit()
 	CCamera::DestroyInstance();
 	CInput::DestroyInstance();
 	CSoundManager::DestroyInstance();
+	CTime::DestroyInstance();
+	CAIManager::DestroyInstance();
 }
 
 /***********************

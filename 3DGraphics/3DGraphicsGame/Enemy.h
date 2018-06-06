@@ -28,12 +28,16 @@ public:
 	int GetKillPoint();
 	void SetGoodApple(bool ga);
 	bool GetIsGoodApple();
+/*
+	void SetXSpeed(float newSpeed) { m_xSpeed = newSpeed; }
+	void SetYSpeed(float newSpeed) { m_ySpeed = newSpeed; }
+
+	float GetXSpeed() { return m_xSpeed; }
+	float GetYSpeed() { return m_ySpeed; }*/
 
 private:
 	int m_killPoint;
 	bool goodApple;
 	std::shared_ptr<CSprite> m_pEnemySprite;
-
-
 };
 

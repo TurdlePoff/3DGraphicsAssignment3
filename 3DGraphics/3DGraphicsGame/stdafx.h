@@ -36,6 +36,11 @@
 static const unsigned int SCR_WIDTH = 900;
 static const unsigned int SCR_HEIGHT = 800;
 
+static const float SCR_TOP = -40.0f;
+static const float SCR_BOT = 50.0f;
+static const float SCR_LEFT = -45.0f;
+static const float SCR_RIGHT = 45.0f;
+
 static const GLuint indices[] = {
 	0, 1, 2, // First Triangle
 	0, 2, 3 // Second Triangle
@@ -134,16 +139,9 @@ static GLfloat verticesCube[216] = {
 
 //Enums of images within the game
 enum EImage {
-	BASKET, 
 	LAPPLE,
-	MAPPLE,
-	RAPPLE,
 	ROTTENAPPLE,
 	BIRB1,
-	BIRB2,
-	HIVE, 
-	BEEKEE,
-	LIFEAPPLE,
 	BG,
 	STARTSCR,
 	ENDSCR
