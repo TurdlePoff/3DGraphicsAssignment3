@@ -58,7 +58,7 @@ seek arrival pathfinding obstacle avoidance
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> en = _enemy->GetSprite();
 
@@ -71,6 +71,20 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 	}
 
 	en->Translate(glm::vec3(en->GetPos().x + m_xSpeed, en->GetPos().y, en->GetPos().z + m_ySpeed));
+
+}
+
+/***********************
+* Seek: AI that seeks the player
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+* @parameter: _player - player to search
+* @parameter: _enemy - enemy to apply AI to
+***********************/
+void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
+{
+	std::shared_ptr<CSprite> en = _enemy->GetSprite();
+
 
 }
 

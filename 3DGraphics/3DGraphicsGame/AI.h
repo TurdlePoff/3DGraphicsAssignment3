@@ -17,6 +17,18 @@
 #include "Player.h"
 #include "Enemy.h"
 
+struct location //may need to keep in player class
+{
+	float x;
+	float y;
+};
+//
+//struct location
+//{
+//	float x;
+//	float y;
+//};
+
 class CAIManager
 {
 public:
@@ -24,6 +36,7 @@ public:
 	static void DestroyInstance();
 	~CAIManager() {};
 
+	void BouncyBall(std::shared_ptr<CEnemy> _enemy);
 	void Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy);
 	void Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy>  _enemy);
 
@@ -38,6 +51,7 @@ private:
 
 	float m_xSpeed = 0.5f;
 	float m_ySpeed = 1.5f;
+
 
 };
 
