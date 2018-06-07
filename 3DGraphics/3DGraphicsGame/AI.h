@@ -49,9 +49,6 @@ private:
 	float m_maxspeed = 10.0f;
 	float maxforce = 1.0f;
 
-	float m_xSpeed = 0.5f;
-	float m_ySpeed = 1.5f;
-
 
 };
 

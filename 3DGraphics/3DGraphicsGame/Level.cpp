@@ -198,7 +198,7 @@ void CLevel::Update()
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
 		MovePlayer(player);
-		CAIManager::GetInstance()->Seek(GetPlayer(), m_pEnemyList[0]);
+		CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
 
 		CheckEnemyCollision(player);
 		CheckPowerUpCollision(player);
@@ -321,7 +321,6 @@ void CLevel::CheckEnemyCollision(std::shared_ptr<CSprite> player)
 				m_pEnemyList[eList]->GetSprite()->SetHitStartTime();
 
 				m_pPlayer->GetSprite()->SetHitStartTime();
-				m_pPlayer->GetSprite()->SetIsHit(true);
 
 				m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
 			}

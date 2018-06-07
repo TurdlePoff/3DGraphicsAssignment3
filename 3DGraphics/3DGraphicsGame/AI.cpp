@@ -62,16 +62,18 @@ void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> en = _enemy->GetSprite();
 
+	en->Translate(glm::vec3(en->GetPos().x + _enemy->GetXSpeed(),
+							en->GetPos().y,
+							en->GetPos().z + _enemy->GetZSpeed()));
 
-	if ((en->GetPos().x > SCR_RIGHT) || (en->GetPos().x < SCR_LEFT)) {
-		m_xSpeed = m_xSpeed * -1;
+	if ((en->GetPos().x > SCR_RIGHT) || (en->GetPos().x < SCR_LEFT)) 
+	{
+		_enemy->SetXSpeed(_enemy->GetXSpeed() *-1);
 	}
-	if ((en->GetPos().z > SCR_BOT) || (en->GetPos().z < SCR_TOP)) {
-		m_ySpeed = m_ySpeed * -1;
+	if ((en->GetPos().z > SCR_BOT) || (en->GetPos().z < SCR_TOP)) 
+	{
+		_enemy->SetZSpeed(_enemy->GetZSpeed() *-1);
 	}
-
-	en->Translate(glm::vec3(en->GetPos().x + m_xSpeed, en->GetPos().y, en->GetPos().z + m_ySpeed));
-
 }
 
 /***********************
