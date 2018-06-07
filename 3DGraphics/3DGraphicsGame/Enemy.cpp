@@ -24,6 +24,10 @@
 CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, bool isGood)
 {
 	m_pEnemySprite = enemySprite;
+	m_vel = { 0.5f, 1.5f };
+	m_acc = { 0.5f, 1.5f };
+	m_force = { 0.5f, 1.5f };
+
 	if (isGood)
 		m_killPoint = 1;
 	else
@@ -92,4 +96,48 @@ void CEnemy::SetGoodApple(bool isGood)
 bool CEnemy::GetIsGoodApple()
 {
 	return goodApple;
+}
+
+/***********************
+* SetXPos: Set x position of enemy
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: newXPos - new x position of enemy
+***********************/
+void CEnemy::SetXPos(float newXPos)
+{
+	GetSprite()->Translate(glm::vec3(newXPos, GetSprite()->GetPos().y, GetSprite()->GetPos().z));
+}
+
+/***********************
+* SetZPos: Set z position of enemy
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: newXPos - new z position of enemy
+***********************/
+void CEnemy::SetZPos(float newYPos)
+{
+	GetSprite()->Translate(glm::vec3(GetSprite()->GetPos().x, GetSprite()->GetPos().y, newYPos));
+}
+
+/***********************
+* SetXPos: Get x position of enemy
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: newXPos - new x position of enemy
+***********************/
+float CEnemy::GetXPos()
+{
+	return GetSprite()->GetPos().x;
+}
+
+/***********************
+* GetZPos: Get z position of enemy
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: newYPos - new y position of enemy
+***********************/
+float CEnemy::GetZPos()
+{
+	return GetSprite()->GetPos().z;
 }
