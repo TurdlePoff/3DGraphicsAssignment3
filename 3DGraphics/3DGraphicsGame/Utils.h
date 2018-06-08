@@ -23,6 +23,8 @@ public:
 	static GLuint program;
 	static GLuint Utils::programText;
 	static GLuint Utils::programTextured;
+	static GLuint Utils::programLight;
+
 	static unsigned int KeyState[255];
 	static unsigned int MouseState[3];
 	static float Utils::mouseX;

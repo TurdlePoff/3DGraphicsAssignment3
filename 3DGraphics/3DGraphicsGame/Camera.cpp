@@ -25,32 +25,7 @@ float CCamera::m_fov = 45.0f; // field of view
 * @author: Vivian Ngo
 * @date: 08/05/18
 ***********************/
-CCamera::CCamera()
-{
-
-	//projection = glm::ortho(-iWidthScaled, iWidthScaled, -iHeightScaled, iHeightScaled, 0.0f, 100.0f);
-	glm::mat4 translate = glm::translate(glm::mat4(), glm::vec3(0.0f, 0.0f, 0.0f));
-	glm::mat4 rotation = glm::rotate(glm::mat4(), glm::radians(glm::vec3(0.0f, 0.0f, 0.0f).x), glm::vec3(1, 0, 0));
-	rotation = glm::rotate(rotation, glm::radians(glm::vec3(0.0f, 0.0f, 0.0f).z), glm::vec3(0, 1, 0));
-	rotation = glm::rotate(rotation, glm::radians(glm::vec3(0.0f, 0.0f, 0.0f).y), glm::vec3(0, 0, 1));
-	glm::mat4 scale = glm::scale(glm::mat4(), glm::vec3(0.0f, 0.0f, 0.0f));
-
-	glm::mat4 Model = translate * rotation * scale;
-
-	//cameraFront = CInput::GetInstance()->MousePassiveMovement();
-
-	//Moves the camera when WASD input is pressed
-	float cameraSpeed = 0.01f * CTime::GetInstance()->GetCurTimeSecs();
-	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, -1.0f));
-
-	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * ROT;
-
-	projection = glm::perspective(m_fov, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 1000.0f);
-	glm::mat4 MVP = projection * view * Model;
-	glUseProgram(Utils::programTextured);
-	GLint MVPLoc = glGetUniformLocation(Utils::programTextured, "MVP");
-	glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr(MVP));
-}
+CCamera::CCamera(){}
 
 /***********************
 * GetInstance: Gets the instance of the camera singleton class
@@ -106,41 +81,12 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	//Moves the camera when WASD input is pressed
 	float cameraSpeed = 0.01f * CTime::GetInstance()->GetCurTimeSecs();
 
-
-	//UNCOMMENT TO MOVE CAMERA
-	/*if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
-	{
-	cameraPos += cameraSpeed * cameraFront;
-	}
-	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
-	{
-	cameraPos -= cameraSpeed * cameraFront;
-	}
-	else if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
-	{
-	cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}
-	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
-	{
-	cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
-	}*/
+	CameraMovement(cameraSpeed);
 
 	//ROTATE CAMERA TO VIEW AS EAGLE EYE
 	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * ROT;
-
 	projection = glm::perspective(m_fov, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 1000.0f);
-	//Rotating camera - take away the camera wasd input first to test
-	//float currentTime = glutGet(GLUT_ELAPSED_TIME);
-	//currentTime = currentTime * 0.001f;
-	//GLfloat camHeight = 3.0f;
-	//GLfloat radius = 20.0f;
-	//GLfloat camX = sin(currentTime) * radius; // Rotating the Camera around
-	//GLfloat camZ = cos(currentTime) * radius; // the 3D object
-	//view = glm::lookAt(glm::vec3(camX, camHeight, camZ), glm::vec3(0.0f, 0.0f, 0.0f),
-	//	glm::vec3(0.0f, 1.0f, 0.0f));
 
 	glm::mat4 MVP = projection * view * Model;
 	glUseProgram(Utils::programTextured);
@@ -206,6 +152,26 @@ void CCamera::SetCamUp(glm::vec3 _cUp)
 void CCamera::SetCamSpeed(float _cSpeed)
 {
 	cameraSpeed = _cSpeed;
+}
+
+void CCamera::CameraMovement(float _camSpeed)
+{
+	if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
+	{
+		cameraPos += cameraSpeed * cameraUp;
+	}
+	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
+	{
+		cameraPos -= cameraSpeed * cameraUp;
+	}
+	else if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
+	{
+		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
+	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
+	{
+		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+	}
 }
 
 /***********************

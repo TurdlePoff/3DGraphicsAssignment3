@@ -16,6 +16,11 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
+struct Velocity {
+	float x;
+	float y;
+};
+
 class CBullet : public CSprite
 {
 public:
@@ -23,13 +28,17 @@ public:
 	CBullet(std::shared_ptr<CSprite> _bulletSprite, int _damage, EBullets _bltType);
 	~CBullet();
 
+	virtual void Update();
 	void SetDamagePoint(int damage);
 	int GetDamagePoint();
+	std::shared_ptr<CSprite> GetSprite();
+
+
+	Velocity m_vel;
 
 private:
 	int m_numDamage;
 	EBullets m_bltType;
 	std::shared_ptr<CSprite> m_pBulletSprite;
-
 };
 

@@ -23,7 +23,7 @@
 #include "Level.h"
 #include "SceneManager.h"
 #include "AI.h"
-#include <vld.h>
+//#include <vld.h>
 
 void Init();
 void Render(void);

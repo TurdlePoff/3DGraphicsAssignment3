@@ -24,8 +24,8 @@ public:
 
 	static void BindTexture(const char* filename, float _fHalfWidth, float _fHalfHeight, glm::vec4 _colour, GLuint& vao, GLuint& texture, EShape _shape);
 	static void Render(GLuint vao, GLuint texture);
-
 	GLuint tex;
+
 private:
 	static EShape m_shape;
 

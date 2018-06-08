@@ -177,7 +177,12 @@ void CLevel::Render()
 	//Render all text in text list
 	for (unsigned int tList = 0; tList < m_pTextList.size(); ++tList)
 	{
-			m_pTextList[tList]->Render();
+		m_pTextList[tList]->Render();
+	}
+
+	for (unsigned int bList = 0; bList < m_pBulletList.size(); ++bList)
+	{
+		m_pBulletList[bList]->GetSprite()->Draw();
 	}
 }
 
@@ -205,6 +210,11 @@ void CLevel::Update()
 
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
 		m_pTextList[5]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
+
+		for (unsigned int bList = 0; bList < m_pBulletList.size(); ++bList)
+		{
+			m_pBulletList[bList]->Update();
+		}
 
 		//If player was hit, player is temporarily red
 		if (m_pPlayer->GetSprite()->GetIsHit())
@@ -293,6 +303,24 @@ void CLevel::MovePlayer(std::shared_ptr<CSprite> player)
 }
 
 /***********************
+* CreateBullet: Creates bullet infront of player
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: player - player to shoot bullet
+***********************/
+void CLevel::CreateBullet(std::shared_ptr<CSprite> player)
+{
+	std::shared_ptr<CSprite> newBulletSprite = std::make_shared<CSprite>(BIRB1, CUBE, glm::vec3(-10.0f, 0.0f, 0.0));
+
+	std::shared_ptr<CBullet> newBullet = std::make_shared<CBullet>(newBulletSprite, 1, BLT_NORM);
+
+	newBullet->Translate(glm::vec3(player->GetPos().x, player->GetPos().y, player->GetPos().z + 0.5f));
+	newBullet->SetRotatation(player->GetRot());
+
+	AddToBulletList(newBullet);
+}
+
+/***********************
 * CheckEnemyCollision: Check enemy collision
 * @author: Vivian Ngo
 * @date: 08/05/18
@@ -351,6 +379,30 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 }
 
 /***********************
+* CheckEnemyBulletCollision: Check Enemy Bullet Collision
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: player - player to check collision with enemies
+***********************/
+void CLevel::CheckEnemyBulletCollision()
+{
+	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
+	{
+		for (unsigned int bList = 0; bList < m_pBulletList.size(); ++bList)
+		{
+			if (m_pEnemyList[eList]->GetIsHit())
+			{
+				if (m_pBulletList[bList]->GetSprite()->IsCollidingWith(m_pEnemyList[eList]))
+				{
+					//m_pEnemyList[eList]
+				}
+
+			}
+		}
+	}
+}
+
+/***********************
 * IsMouseOverButton: Detects if mouse is hovering over a button location
 * @author: Vivian Ngo
 * @date: 08/05/18
@@ -382,11 +434,11 @@ bool CLevel::IsMouseOverButton(std::shared_ptr<CTextLabel> text)
 ***********************/
 void CLevel::CheckButtonHovered()
 {
-	if (m_iLevelNumber == 10) //3456
+	if (m_iLevelNumber == 10) //Start Screen
 	{
 		for (unsigned int i = 3; i <= 5; ++i)
 		{
-			if (IsMouseOverButton(m_pTextList[i]))
+			if (IsMouseOverButton(m_pTextList[i]))//Hover over all hoverable text in start screen
 			{
 				m_pTextList[i]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 			}
@@ -396,9 +448,9 @@ void CLevel::CheckButtonHovered()
 			}
 		}
 	}
-	else if (m_iLevelNumber == 11)
+	else if (m_iLevelNumber == 11) //Instructions
 	{
-		if (IsMouseOverButton(m_pTextList[4]))
+		if (IsMouseOverButton(m_pTextList[4]))//Hover over return button
 		{
 			m_pTextList[4]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		}
@@ -407,9 +459,9 @@ void CLevel::CheckButtonHovered()
 			m_pTextList[4]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		}
 	}
-	else if (m_iLevelNumber == 12)
+	else if (m_iLevelNumber == 12) //Game over screen
 	{
-		if (IsMouseOverButton(m_pTextList[5]))
+		if (IsMouseOverButton(m_pTextList[5]))//Hover over return button
 		{
 			m_pTextList[5]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		}
@@ -428,9 +480,9 @@ void CLevel::CheckButtonHovered()
 ***********************/
 void CLevel::HandleStartScreenButtons()
 {
-	if (m_iLevelNumber == 10) //3456
+	if (m_iLevelNumber == 10) //Start screen
 	{
-		if (m_pTextList[3]->GetIsHovering())
+		if (m_pTextList[3]->GetIsHovering())//Start game
 		{
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{
@@ -439,7 +491,7 @@ void CLevel::HandleStartScreenButtons()
 			}
 		}
 		
-		if(m_pTextList[4]->GetIsHovering())
+		if(m_pTextList[4]->GetIsHovering())//Multiplayer
 		{
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{
@@ -447,7 +499,7 @@ void CLevel::HandleStartScreenButtons()
 			}
 		}
 
-		if (m_pTextList[5]->GetIsHovering())
+		if (m_pTextList[5]->GetIsHovering())//Instructions
 		{
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{
@@ -456,7 +508,7 @@ void CLevel::HandleStartScreenButtons()
 			}
 		}
 	}
-	else if(m_iLevelNumber == 11)
+	else if(m_iLevelNumber == 11) //Instructions
 	{
 		if (m_pTextList[4]->GetIsHovering())
 		{
@@ -467,9 +519,9 @@ void CLevel::HandleStartScreenButtons()
 			}
 		}
 	}
-	else if (m_iLevelNumber == 12)
+	else if (m_iLevelNumber == 12) //Ending/Game over screen
 	{
-		if (m_pTextList[5]->GetIsHovering())
+		if (m_pTextList[5]->GetIsHovering())//Returning to start screen
 		{
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{

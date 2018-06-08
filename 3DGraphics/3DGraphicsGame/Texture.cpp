@@ -41,93 +41,99 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 
 
 	// Create Verticies depending on shape of sprite
-	if (_shape == PYRAMID)
+
+	switch (_shape)
 	{
-		//3D pyramid vertices
-		GLfloat actualVerticesPyramid[] = {
-			//Positions			// Colors			// Tex Coords
-			-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 0 // Base
-			halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 1
-			halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f, // 2
-			-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f, // 3
-
-			-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 4 // Side 1
-			-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 5
-
-			-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 6 // Side 2
-			halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 7
-
-			halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 8 // Side 3
-			halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 9
-
-			halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 10 // Side 4
-			-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 11
-
-			halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.5f, 0.0f, // 12 // Top Point
-		};
-
-		for (int i = 0; i < 117; ++i)
+		case PYRAMID:
 		{
-			verticesPyramid[i] = actualVerticesPyramid[i];
+			GLfloat actualVerticesPyramid[] = {
+				//Positions			// Colors			// Tex Coords
+				-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 0 // Base
+				halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 1
+				halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f, // 2
+				-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f, // 3
+
+				-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 4 // Side 1
+				-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 5
+
+				-halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 6 // Side 2
+				halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 7
+
+				halfWidth, halfHeight, 1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 8 // Side 3
+				halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 9
+
+				halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // 10 // Side 4
+				-halfWidth, halfHeight, -1.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // 11
+
+				halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.5f, 0.0f, // 12 // Top Point
+			};
+
+			for (int i = 0; i < 117; ++i)
+			{
+				verticesPyramid[i] = actualVerticesPyramid[i];
+			}
+			break;
 		}
-	}
-	else if (_shape == CUBE)
-	{
-		//3D cube vertices
-		GLfloat actualVerticesCube[216] = {
-			// Front Face
-			-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-			halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-			halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-			-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-			// Right Face
-			halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-			halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-			halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-			halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-
-			// Back Face
-			halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-			-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-			-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-			halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-			// Left Face
-			-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-			-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-			-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-			-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-
-			// Top Face
-			-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-			halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-			halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-			-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-			// Bottom Face
-			-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
-			halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
-			halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
-			-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
-		};
-
-		for (int i = 0; i < 216; ++i)
+		case CUBE:
 		{
-			verticesCube[i] = actualVerticesCube[i];
+			//3D cube vertices
+			GLfloat actualVerticesCube[216] = {
+				// Front Face
+				-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+				halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+				halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+				-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+				// Right Face
+				halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+				halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+				halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+				halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+
+				// Back Face
+				halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+				-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+				-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+				halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+				// Left Face
+				-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+				-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+				-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+				-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+
+				// Top Face
+				-halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+				halfWidth, halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+				halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+				-halfWidth, halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+				// Bottom Face
+				-halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f,
+				halfWidth, -halfHeight, 1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f,
+				halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f,
+				-halfWidth, -halfHeight, -1.0f,			_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f,
+			};
+
+			for (int i = 0; i < 216; ++i)
+			{
+				verticesCube[i] = actualVerticesCube[i];
+			}
+			break;
 		}
-	}
-	else
-	{
-		//2D vertices
-		GLfloat actualVertices[] = {
-			// Positions // Colors // Tex Coords
-			-halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f, // Top Left
-			halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f, // Top Right 
-			halfWidth, -halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // Bottom Right
-			-halfWidth, -halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // Bottom Left
-		};
-
-		for (int i = 0; i < 36; ++i)
+		case TWOD:
 		{
-			vertices[i] = actualVertices[i];
+			//2D vertices
+			GLfloat actualVertices[] = {
+				// Positions // Colors // Tex Coords
+				-halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 0.0f, // Top Left
+				halfWidth, halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 0.0f, // Top Right 
+				halfWidth, -halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		1.0f, 1.0f, // Bottom Right
+				-halfWidth, -halfHeight, 0.0f,		_colour.r, _colour.g, _colour.b, _colour.a,		0.0f, 1.0f, // Bottom Left
+			};
+
+			for (int i = 0; i < 36; ++i)
+			{
+				vertices[i] = actualVertices[i];
+			}
+			break;
 		}
 	}
 
@@ -173,17 +179,23 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 	glBindVertexArray(_vao);
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	if (m_shape == PYRAMID)
+	switch (_shape)
 	{
-		glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPyramid), verticesPyramid, GL_STATIC_DRAW);
-	}
-	else if (m_shape == CUBE)
-	{
-		glBufferData(GL_ARRAY_BUFFER, sizeof(verticesCube), verticesCube, GL_STATIC_DRAW);
-	}
-	else
-	{
-		glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+		case PYRAMID:
+		{
+			glBufferData(GL_ARRAY_BUFFER, sizeof(verticesPyramid), verticesPyramid, GL_STATIC_DRAW);
+			break;
+		}
+		case CUBE:
+		{
+			glBufferData(GL_ARRAY_BUFFER, sizeof(verticesCube), verticesCube, GL_STATIC_DRAW);
+			break;
+		}
+		case TWOD:
+		{
+			glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+			break;
+		}
 	}
 
 	//glGenTextures(1, &texture);
@@ -216,21 +228,24 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
-	if (m_shape == PYRAMID)
+	switch (_shape)
 	{
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicesPyramid), indicesPyramid, GL_STATIC_DRAW);
+		case PYRAMID:
+		{
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicesPyramid), indicesPyramid, GL_STATIC_DRAW);
+			break;
+		}
+		case CUBE:
+		{
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicesCube), indicesCube, GL_STATIC_DRAW);
+			break;
+		}
+		case TWOD:
+		{
+			glBufferData(GL_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+			break;
+		}
 	}
-	else if (m_shape == CUBE)
-	{
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indicesCube), indicesCube, GL_STATIC_DRAW);
-	}
-	else
-	{
-		glBufferData(GL_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-	}
-
-	//_vao = vao;
-
 }
 
 /***********************

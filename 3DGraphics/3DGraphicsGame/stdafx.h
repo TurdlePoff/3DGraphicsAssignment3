@@ -8,7 +8,8 @@
 // (c) 2018 Media Design School
 //
 // File Name	: "stdafx.h"
-// Description	: stdafx declaration file
+// Description	: stdafx declaration file 
+//				  Stores static variables to be used throughout the application
 // Author		: Vivian Ngo
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
@@ -135,6 +136,14 @@ static GLfloat verticesCube[216] = {
 	1.0f, -1.0f, 1.0f,		0.0f, 1.0f, 1.0f, 0.0f,		1.0f, 0.0f,
 	1.0f, -1.0f, -1.0f,		0.0f, 0.0f, 0.0f, 0.0f,		1.0f, 1.0f,
 	-1.0f, -1.0f, -1.0f,	0.0f, 0.0f, 1.0f, 0.0f,		0.0f, 1.0f,
+};
+
+static GLfloat quadVertices[32] = {
+	// Position				// Normals			// TexCoord
+	-1.0f, 1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,
+	1.0f, 1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	1.0f, 0.0f,
+	1.0f, -1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	1.0f, 1.0f,
+	-1.0f, -1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f, 1.0f
 };
 
 //Enums of images within the game

@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+      <Title>HeaderGuard</Title>
+      <Author>[USERNAME]</Author>
+      <Description>
+      </Description>
+      <HelpUrl>
+      </HelpUrl>
+      <Shortcut>Guard</Shortcut>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal Editable="true">
+          <ID>HEADERNAME</ID>
+          <ToolTip>HEADERNAME</ToolTip>
+          <Default>HEADERNAME</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>HEADERNAMES</ID>
+          <ToolTip>HEADERNAMES</ToolTip>
+          <Default>HEADERNAMES</Default>
+          <Function>
+          </Function>
+        </Literal>
+      </Declarations>
+      <Code Language="cpp" Delimiter="$"><![CDATA[#pragma once
+#ifndef __$HEADERNAME$_H__
+#define __$HEADERNAME$_H__
+
+#endif //__$HEADERNAMES$_H__]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>

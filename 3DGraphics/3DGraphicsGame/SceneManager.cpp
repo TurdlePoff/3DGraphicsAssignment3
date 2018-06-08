@@ -16,7 +16,7 @@
 #include "Level.h"
 
 CSceneManager* CSceneManager::s_pSceneInstance = 0;
-//std::shared_ptr<CSprite> playerSprite = std::make_shared(BIRB1, CUBE, glm::vec3(0.0f, 0.0f, 0.0f));
+
 /***********************
 * GetInstance: Gets scene manager Instance
 * @author: Vivian Ngo

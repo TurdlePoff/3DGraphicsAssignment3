@@ -30,6 +30,7 @@ public:
 	void SetCamPos(glm::vec3 _cPos);
 	void SetCamUp(glm::vec3 _cUp);
 	void SetCamSpeed(float _cSpeed);
+	void CameraMovement(float _camSpeed);
 
 	glm::vec3 GetCamFront();
 	glm::vec3 GetCamPos();

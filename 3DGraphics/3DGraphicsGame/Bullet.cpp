@@ -25,7 +25,8 @@
 CBullet::CBullet(std::shared_ptr<CSprite> _bulletSprite, int _damage, EBullets _bltType) :
 	m_pBulletSprite(_bulletSprite), m_numDamage(_damage), m_bltType(_bltType)
 {
-
+	m_vel.x = 0.0f;
+	m_vel.y = 0;
 }
 
 /***********************
@@ -34,6 +35,17 @@ CBullet::CBullet(std::shared_ptr<CSprite> _bulletSprite, int _damage, EBullets _
 * @date: 9/04/18
 ***********************/
 CBullet::~CBullet() {}
+
+/***********************
+* Update: Update the bullet
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+void CBullet::Update()
+{
+	m_vel.x += 0.5f;
+	m_vel.y = 0.5f;
+}
 
 /***********************
 * SetDamagePoint: Sets the bullet damage to a new one
@@ -55,4 +67,15 @@ void CBullet::SetDamagePoint(int damage)
 int CBullet::GetDamagePoint()
 {
 	return m_numDamage;
+}
+
+/***********************
+* GetSprite: Gets the bullet's sprite
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_pBulletSprite - returns the bullet's sprite
+***********************/
+std::shared_ptr<CSprite> CBullet::GetSprite()
+{
+	return m_pBulletSprite;
 }

@@ -31,7 +31,7 @@ public:
 	~CSprite() {};
 
 	void Draw();
-	void Update();
+	virtual void Update();
 	void OnDestroy();
 
 	void Translate(glm::vec3 Movement);
