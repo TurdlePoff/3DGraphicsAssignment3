@@ -180,9 +180,9 @@ void CLevel::Render()
 		m_pTextList[tList]->Render();
 	}
 
-	for (unsigned int bList = 0; bList < m_pBulletList.size(); ++bList)
+	for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 	{
-		m_pBulletList[bList]->GetSprite()->Draw();
+		m_pPlayerBulletList[bList]->GetSprite()->Draw();
 	}
 }
 
@@ -203,6 +203,18 @@ void CLevel::Update()
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
 		MovePlayer(player);
+
+		if (Utils::KeyState[32] == INPUT_FIRST_PRESS)
+		{
+			CreateBullet(player);
+			Utils::KeyState[32] = INPUT_RELEASED;
+		}
+
+		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
+		{
+			m_pPlayerBulletList[bList]->Update();
+		}
+
 		CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
 
 		CheckEnemyCollision(player);
@@ -211,10 +223,9 @@ void CLevel::Update()
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
 		m_pTextList[5]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
 
-		for (unsigned int bList = 0; bList < m_pBulletList.size(); ++bList)
-		{
-			m_pBulletList[bList]->Update();
-		}
+		
+
+		CheckBulletEnemyCollision();
 
 		//If player was hit, player is temporarily red
 		if (m_pPlayer->GetSprite()->GetIsHit())
@@ -384,19 +395,23 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 * @date: 08/05/18
 * @return: player - player to check collision with enemies
 ***********************/
-void CLevel::CheckEnemyBulletCollision()
+void CLevel::CheckBulletEnemyCollision()
 {
 	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
 	{
-		for (unsigned int bList = 0; bList < m_pBulletList.size(); ++bList)
+		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 		{
 			if (m_pEnemyList[eList]->GetIsHit())
 			{
-				if (m_pBulletList[bList]->GetSprite()->IsCollidingWith(m_pEnemyList[eList]))
+				if (m_pPlayerBulletList[bList]->GetSprite()->IsCollidingWith(m_pEnemyList[eList]))
 				{
-					//m_pEnemyList[eList]
-				}
+					m_pEnemyList[eList]->SetIsHit(true);
+					m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
+				
+					m_pPlayerBulletList.erase(m_pPlayerBulletList.begin() + bList);
 
+					SetRemainingEnemies(GetRemainingEnemies() - 1);
+				}
 			}
 		}
 	}

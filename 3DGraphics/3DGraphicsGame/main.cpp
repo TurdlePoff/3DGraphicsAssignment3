@@ -112,7 +112,10 @@ int main(int argc, char **argv)
 
 	glewInit();
 	Init();
-
+	for (int i = 0; i < 255; i++)
+	{
+		Utils::KeyState[i] == INPUT_RELEASED;
+	}
 	//Take in inputs
 	glutKeyboardFunc(CInput::Keyboard_Down);
 	glutKeyboardUpFunc(CInput::Keyboard_Up);
@@ -120,6 +123,7 @@ int main(int argc, char **argv)
 	glutPassiveMotionFunc(CInput::MousePassiveMovement);
 	glutMotionFunc(CInput::MouseScrollHold);
 	glutMouseWheelFunc(CInput::ScollCallback);
+	//glutIgnoreKeyRepeat(2);
 
 	glutDisplayFunc(Render);
 	glutIdleFunc(Update);

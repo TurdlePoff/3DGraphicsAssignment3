@@ -26,7 +26,7 @@ CBullet::CBullet(std::shared_ptr<CSprite> _bulletSprite, int _damage, EBullets _
 	m_pBulletSprite(_bulletSprite), m_numDamage(_damage), m_bltType(_bltType)
 {
 	m_vel.x = 0.0f;
-	m_vel.y = 0;
+	m_vel.z = 0;
 }
 
 /***********************
@@ -43,8 +43,10 @@ CBullet::~CBullet() {}
 ***********************/
 void CBullet::Update()
 {
-	m_vel.x += 0.5f;
-	m_vel.y = 0.5f;
+	//m_vel.x += 0.5f;
+	m_vel.z += 0.5f;
+
+	GetSprite()->Translate(glm::vec3(GetPos().x, GetPos().y, GetPos().z + m_vel.z));
 }
 
 /***********************

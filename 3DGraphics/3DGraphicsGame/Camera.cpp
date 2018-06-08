@@ -81,10 +81,10 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	//Moves the camera when WASD input is pressed
 	float cameraSpeed = 0.01f * CTime::GetInstance()->GetCurTimeSecs();
 
-	CameraMovement(cameraSpeed);
+	//CameraMovement(cameraSpeed);
 
 	//ROTATE CAMERA TO VIEW AS EAGLE EYE
-	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(60.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * ROT;
 	projection = glm::perspective(m_fov, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 1000.0f);
 

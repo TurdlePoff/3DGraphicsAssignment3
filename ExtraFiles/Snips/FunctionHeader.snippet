@@ -22,7 +22,28 @@
           <Function>
           </Function>
         </Literal>
+		<Literal Editable="true">
+          <ID>FunctionDesc</ID>
+          <ToolTip>FunctionDesc</ToolTip>
+          <Default>FunctionDesc</Default>
+          <Function>
+          </Function>
+        </Literal>
         <Literal Editable="true">
+          <ID>AuthorName</ID>
+          <ToolTip>AuthorNAme</ToolTip>
+          <Default>Author</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
+          <ID>Date</ID>
+          <ToolTip>Date</ToolTip>
+          <Default>Date</Default>
+          <Function>
+          </Function>
+        </Literal>
+		 <Literal Editable="true">
           <ID>Parameters</ID>
           <ToolTip>Parameters</ToolTip>
           <Default>None</Default>
@@ -30,40 +51,38 @@
           </Function>
         </Literal>
         <Literal Editable="true">
+          <ID>ParDesc</ID>
+          <ToolTip>ParDesc</ToolTip>
+          <Default>ParDesc</Default>
+          <Function>
+          </Function>
+        </Literal>
+        <Literal Editable="true">
           <ID>ReturnType</ID>
           <ToolTip>ReturnType</ToolTip>
-          <Default>None</Default>
+          <Default>returnVal</Default>
           <Function>
           </Function>
         </Literal>
-        <Literal Editable="true">
-          <ID>DescriptionLine1</ID>
-          <ToolTip>DescriptionLine1</ToolTip>
-          <Default>Description</Default>
-          <Function>
-          </Function>
-        </Literal>
-        <Literal Editable="true">
-          <ID>DescriptionLine2</ID>
-          <ToolTip>DescriptionLine2</ToolTip>
-          <Default>DescriptionLine1</Default>
-          <Function>
-          </Function>
-        </Literal>
-        <Literal Editable="true">
-          <ID>DescriptionLine3</ID>
-          <ToolTip>DescriptionLine3</ToolTip>
-          <Default>DescriptionLine2</Default>
+		<Literal Editable="true">
+          <ID>ReturnDesc</ID>
+          <ToolTip>ReturnDesc</ToolTip>
+          <Default>ReturnDesc</Default>
           <Function>
           </Function>
         </Literal>
       </Declarations>
-      <Code Language="cpp" Delimiter="$"><![CDATA[//Name:					$FunctionName$
-//Parameters:		$Parameters$
-//Return Type:		$ReturnType$
-//Description:		$DescriptionLine1$
-//                          $DescriptionLine2$
-//                          $DescriptionLine3$]]></Code>
+      <Code Language="cpp" Delimiter="$">
+	  
+<![CDATA[
+/***********************
+* $FunctionName$: $FunctionDesc$
+* @author: $AuthorName$
+* @date: $Date$
+* @parameter: $Parameters$ - $ParDesc$
+* @return: $ReturnType$ - $ReturnDesc$
+***********************/]]>
+</Code>
     </Snippet>
   </CodeSnippet>
 </CodeSnippets>

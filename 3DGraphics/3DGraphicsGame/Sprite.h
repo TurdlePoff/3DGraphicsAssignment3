@@ -16,7 +16,7 @@
 #ifndef __SPRITE_H__
 #define __SPRITE_H__
 
-#include "stdafx.h"
+#include "stdafx.h" 
 #include <memory>
 
 class CSprite

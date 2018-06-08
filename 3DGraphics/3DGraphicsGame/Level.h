@@ -28,7 +28,7 @@ public:
 	void CreateBullet(std::shared_ptr<CSprite> player);
 	void CheckEnemyCollision(std::shared_ptr<CSprite> player);
 	void CheckPowerUpCollision(std::shared_ptr<CSprite> player);
-	void CheckEnemyBulletCollision();
+	void CheckBulletEnemyCollision();
 	bool IsMouseOverButton(std::shared_ptr<CTextLabel> t);
 	void CheckButtonHovered();
 	void HandleStartScreenButtons();

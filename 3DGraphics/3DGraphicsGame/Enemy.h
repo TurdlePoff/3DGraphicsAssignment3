@@ -54,6 +54,7 @@ public:
 	float GetZSpeed() { return m_vel.z; }*/
 
 	enVector m_vel;
+
 	enVector m_acc;
 	enVector m_force;
 

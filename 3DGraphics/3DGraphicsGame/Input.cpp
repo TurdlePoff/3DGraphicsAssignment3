@@ -79,15 +79,18 @@ CInput::~CInput() {}
 ***********************/
 void CInput::Keyboard_Down(unsigned char key, int x, int y)
 { 
-	/*if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 0 
-		|| CSceneManager::GetInstance()->GetCurrentSceneNumber() == 2)
+	//if (Utils::KeyState[key] == INPUT_FIRST_PRESS) 
+	//{
+	//	Utils::KeyState[key] = INPUT_HOLD;
+	//	std::cout << "Held\n";
+	//	//Anything to do once
+	//}
+	if (Utils::KeyState[key] == INPUT_RELEASED && m_isPressed == false);
 	{
 		Utils::KeyState[key] = INPUT_FIRST_PRESS;
+		std::cout << "First Press\n";
+		m_isPressed = true;
 	}
-	else
-	{*/
-		Utils::KeyState[key] = INPUT_HOLD;
-	//}
 }
 
 /***********************
@@ -111,6 +114,8 @@ void CInput::Keyboard_Up(unsigned char key, int x, int y)
 	else
 	{*/
 		Utils::KeyState[key] = INPUT_RELEASED;
+		std::cout << "First Press\n";
+		m_isPressed = false;
 	//}
 }
 

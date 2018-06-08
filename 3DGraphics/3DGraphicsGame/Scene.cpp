@@ -93,7 +93,29 @@ void CScene::AddToPowerUpList(std::shared_ptr<CPowerUp> _pow)
 ***********************/
 void CScene::AddToBulletList(std::shared_ptr<CBullet> _blt)
 {
-	m_pBulletList.push_back(_blt);
+	m_pPlayerBulletList.push_back(_blt);
+}
+
+/***********************
+* SetRemainingEnemies: Sets remaining enemies in level
+* @author: Vivian Ngo
+* @date: 8/06/18
+* @parameter: remaining - remaining enemies
+***********************/
+void CScene::SetRemainingEnemies(int remaining)
+{
+	m_iEnemiesRemaining = remaining;
+}
+
+/***********************
+* GetRemainingEnemies:
+* @author: Vivian Ngo
+* @date: 8/06/18
+* @return: m_iEnemiesRemaining - remaining enemies in level
+***********************/
+int CScene::GetRemainingEnemies()
+{
+	return m_iEnemiesRemaining;
 }
 
 /***********************
