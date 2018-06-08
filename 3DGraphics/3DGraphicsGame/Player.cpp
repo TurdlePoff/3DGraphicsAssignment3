@@ -98,7 +98,51 @@ std::shared_ptr<CSprite> CPlayer::GetSprite()
 	return m_pPlayerSprite;
 }
 
+/***********************
+* CreateBullet: Creates bullet infront of player
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: player - player to shoot bullet
+***********************/
+std::shared_ptr<CBullet> CPlayer::CreateBullet()
+{
+	std::shared_ptr<CSprite> newBulletSprite = std::make_shared<CSprite>(BIRB1, CUBE, glm::vec3(-10.0f, 0.0f, 0.0));
+	newBulletSprite->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
+	newBulletSprite->SetRotatation(GetSprite()->GetRot());
 
+	if (GetSprite()->GetRot().z == 0.0f) //up
+	{
+		newBulletSprite->Translate(glm::vec3(
+			GetSprite()->GetPos().x,
+			GetSprite()->GetPos().y,
+			GetSprite()->GetPos().z - 0.4f));
+	}
+	else if (GetSprite()->GetRot().z == 180.0f) //down
+	{
+		newBulletSprite->Translate(glm::vec3(
+			GetSprite()->GetPos().x,
+			GetSprite()->GetPos().y,
+			GetSprite()->GetPos().z + 0.4f));
+	}
+	else if (GetSprite()->GetRot().z == 90.0f) //left
+	{
+		newBulletSprite->Translate(glm::vec3(
+			GetSprite()->GetPos().x - 0.4f,
+			GetSprite()->GetPos().y,
+			GetSprite()->GetPos().z));
+	}
+	else if (GetSprite()->GetRot().z == -90.0f) //left
+	{
+		newBulletSprite->Translate(glm::vec3(
+			GetSprite()->GetPos().x + 0.4f,
+			GetSprite()->GetPos().y,
+			GetSprite()->GetPos().z));
+	}
+
+	std::shared_ptr<CBullet> newBullet = std::make_shared<CBullet>(newBulletSprite, 1, BLT_NORM);
+
+	return newBullet;
+}
 
 ///*********************** not sure if will use yet
 //* GetCurrentLevel: Gets current level player is in

@@ -25,7 +25,6 @@ public:
 	void Render();
 	void Update();
 	void MovePlayer(std::shared_ptr<CSprite> player);
-	void CreateBullet(std::shared_ptr<CSprite> player);
 	void CheckEnemyCollision(std::shared_ptr<CSprite> player);
 	void CheckPowerUpCollision(std::shared_ptr<CSprite> player);
 	void CheckBulletEnemyCollision();

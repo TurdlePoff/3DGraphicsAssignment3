@@ -197,7 +197,6 @@ void CLevel::Update()
 	m_pTextList[1]->SetText(std::to_string(Utils::mouseY));
 	//If the player is currently in level 0 or 2
 	
-	
 	if (m_iLevelNumber == 1)	//If the player is currently in level 1
 	{
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
@@ -206,7 +205,7 @@ void CLevel::Update()
 
 		if (Utils::KeyState[32] == INPUT_FIRST_PRESS)
 		{
-			CreateBullet(player);
+			AddToBulletList(GetPlayer()->CreateBullet());
 			Utils::KeyState[32] = INPUT_RELEASED;
 		}
 
@@ -311,24 +310,6 @@ void CLevel::MovePlayer(std::shared_ptr<CSprite> player)
 
 	//Translate player depending on key pressed
 	player->Translate(glm::vec3(m_fX + player->GetPos().x, m_fY + player->GetPos().y, m_fZ + player->GetPos().z));
-}
-
-/***********************
-* CreateBullet: Creates bullet infront of player
-* @author: Vivian Ngo
-* @date: 08/05/18
-* @parameter: player - player to shoot bullet
-***********************/
-void CLevel::CreateBullet(std::shared_ptr<CSprite> player)
-{
-	std::shared_ptr<CSprite> newBulletSprite = std::make_shared<CSprite>(BIRB1, CUBE, glm::vec3(-10.0f, 0.0f, 0.0));
-
-	std::shared_ptr<CBullet> newBullet = std::make_shared<CBullet>(newBulletSprite, 1, BLT_NORM);
-
-	newBullet->Translate(glm::vec3(player->GetPos().x, player->GetPos().y, player->GetPos().z + 0.5f));
-	newBullet->SetRotatation(player->GetRot());
-
-	AddToBulletList(newBullet);
 }
 
 /***********************

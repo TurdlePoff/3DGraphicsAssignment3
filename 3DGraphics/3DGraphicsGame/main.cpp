@@ -112,10 +112,12 @@ int main(int argc, char **argv)
 
 	glewInit();
 	Init();
-	for (int i = 0; i < 255; i++)
+
+	/*for (int i = 0; i < 255; i++)
 	{
-		Utils::KeyState[i] == INPUT_RELEASED;
-	}
+		Utils::KeyState[i] = INPUT_RELEASED;
+	}*/
+
 	//Take in inputs
 	glutKeyboardFunc(CInput::Keyboard_Down);
 	glutKeyboardUpFunc(CInput::Keyboard_Up);

@@ -15,6 +15,7 @@
 
 #include "stdafx.h"
 #include "Sprite.h"
+#include "Bullet.h"
 
 class CPlayer : public CSprite
 {
@@ -30,14 +31,7 @@ public:
 	int GetScore();						//Get player's current score
 	void SetScore(int _newScore);		//Set player's current score
 	void ResetPlayerStats();
-
-	void SetBulletStartTime();
-	void SetBulletEndTime();
-	float GetBulletStartTime();
-	float GetBulletEndTime();
-	float GetElapsedHitTime();
-	void SetIsHit(bool _isHit);
-	bool GetIsHit();
+	std::shared_ptr<CBullet> CreateBullet();
 
 	std::shared_ptr<CSprite> GetSprite();	//Get player's sprite
 	

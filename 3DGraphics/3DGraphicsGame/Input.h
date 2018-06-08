@@ -35,7 +35,7 @@ public:
 	static void SetStartPressed();
 	static void SetLastPressed();
 	static float GetStartPressed();
-	static float GetEndPressed();
+	static float GetLastPressed();
 	static float GetElapsedPressedTime();
 	static void SetIsPressed(bool _isHit);
 	static bool GetIsPressed();

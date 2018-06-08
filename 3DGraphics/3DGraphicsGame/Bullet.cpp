@@ -44,9 +44,36 @@ CBullet::~CBullet() {}
 void CBullet::Update()
 {
 	//m_vel.x += 0.5f;
-	m_vel.z += 0.5f;
+	//m_vel.z += 0.5f;
 
-	GetSprite()->Translate(glm::vec3(GetPos().x, GetPos().y, GetPos().z + m_vel.z));
+	if (GetSprite()->GetRot().z == 0.0f) //up
+	{
+		GetSprite()->Translate(glm::vec3(
+			GetSprite()->GetPos().x,
+			GetSprite()->GetPos().y,
+			GetSprite()->GetPos().z - 0.5f));
+	}
+	else if (GetSprite()->GetRot().z == 180.0f) //down
+	{
+		GetSprite()->Translate(glm::vec3(
+			GetSprite()->GetPos().x,
+			GetSprite()->GetPos().y,
+			GetSprite()->GetPos().z + 0.5f));
+	}
+	else if (GetSprite()->GetRot().z == 90.0f) //left
+	{
+		GetSprite()->Translate(glm::vec3(
+			GetSprite()->GetPos().x - 0.5f,
+			GetSprite()->GetPos().y,
+			GetSprite()->GetPos().z));
+	}
+	else if (GetSprite()->GetRot().z == -90.0f) //left
+	{
+		GetSprite()->Translate(glm::vec3(
+			GetSprite()->GetPos().x + 0.5f,
+			GetSprite()->GetPos().y,
+			GetSprite()->GetPos().z));
+	}
 }
 
 /***********************
