@@ -28,6 +28,7 @@ public:
 	const bool LoadAudio();
 	void InitBackground();
 	void InitThump();
+	void InitPowNom();
 
 private: 
 	static CSoundManager* s_pSoundInstance;
@@ -35,5 +36,7 @@ private:
 
 	FMOD::System* audioMgr; 
 	FMOD::Sound* fxPew; 
+	FMOD::Sound* fxPowerUp;
+
 	FMOD::Sound* bgmTheme;
 };

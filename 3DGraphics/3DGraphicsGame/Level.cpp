@@ -16,6 +16,7 @@
 #include "SceneManager.h"
 #include "Time.h"
 #include "AI.h"
+#include "SoundManager.h"
 
 CLevel::CLevel(){}
 
@@ -104,7 +105,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
-		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_1POINT));
+		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_INVINCIBLE));
 		//lAppleSprite1->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, ENMY_NORM));
@@ -133,6 +134,11 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CTextLabel> actualLivesText(new CTextLabel(playerLives, "Resources/Fonts/bubble.TTF", glm::vec2(80.0f, 10.0f)));
 		actualLivesText->SetScale(0.3f);
 		actualLivesText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
+		AddToTextList(actualLivesText);
+
+		std::shared_ptr<CTextLabel> invText(new CTextLabel("ye", "Resources/Fonts/bubble.TTF", glm::vec2(80.0f, 10.0f)));
+		invText->SetScale(0.3f);
+		invText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(actualLivesText);
 	}
 }
@@ -202,7 +208,8 @@ void CLevel::Update()
 	{
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
-		MovePlayer(player);
+		//Move player
+		GetPlayer()->MovePlayer();
 
 		if (Utils::SpaceState[' '] == INPUT_HOLD)
 		{
@@ -213,46 +220,69 @@ void CLevel::Update()
 			Utils::SpaceState[' '] = INPUT_RELEASED;
 		}
 
+		//Go through every bullet and update
 		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 		{
 			m_pPlayerBulletList[bList]->Update();
 		}
 
+		//Allow enemy to use bouncyball AI
 		if(m_pEnemyList.size() != 0)
 			CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
 
 		CheckEnemyCollision(player);
 		CheckPowerUpCollision(player);
+		CheckBulletEnemyCollision();
+		CheckBulletBoundaries();
 
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
 		m_pTextList[5]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
 
-		CheckBulletEnemyCollision();
-		CheckBulletBoundaries();
 
 		//If player was hit, player is temporarily red
-		if (m_pPlayer->GetSprite()->GetIsHit())
+		if (GetPlayer()->GetSprite()->GetIsHit())
 		{
 			//Calculate the time since it was hit
-			m_pPlayer->GetSprite()->SetHitEndTime();
+			GetPlayer()->GetSprite()->SetHitEndTime();
 
 			//If time since hit is bigger than 1 second, revert colour back to normal
-			if (m_pPlayer->GetSprite()->GetHitEndTime() - m_pPlayer->GetSprite()->GetHitStartTime() > 1)
+			if (GetPlayer()->GetSprite()->GetHitEndTime() - GetPlayer()->GetSprite()->GetHitStartTime() > 1)
 			{
-				m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+				GetPlayer()->GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+				GetPlayer()->GetSprite()->SetIsHit(false);
 			}
 		}
 
-		if (m_pPlayer->GetPlayerLives() <= 0 || m_pEnemyList.size() == 0)
+		//If player is invincible for over 5 seconds, revert state
+		if (GetPlayer()->GetInvincible())
 		{
-			m_pPlayer->GetSprite()->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
-			m_pPlayer->GetSprite()->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
-			m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+			GetPlayer()->SetPowerUpEndTime();
 
+			if (GetPlayer()->GetPowerUpEndTime() - GetPlayer()->GetPowerUpStartTime() > 5.0f) //5 seconds up?
+			{
+				GetPlayer()->SetInvincible(false);
+				GetPlayer()->SetPowerUpStartTime();
+			}
+		}
+
+		if (GetPlayer()->GetPlayerLives() <= 0 || m_pEnemyList.size() == 0)
+		{
+			GetPlayer()->GetSprite()->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
+			GetPlayer()->GetSprite()->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
+			GetPlayer()->GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+
+			if (m_pEnemyList.size() == 0)
+			{
+				CSceneManager::GetInstance()->SetWinner(true);
+			}
 			CSceneManager::GetInstance()->SwitchScene(12);
 		}
+
+		m_pTextList[6]->SetText((GetPlayer()->GetInvincible() ? "invincible" : "nOPE"));
+
 	}
 	
+
 
 	CheckButtonHovered();
 	HandleStartScreenButtons();
@@ -260,61 +290,11 @@ void CLevel::Update()
 	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 12)
 	{
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
+		if (CSceneManager::GetInstance()->GetWinner())
+		{
+			m_pTextList[4]->SetText(" WINNER");
+		}
 	}
-}
-
-/***********************
-* MovePlayer: Move player based on player input
-* @author: Vivian Ngo
-* @date: 08/05/18
-***********************/
-void CLevel::MovePlayer(std::shared_ptr<CSprite> player)
-{
-	float val = 0.5f;// *CTime::GetInstance()->GetDeltaTime();
-	float m_fX = 0;
-	float m_fY = 0;
-	float m_fZ = 0;
-
-	//Moves player depending on direction moved
-	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
-	{
-		if (player->GetPos().x < -45.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
-			m_fX = 0;
-		else
-			m_fX -= val;
-
-			player->SetRotatation(glm::vec3(0.0f, 0.0f, 90.0f));
-	}
-	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
-	{
-		if (player->GetPos().x > 45.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
-			m_fX = 0;
-		else
-			m_fX += val;
-
-			player->SetRotatation(glm::vec3(0.0f, 0.0f, -90.0f));
-	}
-	else if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
-	{
-		if (player->GetPos().z < -40.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
-			m_fZ = 0;
-		else
-			m_fZ -= val;
-
-		player->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
-	}
-	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
-	{
-		if (player->GetPos().z > 50.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
-			m_fZ = 0;
-		else
-			m_fZ += val;
-
-		player->SetRotatation(glm::vec3(0.0f, 0.0f, 180.0f));
-	}
-
-	//Translate player depending on key pressed
-	player->Translate(glm::vec3(m_fX + player->GetPos().x, m_fY + player->GetPos().y, m_fZ + player->GetPos().z));
 }
 
 /***********************
@@ -329,25 +309,18 @@ void CLevel::CheckEnemyCollision(std::shared_ptr<CSprite> player)
 	{
 		if (player->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
 		{
-			//Set if making enemy that dies via touch
-
-			//m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
-			//m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
-
-			/*if (m_pPowerUpList[pList]->GetIsDead() == false)
-			{*/
-
-
-			m_pEnemyList[eList]->GetSprite()->SetHitEndTime();
-
-			if (m_pEnemyList[eList]->GetSprite()->GetHitEndTime() - m_pEnemyList[eList]->GetSprite()->GetHitStartTime() > 2)
+			if (GetPlayer()->GetInvincible() == false && player->GetIsHit() == false)
 			{
-				m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
-				m_pEnemyList[eList]->GetSprite()->SetHitStartTime();
+				m_pEnemyList[eList]->GetSprite()->SetHitEndTime();
 
-				m_pPlayer->GetSprite()->SetHitStartTime();
-
-				m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+				if (m_pEnemyList[eList]->GetSprite()->GetHitEndTime() - m_pEnemyList[eList]->GetSprite()->GetHitStartTime() > 2)
+				{
+					GetPlayer()->SetPlayerLives(GetPlayer()->GetPlayerLives() - 1);
+					m_pEnemyList[eList]->GetSprite()->SetHitStartTime();
+					GetPlayer()->GetSprite()->SetIsHit(true);
+					GetPlayer()->GetSprite()->SetHitStartTime();
+					GetPlayer()->GetSprite()->SetColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+				}
 			}
 		}
 	}
@@ -367,8 +340,17 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 		{
 			if (m_pPowerUpList[pList]->GetIsDead() == false)
 			{
-				m_pPowerUpList[pList]->SetIsDead(true);
-				m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pPowerUpList[pList]->GetPowPoint());
+				if (m_pPowerUpList[pList]->GetPowType() == POW_INVINCIBLE)
+				{
+					CSoundManager::GetInstance()->InitPowNom();
+
+
+					GetPlayer()->SetScore(GetPlayer()->GetScore() + m_pPowerUpList[pList]->GetPowPoint());
+					m_pPowerUpList.erase(m_pPowerUpList.begin() + pList);
+
+					GetPlayer()->SetPowerUpStartTime();
+					GetPlayer()->SetInvincible(true);
+				}
 			}
 		}
 	}
@@ -380,7 +362,7 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 * @author: Vivian Ngo
 * @date: 08/05/18
 * @return: player - player to check collision with enemies
-***********************/
+***********************/	
 void CLevel::CheckBulletEnemyCollision()
 {
 	

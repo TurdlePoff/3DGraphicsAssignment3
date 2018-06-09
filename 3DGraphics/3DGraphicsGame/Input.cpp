@@ -90,7 +90,6 @@ void CInput::Keyboard_Down(unsigned char key, int x, int y)
 		if (GetElapsedPressedTime() > 0.1f)
 		{
   			Utils::SpaceState[key] = INPUT_HOLD;
-			std::cout << "Spc\n";
 			SetStartPressed();
 		}
 	}

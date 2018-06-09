@@ -80,7 +80,8 @@ const bool CSoundManager::LoadAudio()
 {
 	FMOD_RESULT result;
 
-	result = audioMgr->createSound("Resources/sounds/pew.wav", FMOD_DEFAULT, 0, &fxPew);
+	result = audioMgr->createSound("Resources/sounds/poweruppleNom.wav", FMOD_DEFAULT, 0, &fxPowerUp);
+	result = audioMgr->createSound("Resources/sounds/shootBub.wav", FMOD_DEFAULT, 0, &fxPew);
 	result = audioMgr->createSound("Resources/sounds/Background.mp3", FMOD_DEFAULT, 0, &bgmTheme);
 
 	fxPew->setMode(FMOD_LOOP_OFF);
@@ -111,5 +112,12 @@ void CSoundManager::InitThump()
 {
 	FMOD::Channel* channel;
 	audioMgr->playSound(fxPew, 0, false, &channel);
+	channel->setVolume(0.5f);
+}
+
+void CSoundManager::InitPowNom()
+{
+	FMOD::Channel* channel;
+	audioMgr->playSound(fxPowerUp, 0, false, &channel);
 	channel->setVolume(0.5f);
 }

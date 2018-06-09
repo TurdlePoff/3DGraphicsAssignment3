@@ -23,7 +23,7 @@
 #include "AI.h"
 #include "Lighting.h"
 
-//#include <vld.h>
+#include <vld.h>
 
 void Init();
 void Render(void);
