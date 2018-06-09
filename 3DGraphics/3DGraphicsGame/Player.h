@@ -34,7 +34,7 @@ public:
 	std::shared_ptr<CBullet> CreateBullet();
 
 	std::shared_ptr<CSprite> GetSprite();	//Get player's sprite
-	
+
 private:
 	std::shared_ptr<CSprite> m_pPlayerSprite;	//the player's sprite
 	
@@ -42,6 +42,7 @@ private:
 	int m_iCurrentLives;	//Number of player lives
 	int m_iScore;			//Player score
 	int m_bulletStrength;	//Strength of the player's bullets
-	bool m_invisible;		//determines whether player is invisible or not
+	bool m_invincible;		//determines whether player is invisible or not
+
 };
 

@@ -28,6 +28,8 @@ public:
 	void CheckEnemyCollision(std::shared_ptr<CSprite> player);
 	void CheckPowerUpCollision(std::shared_ptr<CSprite> player);
 	void CheckBulletEnemyCollision();
+	void CheckBulletBoundaries();
+
 	bool IsMouseOverButton(std::shared_ptr<CTextLabel> t);
 	void CheckButtonHovered();
 	void HandleStartScreenButtons();
@@ -39,6 +41,8 @@ private:
 	int m_iTimeTilHive;
 
 	bool m_bGameOver;
+
+	float m_move = 5.0f;
 	
 	std::string sc;
 };

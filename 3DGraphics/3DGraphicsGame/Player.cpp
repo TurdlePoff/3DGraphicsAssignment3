@@ -85,7 +85,7 @@ void CPlayer::ResetPlayerStats()
 	m_iCurrentLives = 2;
 	m_iScore = 0;
 	m_bulletStrength = 1;
-	m_invisible = false;
+	m_invincible = false;
 }
 
 /***********************

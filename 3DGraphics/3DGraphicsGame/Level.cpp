@@ -77,6 +77,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CTextLabel> exText(new CTextLabel("BACK", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f + 25.0f, ((SCR_HEIGHT / 2) - 300))));
 		exText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(exText);
+
 	}
 	else if (m_iLevelNumber == 12)	//IF THE LEVEL IS THE GAME OVER SCREEN
 	{
@@ -93,7 +94,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 
 		std::shared_ptr<CTextLabel> gameOver(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, SCR_HEIGHT / 2)));//SCR_HEIGHT - 200.0f));
 		gameOver->SetScale(1.0f);
-		gameOver->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		gameOver->SetColor(glm::vec3(0.0f, 1.0f, 0.0f));
 		AddToTextList(gameOver);
 
 		std::shared_ptr<CTextLabel> mmText(new CTextLabel("MAIN MENU", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, ((SCR_HEIGHT / 2) - 300))));
@@ -217,7 +218,8 @@ void CLevel::Update()
 			m_pPlayerBulletList[bList]->Update();
 		}
 
-		CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
+		if(m_pEnemyList.size() != 0)
+			CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
 
 		CheckEnemyCollision(player);
 		CheckPowerUpCollision(player);
@@ -225,9 +227,8 @@ void CLevel::Update()
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
 		m_pTextList[5]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
 
-		
-
 		CheckBulletEnemyCollision();
+		CheckBulletBoundaries();
 
 		//If player was hit, player is temporarily red
 		if (m_pPlayer->GetSprite()->GetIsHit())
@@ -242,11 +243,12 @@ void CLevel::Update()
 			}
 		}
 
-		if (m_pPlayer->GetPlayerLives() <= 0)
+		if (m_pPlayer->GetPlayerLives() <= 0 || m_pEnemyList.size() == 0)
 		{
 			m_pPlayer->GetSprite()->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 			m_pPlayer->GetSprite()->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
 			m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+
 			CSceneManager::GetInstance()->SwitchScene(12);
 		}
 	}
@@ -381,9 +383,10 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 ***********************/
 void CLevel::CheckBulletEnemyCollision()
 {
-	for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
+	
+	for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 	{
-		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
+		for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
 		{
 			if (!m_pEnemyList[eList]->GetIsHit())
 			{
@@ -394,11 +397,32 @@ void CLevel::CheckBulletEnemyCollision()
 
 					GetPlayer()->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetGainPoint());
 				
+					m_pEnemyList.erase(m_pEnemyList.begin() + eList);
+
 					m_pPlayerBulletList.erase(m_pPlayerBulletList.begin() + bList);
 
 					SetRemainingEnemies(GetRemainingEnemies() - 1);
 				}
 			}
+		}
+	}
+}
+
+/***********************
+* CheckBulletBoundaries: Check Bullet Boundaries
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+void CLevel::CheckBulletBoundaries()
+{
+	for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
+	{
+		if (m_pPlayerBulletList[bList]->GetSprite()->GetPos().x < SCR_LEFT ||
+			m_pPlayerBulletList[bList]->GetSprite()->GetPos().x > SCR_RIGHT || 
+			m_pPlayerBulletList[bList]->GetSprite()->GetPos().z < SCR_TOP ||
+			m_pPlayerBulletList[bList]->GetSprite()->GetPos().z > SCR_BOT)
+		{
+			m_pPlayerBulletList.erase(m_pPlayerBulletList.begin() + bList);
 		}
 	}
 }

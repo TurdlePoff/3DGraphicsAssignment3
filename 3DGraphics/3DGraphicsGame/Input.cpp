@@ -129,12 +129,6 @@ void CInput::MouseClicked(int button, int glutState, int x, int y)
 	if (button < 3) 
 	{ 
 		Utils::MouseState[button] = (glutState == GLUT_DOWN) ? INPUT_HOLD : INPUT_RELEASED;
-
-		/*if (Utils::MouseState[button] == INPUT_HOLD)
-		{
-			Utils::mouseX = (float)x;
-			Utils::mouseY = (float)y;
-		}*/
 	} 
 }
 
