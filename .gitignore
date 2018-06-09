@@ -327,3 +327,11 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+3DGraphics/3DGraphicsGame/Shaders/VertexShader.txt
+3DGraphics/3DGraphicsGame/Shaders/TextVertexShader.txt
+3DGraphics/3DGraphicsGame/Shaders/TextureVertexShader.txt
+3DGraphics/3DGraphicsGame/Shaders/TextureFragmentShader.txt
+3DGraphics/3DGraphicsGame/Shaders/TextFragmentShader.txt
+3DGraphics/3DGraphicsGame/Shaders/LightVertexShader.txt
+3DGraphics/3DGraphicsGame/Shaders/LightFragmentShader.txt
+3DGraphics/3DGraphicsGame/Shaders/FragmentShader.txt

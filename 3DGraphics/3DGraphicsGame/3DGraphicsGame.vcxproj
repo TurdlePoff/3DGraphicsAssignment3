@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(IncludePath);C:\apps\vld\2.5\include</IncludePath>
-    <LibraryPath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(LibraryPath);C:\apps\vld\2.5\lib\Win32</LibraryPath>
+    <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(IncludePath);$(ProjectDir)\Dependencies\vld\2.5\include</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(LibraryPath);$(ProjectDir)\Dependencies\vld\2.5\lib</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;C:\apps\vld\2.5\include;$(IncludePath);C:\apps\vld\2.5\include</IncludePath>

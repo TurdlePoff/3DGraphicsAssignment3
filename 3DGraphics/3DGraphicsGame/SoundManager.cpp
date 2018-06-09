@@ -80,7 +80,7 @@ const bool CSoundManager::LoadAudio()
 {
 	FMOD_RESULT result;
 
-	result = audioMgr->createSound("Resources/sounds/shootBub.wav", FMOD_DEFAULT, 0, &fxPowerUp);
+	result = audioMgr->createSound("Resources/sounds/poweruppleNom.wav", FMOD_DEFAULT, 0, &fxPowerUp);
 	result = audioMgr->createSound("Resources/sounds/shootBub.wav", FMOD_DEFAULT, 0, &fxPew);
 	result = audioMgr->createSound("Resources/sounds/Background.mp3", FMOD_DEFAULT, 0, &bgmTheme);
 

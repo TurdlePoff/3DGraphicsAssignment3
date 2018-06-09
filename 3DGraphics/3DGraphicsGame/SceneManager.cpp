@@ -16,6 +16,7 @@
 #include "Level.h"
 
 CSceneManager* CSceneManager::s_pSceneInstance = 0;
+//bool CSceneManager::winner = false;
 
 /***********************
 * GetInstance: Gets scene manager Instance
@@ -54,18 +55,18 @@ void CSceneManager::DestroyInstance()
 ***********************/
 void CSceneManager::SetUpScenes()
 {
-	std::shared_ptr<CSprite> playerSprite = std::make_shared<CSprite>(BIRB1, CUBE, glm::vec3(0.0f, 0.0f, 0.0f));
-	std::shared_ptr<CPlayer> playerWithSprite = std::make_shared<CPlayer>(playerSprite);
-	std::shared_ptr<CScene> level1 = std::make_shared<CLevel>(1, BG, playerWithSprite);
-	std::shared_ptr<CScene> level2 = std::make_shared<CLevel>(2, BG, playerWithSprite);
-	std::shared_ptr<CScene> level3 = std::make_shared<CLevel>(3, BG, playerWithSprite);
+	std::shared_ptr<CSprite> playerSprite(new CSprite(BIRB1, CUBE, glm::vec3(0.0f, 0.0f, 0.0f)));
+	std::shared_ptr<CPlayer> playerWithSprite(new CPlayer(playerSprite));
+	std::shared_ptr<CScene> level1(new CLevel (1, BG, playerWithSprite));
+	std::shared_ptr<CScene> level2(new CLevel (2, BG, playerWithSprite));
+	std::shared_ptr<CScene> level3(new CLevel (3, BG, playerWithSprite));
 	AddScene(level1);
 	AddScene(level2);
 	AddScene(level3);
 
-	std::shared_ptr<CScene> startScreen = std::make_shared<CLevel>(10, STARTSCR, playerWithSprite);
-	std::shared_ptr<CScene> instructions = std::make_shared<CLevel>(11, STARTSCR, playerWithSprite);
-	std::shared_ptr<CScene> endScreen = std::make_shared<CLevel>(12, STARTSCR, playerWithSprite);
+	std::shared_ptr<CScene> startScreen(new CLevel(10, STARTSCR, playerWithSprite));
+	std::shared_ptr<CScene> instructions(new CLevel(11, STARTSCR, playerWithSprite));
+	std::shared_ptr<CScene> endScreen(new CLevel(12, STARTSCR, playerWithSprite));
 	AddScene(startScreen);
 	AddScene(instructions);
 	AddScene(endScreen);
@@ -142,10 +143,12 @@ void CSceneManager::ResetLevels(std::shared_ptr<CPlayer> _player)
 	RemoveScene(3);
 
 	_player->ResetPlayerStats();
+	m_bWinner = false;
 
-	std::shared_ptr<CScene> level1 = std::make_shared<CLevel>(1, BG, _player);
-	std::shared_ptr<CScene> level2 = std::make_shared<CLevel>(2, BG, _player);
-	std::shared_ptr<CScene> level3 = std::make_shared<CLevel>(3, BG, _player);
+	std::shared_ptr<CScene> level1(new CLevel(1, BG, _player));
+	std::shared_ptr<CScene> level2(new CLevel(2, BG, _player));
+	std::shared_ptr<CScene> level3(new CLevel(3, BG, _player));
+
 	AddScene(level1);
 	AddScene(level2);
 	AddScene(level3);

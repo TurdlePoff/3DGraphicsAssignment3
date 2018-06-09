@@ -29,7 +29,8 @@ public:
 	void ResetLevels(std::shared_ptr<CPlayer> _player);
 	void UpdateScene(std::shared_ptr<CScene> scene);
 	void RenderScene(std::shared_ptr<CScene> scene);
-
+	void SetWinner(bool winner) { m_bWinner = winner; }
+	bool GetWinner() { return m_bWinner; }
 
 	std::shared_ptr<CScene> GetCurrentScene();
 	int GetCurrentSceneNumber();
@@ -43,7 +44,7 @@ private:
 	std::vector<std::shared_ptr<CScene>> scenesList;
 	std::shared_ptr<CScene> currentScene;
 
-
+	bool m_bWinner;
 	
 };
 

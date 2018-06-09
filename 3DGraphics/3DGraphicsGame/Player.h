@@ -31,6 +31,8 @@ public:
 	int GetScore();						//Get player's current score
 	void SetScore(int _newScore);		//Set player's current score
 	void ResetPlayerStats();
+	void MovePlayer();
+
 	std::shared_ptr<CBullet> CreateBullet();
 
 	std::shared_ptr<CSprite> GetSprite();	//Get player's sprite

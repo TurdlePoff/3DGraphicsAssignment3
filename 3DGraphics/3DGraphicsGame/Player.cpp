@@ -92,6 +92,63 @@ void CPlayer::ResetPlayerStats()
 }
 
 /***********************
+* MovePlayer: Move player based on player input
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
+void CPlayer::MovePlayer()
+{
+	float val = 0.5f;// *CTime::GetInstance()->GetDeltaTime();
+	float m_fX = 0;
+	float m_fY = 0;
+	float m_fZ = 0;
+
+	//Moves player depending on direction moved
+	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
+	{
+		if (GetSprite()->GetPos().x < -45.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
+			m_fX = 0;
+		else
+			m_fX -= val;
+
+		GetSprite()->SetRotatation(glm::vec3(0.0f, 0.0f, 90.0f));
+	}
+	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
+	{
+		if (GetSprite()->GetPos().x > 45.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
+			m_fX = 0;
+		else
+			m_fX += val;
+
+		GetSprite()->SetRotatation(glm::vec3(0.0f, 0.0f, -90.0f));
+	}
+	else if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
+	{
+		if (GetSprite()->GetPos().z < -40.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
+			m_fZ = 0;
+		else
+			m_fZ -= val;
+
+		GetSprite()->SetRotatation(glm::vec3(0.0f, 0.0f, 0.0f));
+	}
+	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
+	{
+		if (GetSprite()->GetPos().z > 50.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
+			m_fZ = 0;
+		else
+			m_fZ += val;
+
+		GetSprite()->SetRotatation(glm::vec3(0.0f, 0.0f, 180.0f));
+	}
+
+	//Translate player depending on key pressed
+	GetSprite()->Translate(glm::vec3(
+		m_fX + GetSprite()->GetPos().x, 
+		m_fY + GetSprite()->GetPos().y, 
+		m_fZ + GetSprite()->GetPos().z));
+}
+
+/***********************
 * GetSprite: Gets player's sprite
 * @author: Vivian Ngo
 * @date: 08/05/18
@@ -102,22 +159,41 @@ std::shared_ptr<CSprite> CPlayer::GetSprite()
 	return m_pPlayerSprite;
 }
 
+/***********************
+* SetPowerUpStartTime: Sets a timer if player obtains an invibility power up
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 void CPlayer::SetPowerUpStartTime()
 {
 	m_fInvStartTime = CTime::GetCurTimeSecs();
-	m_invincible = true;
 }
 
+/***********************
+* SetPowerUpEndTime: Sets a the latest time checked 
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 void CPlayer::SetPowerUpEndTime()
 {
 	m_fInvEndTime = CTime::GetCurTimeSecs();
 }
 
+/***********************
+* GetPowerUpStartTime: Gets start of timer
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 float CPlayer::GetPowerUpStartTime()
 {
 	return m_fInvStartTime;
 }
 
+/***********************
+* GetPowerUpEndTime: Gets latest call of timer
+* @author: Vivian Ngo
+* @date: 08/05/18
+***********************/
 float CPlayer::GetPowerUpEndTime()
 {
 	return m_fInvEndTime;
@@ -169,10 +245,31 @@ std::shared_ptr<CBullet> CPlayer::CreateBullet()
 	return newBullet;
 }
 
+/***********************
+* SetInvincible: Sets player as invincible (or not)
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: invincible - set if invincible or not
+***********************/
 void CPlayer::SetInvincible(bool invincible)
 {
 	m_invincible = invincible;
+	if (invincible)
+	{
+		GetSprite()->SetColour(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+	}
+	else
+	{
+		GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+	}
 }
+
+/***********************
+* GetInvincible: Get if player is invincible
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @return: m_invincible - whether player is invincible or not
+***********************/
 bool CPlayer::GetInvincible()
 { 
 	return m_invincible; 
