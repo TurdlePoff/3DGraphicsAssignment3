@@ -208,6 +208,7 @@ void CLevel::Update()
 	{
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
+		//Move player
 		GetPlayer()->MovePlayer();
 
 		if (Utils::SpaceState[' '] == INPUT_HOLD)
@@ -219,12 +220,13 @@ void CLevel::Update()
 			Utils::SpaceState[' '] = INPUT_RELEASED;
 		}
 
+		//Go through every bullet and update
 		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 		{
 			m_pPlayerBulletList[bList]->Update();
 		}
 
-
+		//Allow enemy to use bouncyball AI
 		if(m_pEnemyList.size() != 0)
 			CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
 
