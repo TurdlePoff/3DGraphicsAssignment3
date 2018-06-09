@@ -26,6 +26,7 @@ CPlayer::CPlayer(std::shared_ptr<CSprite> playerSprite)
 {
 	m_pPlayerSprite = playerSprite;
 	ResetPlayerStats();
+	m_invincible = false;
 }
 
 /***********************
@@ -86,6 +87,8 @@ void CPlayer::ResetPlayerStats()
 	m_iScore = 0;
 	m_bulletStrength = 1;
 	m_invincible = false;
+	m_fInvStartTime = 0;
+	m_fInvEndTime = 0;
 }
 
 /***********************
@@ -97,6 +100,27 @@ void CPlayer::ResetPlayerStats()
 std::shared_ptr<CSprite> CPlayer::GetSprite()
 {
 	return m_pPlayerSprite;
+}
+
+void CPlayer::SetPowerUpStartTime()
+{
+	m_fInvStartTime = CTime::GetCurTimeSecs();
+	m_invincible = true;
+}
+
+void CPlayer::SetPowerUpEndTime()
+{
+	m_fInvEndTime = CTime::GetCurTimeSecs();
+}
+
+float CPlayer::GetPowerUpStartTime()
+{
+	return m_fInvStartTime;
+}
+
+float CPlayer::GetPowerUpEndTime()
+{
+	return m_fInvEndTime;
 }
 
 /***********************
@@ -143,6 +167,15 @@ std::shared_ptr<CBullet> CPlayer::CreateBullet()
 	std::shared_ptr<CBullet> newBullet = std::make_shared<CBullet>(newBulletSprite, 1, BLT_NORM);
 	CSoundManager::GetInstance()->InitThump();
 	return newBullet;
+}
+
+void CPlayer::SetInvincible(bool invincible)
+{
+	m_invincible = invincible;
+}
+bool CPlayer::GetInvincible()
+{ 
+	return m_invincible; 
 }
 
 ///*********************** not sure if will use yet

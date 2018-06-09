@@ -35,6 +35,14 @@ public:
 
 	std::shared_ptr<CSprite> GetSprite();	//Get player's sprite
 
+	void SetPowerUpStartTime();
+	void SetPowerUpEndTime();
+	float GetPowerUpStartTime();
+	float GetPowerUpEndTime();
+
+	void SetInvincible(bool invincible);
+	bool GetInvincible();
+
 private:
 	std::shared_ptr<CSprite> m_pPlayerSprite;	//the player's sprite
 	
@@ -43,6 +51,7 @@ private:
 	int m_iScore;			//Player score
 	int m_bulletStrength;	//Strength of the player's bullets
 	bool m_invincible;		//determines whether player is invisible or not
-
+	float m_fInvStartTime;	//invincible start time
+	float m_fInvEndTime;	//invincible start time
 };
 

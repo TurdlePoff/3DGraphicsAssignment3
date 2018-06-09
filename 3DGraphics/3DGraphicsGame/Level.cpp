@@ -16,6 +16,7 @@
 #include "SceneManager.h"
 #include "Time.h"
 #include "AI.h"
+#include "SoundManager.h"
 
 CLevel::CLevel(){}
 
@@ -104,7 +105,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
-		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_1POINT));
+		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_INVINCIBLE));
 		//lAppleSprite1->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, ENMY_NORM));
@@ -218,11 +219,26 @@ void CLevel::Update()
 			m_pPlayerBulletList[bList]->Update();
 		}
 
+
 		if(m_pEnemyList.size() != 0)
 			CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
 
 		CheckEnemyCollision(player);
 		CheckPowerUpCollision(player);
+
+
+		if (m_pPlayer->GetInvincible())
+		{
+			m_pPlayer->SetPowerUpEndTime();
+
+			if (m_pPlayer->GetPowerUpEndTime() - m_pPlayer->GetPowerUpStartTime() > 5.0f) //5 seconds up?
+			{
+				m_pPlayer->SetInvincible(false);
+				m_pPlayer->SetPowerUpEndTime();
+				m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 1.0f, 1.0f, 1.0f));
+			}
+		}
+
 
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
 		m_pTextList[5]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
@@ -332,22 +348,24 @@ void CLevel::CheckEnemyCollision(std::shared_ptr<CSprite> player)
 			//Set if making enemy that dies via touch
 
 			//m_pEnemyList[eList]->GetSprite()->SetIsDead(true);
-			//m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
+			//m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyL`	ist[eList]->GetKillPoint());
 
 			/*if (m_pPowerUpList[pList]->GetIsDead() == false)
 			{*/
 
-
-			m_pEnemyList[eList]->GetSprite()->SetHitEndTime();
-
-			if (m_pEnemyList[eList]->GetSprite()->GetHitEndTime() - m_pEnemyList[eList]->GetSprite()->GetHitStartTime() > 2)
+			if (!m_pPlayer->GetInvincible())
 			{
-				m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
-				m_pEnemyList[eList]->GetSprite()->SetHitStartTime();
+				m_pEnemyList[eList]->GetSprite()->SetHitEndTime();
 
-				m_pPlayer->GetSprite()->SetHitStartTime();
+				if (m_pEnemyList[eList]->GetSprite()->GetHitEndTime() - m_pEnemyList[eList]->GetSprite()->GetHitStartTime() > 2)
+				{
+					m_pPlayer->SetPlayerLives(m_pPlayer->GetPlayerLives() - 1);
+					m_pEnemyList[eList]->GetSprite()->SetHitStartTime();
 
-				m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+					m_pPlayer->GetSprite()->SetHitStartTime();
+
+					m_pPlayer->GetSprite()->SetColour(glm::vec4(1.0f, 0.0f, 0.0f, 1.0f));
+				}
 			}
 		}
 	}
@@ -367,8 +385,15 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 		{
 			if (m_pPowerUpList[pList]->GetIsDead() == false)
 			{
-				m_pPowerUpList[pList]->SetIsDead(true);
-				m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pPowerUpList[pList]->GetPowPoint());
+				if (m_pPowerUpList[pList]->GetPowType() == POW_INVINCIBLE)
+				{
+					CSoundManager::GetInstance()->InitPowNom();
+
+					m_pPowerUpList[pList]->SetIsDead(true);
+					m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pPowerUpList[pList]->GetPowPoint());
+					m_pPlayer->SetPowerUpStartTime();
+					m_pPlayer->GetSprite()->SetColour(glm::vec4(0.0f, 1.0f, 1.0f, 1.0f));
+				}
 			}
 		}
 	}
