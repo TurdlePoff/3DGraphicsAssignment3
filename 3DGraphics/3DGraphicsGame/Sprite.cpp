@@ -123,6 +123,13 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 
 			break;
 		}
+		case BUBBLE:
+		{
+			m_filename = "Resources/images/bubble.png";
+			m_vScale = glm::vec3(2.0f, 2.0f, 2.0f);
+
+			break;
+		}
 		case BG:
 		{
 			m_filename = "Resources/images/floorBg.jpg";

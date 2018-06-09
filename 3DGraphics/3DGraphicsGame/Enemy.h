@@ -26,12 +26,12 @@ class CEnemy : public CSprite
 {
 public:
 	CEnemy() {};
-	CEnemy(std::shared_ptr<CSprite> enemySprite, bool isGoodApple);
+	CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType);
 	~CEnemy();
 
 	std::shared_ptr<CSprite> GetSprite();
-	void SetKillPoint(int point);
-	int GetKillPoint();
+
+	
 	void SetGoodApple(bool ga);
 	bool GetIsGoodApple();
 
@@ -40,6 +40,38 @@ public:
 
 	float GetXPos();
 	float GetZPos();
+
+	/***********************
+	* SetKillPoint: Sets how much the enemy can damage the player
+	* @author: Vivian Ngo
+	* @date: 08/05/18
+	* @parameter: point - point to set as the kill point
+	***********************/
+	void SetKillPoint(int point) { m_killPoint = point; }
+
+	/***********************
+	* GetKillPoint: Gets how much the enemy can damage the player
+	* @author: Vivian Ngo
+	* @date: 08/05/18
+	* @return: point - amount of points the enemy can damage the player
+	***********************/
+	int GetKillPoint() { return m_killPoint; }
+
+	/***********************
+	* SetGainPoint: Sets how much the player gains when enemy is killed
+	* @author: Vivian Ngo
+	* @date: 08/05/18
+	* @parameter: point - amount player gains when enemy is killed
+	***********************/
+	void SetGainPoint(int point) { m_gainPoints = point; }
+
+	/***********************
+	* GetGainPoint: Gets how much the player gains when enemy is killed
+	* @author: Vivian Ngo
+	* @date: 08/05/18
+	* @return: point - amount player gains when enemy is killed
+	***********************/
+	int GetGainPoint() { return m_gainPoints; }
 
 	/*void SetXSpeed(float newSpeed) { m_xSpeed = newSpeed; }
 	void SetZSpeed(float newSpeed) { m_zSpeed = newSpeed; }
@@ -60,6 +92,8 @@ public:
 
 private:
 	int m_killPoint;
+	int m_gainPoints;
+
 	bool goodApple;
 	std::shared_ptr<CSprite> m_pEnemySprite;
 

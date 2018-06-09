@@ -14,15 +14,15 @@
 
 #include "stdafx.h"
 #include "ShaderLoader.h"
-#include "Texture.h"
 #include "Input.h"
 #include "SoundManager.h"
-#include "Sprite.h"
 #include "Camera.h"
 #include "Scene.h"
 #include "Level.h"
 #include "SceneManager.h"
 #include "AI.h"
+#include "Lighting.h"
+
 //#include <vld.h>
 
 void Init();
@@ -51,7 +51,7 @@ void Init()
 	//Initialise fmod, load the audio and play it
 	sndManager->InitFmod();
 	sndManager->LoadAudio();
-	sndManager->InitSound();
+	sndManager->InitBackground();
 }
 
 /***********************
@@ -93,6 +93,7 @@ void Exit()
 	CSoundManager::DestroyInstance();
 	CTime::DestroyInstance();
 	CAIManager::DestroyInstance();
+	CLighting::DestroyInstance();
 }
 
 /***********************
@@ -112,11 +113,6 @@ int main(int argc, char **argv)
 
 	glewInit();
 	Init();
-
-	/*for (int i = 0; i < 255; i++)
-	{
-		Utils::KeyState[i] = INPUT_RELEASED;
-	}*/
 
 	//Take in inputs
 	glutKeyboardFunc(CInput::Keyboard_Down);

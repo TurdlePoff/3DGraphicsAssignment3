@@ -80,8 +80,10 @@ const bool CSoundManager::LoadAudio()
 {
 	FMOD_RESULT result;
 
-	//result = audioMgr->createSound("Resources/Audio/Thump.wav", FMOD_DEFAULT, 0, &fxThump); 
+	result = audioMgr->createSound("Resources/sounds/pew.wav", FMOD_DEFAULT, 0, &fxPew);
 	result = audioMgr->createSound("Resources/sounds/Background.mp3", FMOD_DEFAULT, 0, &bgmTheme);
+
+	fxPew->setMode(FMOD_LOOP_OFF);
 
 	bgmTheme->setMode(FMOD_LOOP_NORMAL);
 
@@ -93,11 +95,21 @@ const bool CSoundManager::LoadAudio()
 * @author: Vivian Ngo
 * @date: 08 / 05 / 18
 ***********************/
-void CSoundManager::InitSound()
+void CSoundManager::InitBackground()
 {
-	InitFmod(); 
-	LoadAudio();
 	FMOD::Channel* channel; 
 	audioMgr->playSound(bgmTheme, 0, false, &channel);
+	channel->setVolume(0.5f);
+}
+
+/***********************
+* InitSound: Plays sound
+* @author: Vivian Ngo
+* @date: 08 / 05 / 18
+***********************/
+void CSoundManager::InitThump()
+{
+	FMOD::Channel* channel;
+	audioMgr->playSound(fxPew, 0, false, &channel);
 	channel->setVolume(0.5f);
 }

@@ -25,8 +25,6 @@
 CBullet::CBullet(std::shared_ptr<CSprite> _bulletSprite, int _damage, EBullets _bltType) :
 	m_pBulletSprite(_bulletSprite), m_numDamage(_damage), m_bltType(_bltType)
 {
-	m_vel.x = 0.0f;
-	m_vel.z = 0;
 }
 
 /***********************
@@ -43,34 +41,31 @@ CBullet::~CBullet() {}
 ***********************/
 void CBullet::Update()
 {
-	//m_vel.x += 0.5f;
-	//m_vel.z += 0.5f;
-
 	if (GetSprite()->GetRot().z == 0.0f) //up
 	{
 		GetSprite()->Translate(glm::vec3(
 			GetSprite()->GetPos().x,
 			GetSprite()->GetPos().y,
-			GetSprite()->GetPos().z - 0.5f));
+			GetSprite()->GetPos().z - 0.8f));
 	}
 	else if (GetSprite()->GetRot().z == 180.0f) //down
 	{
 		GetSprite()->Translate(glm::vec3(
 			GetSprite()->GetPos().x,
 			GetSprite()->GetPos().y,
-			GetSprite()->GetPos().z + 0.5f));
+			GetSprite()->GetPos().z + 0.8f));
 	}
 	else if (GetSprite()->GetRot().z == 90.0f) //left
 	{
 		GetSprite()->Translate(glm::vec3(
-			GetSprite()->GetPos().x - 0.5f,
+			GetSprite()->GetPos().x - 0.8f,
 			GetSprite()->GetPos().y,
 			GetSprite()->GetPos().z));
 	}
 	else if (GetSprite()->GetRot().z == -90.0f) //left
 	{
 		GetSprite()->Translate(glm::vec3(
-			GetSprite()->GetPos().x + 0.5f,
+			GetSprite()->GetPos().x + 0.8f,
 			GetSprite()->GetPos().y,
 			GetSprite()->GetPos().z));
 	}

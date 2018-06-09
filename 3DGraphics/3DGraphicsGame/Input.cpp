@@ -87,9 +87,10 @@ void CInput::Keyboard_Down(unsigned char key, int x, int y)
 	{
 		SetLastPressed();
 
-		if (GetElapsedPressedTime() > 0.5f)
+		if (GetElapsedPressedTime() > 0.1f)
 		{
-  			Utils::KeyState[key] = INPUT_FIRST_PRESS;
+  			Utils::SpaceState[key] = INPUT_HOLD;
+			std::cout << "Spc\n";
 			SetStartPressed();
 		}
 	}
@@ -97,14 +98,23 @@ void CInput::Keyboard_Down(unsigned char key, int x, int y)
 
 /***********************
 * Keyboard_Down: Sets the KeyState of the given released key as INPUT_RELEASED
-* @author: Vivian Ngo
+* @author: Vivian Ngo 
 * @date: 08/05/18
 * @parameter: key - the character released
 ***********************/
 void CInput::Keyboard_Up(unsigned char key, int x, int y)
 {
-	Utils::KeyState[key] = INPUT_RELEASED;
-	m_isPressed = false;
+
+	if (Utils::SpaceState[key] == INPUT_HOLD)
+	{
+		Utils::SpaceState[key] = INPUT_RELEASED;
+	}
+	
+	if(Utils::KeyState[key] == INPUT_HOLD)
+	{
+		Utils::KeyState[key] = INPUT_RELEASED;
+
+	}
 }
 
 /***********************
@@ -252,7 +262,6 @@ void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
 void CInput::SetStartPressed()
 {
 	m_StartTime = CTime::GetCurTimeSecs();
-	m_isPressed = true;
 }
 
 /***********************

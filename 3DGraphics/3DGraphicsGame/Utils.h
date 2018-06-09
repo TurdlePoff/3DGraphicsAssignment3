@@ -26,6 +26,8 @@ public:
 	static GLuint Utils::programLight;
 
 	static unsigned int KeyState[255];
+	static unsigned int SpaceState[255];
+
 	static unsigned int MouseState[3];
 	static float Utils::mouseX;
 	static float Utils::mouseY;

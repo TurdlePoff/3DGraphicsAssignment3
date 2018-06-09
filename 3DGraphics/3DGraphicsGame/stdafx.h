@@ -151,6 +151,7 @@ enum EImage {
 	LAPPLE,
 	ROTTENAPPLE,
 	BIRB1,
+	BUBBLE,
 	BG,
 	STARTSCR,
 	ENDSCR
@@ -184,8 +185,6 @@ enum EBullets {
 	BLT_NORM
 };
 
-enum EUIObject {
-	UI_TEXT,
-	UI_BOX,
-	UI_BUTTON
+enum EEnemyType {
+	ENMY_NORM
 };

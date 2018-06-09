@@ -20,6 +20,8 @@ GLuint Utils::programTextured;
 GLuint Utils::programLight;
 
 unsigned int Utils::KeyState[255];
+unsigned int Utils::SpaceState[255];
+
 unsigned int Utils::MouseState[3];
 
 

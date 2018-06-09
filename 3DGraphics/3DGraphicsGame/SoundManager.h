@@ -22,17 +22,18 @@ public:
 	static CSoundManager* GetInstance();
 	static void DestroyInstance();
 
-	~CSoundManager() {};
+	~CSoundManager() {}; 
 
 	bool InitFmod();
 	const bool LoadAudio();
-	void InitSound();
+	void InitBackground();
+	void InitThump();
 
 private: 
 	static CSoundManager* s_pSoundInstance;
 	CSoundManager() {};
 
 	FMOD::System* audioMgr; 
-	FMOD::Sound* fxThump; 
+	FMOD::Sound* fxPew; 
 	FMOD::Sound* bgmTheme;
 };

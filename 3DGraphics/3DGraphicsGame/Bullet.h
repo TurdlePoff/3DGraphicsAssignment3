@@ -16,11 +16,6 @@
 #include "stdafx.h"
 #include "Sprite.h"
 
-struct Velocity {
-	float x;
-	float z;
-};
-
 class CBullet : public CSprite
 {
 public:
@@ -32,9 +27,6 @@ public:
 	void SetDamagePoint(int damage);
 	int GetDamagePoint();
 	std::shared_ptr<CSprite> GetSprite();
-
-
-	Velocity m_vel;
 
 private:
 	int m_numDamage;

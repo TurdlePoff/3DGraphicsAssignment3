@@ -14,6 +14,7 @@
 
 #include "Player.h"
 #include "Input.h"
+#include "SoundManager.h"
 
 /***********************
 * CPlayer: Player constructor
@@ -106,7 +107,7 @@ std::shared_ptr<CSprite> CPlayer::GetSprite()
 ***********************/
 std::shared_ptr<CBullet> CPlayer::CreateBullet()
 {
-	std::shared_ptr<CSprite> newBulletSprite = std::make_shared<CSprite>(BIRB1, CUBE, glm::vec3(-10.0f, 0.0f, 0.0));
+	std::shared_ptr<CSprite> newBulletSprite = std::make_shared<CSprite>(BUBBLE, CUBE, glm::vec3(-10.0f, 0.0f, 0.0));
 	newBulletSprite->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 	newBulletSprite->SetRotatation(GetSprite()->GetRot());
 
@@ -140,7 +141,7 @@ std::shared_ptr<CBullet> CPlayer::CreateBullet()
 	}
 
 	std::shared_ptr<CBullet> newBullet = std::make_shared<CBullet>(newBulletSprite, 1, BLT_NORM);
-
+	CSoundManager::GetInstance()->InitThump();
 	return newBullet;
 }
 

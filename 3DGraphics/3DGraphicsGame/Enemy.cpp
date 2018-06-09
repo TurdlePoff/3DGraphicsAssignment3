@@ -21,17 +21,22 @@
 * @parameter: enemySprite - sprite to set to the enemey
 * @parameter: isGood - decides whether enemy instance is bad or good
 ***********************/
-CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, bool isGood)
+CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 {
 	m_pEnemySprite = enemySprite;
 	m_vel = { 0.5f, 1.5f };
 	m_acc = { 0.5f, 1.5f };
 	m_force = { 0.5f, 1.5f };
 
-	if (isGood)
-		m_killPoint = 1;
-	else
+	switch (_enemyType)
+	{
+	case ENMY_NORM:
+	{
+		m_gainPoints = 1;
 		m_killPoint = -1;
+		break;
+	}
+	}
 }
 
 /***********************
@@ -52,28 +57,6 @@ CEnemy::~CEnemy()
 std::shared_ptr<CSprite> CEnemy::GetSprite()
 {
 	return m_pEnemySprite;
-}
-
-/***********************
-* SetKillPoint: Sets how much the enemy can damage the player
-* @author: Vivian Ngo
-* @date: 08/05/18
-* @parameter: point - point to set as the kill point
-***********************/
-void CEnemy::SetKillPoint(int point)
-{
-	m_killPoint = point;
-}
-
-/***********************
-* GetKillPoint: Gets how much the enemy can damage the player
-* @author: Vivian Ngo
-* @date: 08/05/18
-* @return: point - amount of points the enemy can damage the player
-***********************/
-int CEnemy::GetKillPoint()
-{
-	return m_killPoint;
 }
 
 /***********************

@@ -93,7 +93,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 
 		std::shared_ptr<CTextLabel> gameOver(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, SCR_HEIGHT / 2)));//SCR_HEIGHT - 200.0f));
 		gameOver->SetScale(1.0f);
-		gameOver->SetColor(glm::vec3(0, 1, 0.3f));//1.0f, 1.0f, 0.2f));
+		gameOver->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(gameOver);
 
 		std::shared_ptr<CTextLabel> mmText(new CTextLabel("MAIN MENU", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, ((SCR_HEIGHT / 2) - 300))));
@@ -106,7 +106,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_1POINT));
 		//lAppleSprite1->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-10.0f, 0.0f, 0.0)));
-		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, false));
+		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, ENMY_NORM));
 
 		AddToPowerUpList(goodApple);
 		AddToEnemyList(enemyBad);
@@ -203,10 +203,13 @@ void CLevel::Update()
 
 		MovePlayer(player);
 
-		if (Utils::KeyState[32] == INPUT_FIRST_PRESS)
+		if (Utils::SpaceState[' '] == INPUT_HOLD)
 		{
+			std::shared_ptr<CBullet> newBullet = GetPlayer()->CreateBullet();
+			newBullet->Draw();
+			newBullet->Update();
 			AddToBulletList(GetPlayer()->CreateBullet());
-			Utils::KeyState[32] = INPUT_RELEASED;
+			Utils::SpaceState[' '] = INPUT_RELEASED;
 		}
 
 		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
@@ -382,12 +385,14 @@ void CLevel::CheckBulletEnemyCollision()
 	{
 		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 		{
-			if (m_pEnemyList[eList]->GetIsHit())
+			if (!m_pEnemyList[eList]->GetIsHit())
 			{
-				if (m_pPlayerBulletList[bList]->GetSprite()->IsCollidingWith(m_pEnemyList[eList]))
+				if (m_pPlayerBulletList[bList]->GetSprite()->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
 				{
 					m_pEnemyList[eList]->SetIsHit(true);
-					m_pPlayer->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetKillPoint());
+					m_pEnemyList[eList]->SetIsDead(true);
+
+					GetPlayer()->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetGainPoint());
 				
 					m_pPlayerBulletList.erase(m_pPlayerBulletList.begin() + bList);
 
