@@ -8,7 +8,7 @@
 //
 // File Name	: "Enemy.cpp"
 // Description	: Enemy implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -16,7 +16,7 @@
 
 /***********************
 * CEnemy: Enemy constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: enemySprite - sprite to set to the enemey
 * @parameter: isGood - decides whether enemy instance is bad or good
@@ -41,7 +41,7 @@ CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 
 /***********************
 * ~CEnemy: Enemy destructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 CEnemy::~CEnemy()
@@ -50,7 +50,7 @@ CEnemy::~CEnemy()
 
 /***********************
 * GetSprite: Gets the enemy's sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_pEnemySprite - returns the enemy's sprite
 ***********************/
@@ -61,7 +61,7 @@ std::shared_ptr<CSprite> CEnemy::GetSprite()
 
 /***********************
 * SetGoodApple: Sets whether enemy is a enemy OR basically a pickup //MUST CHANGE POSSIBLY
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: point - amount of points the enemy can damage the player
 ***********************/
@@ -72,7 +72,7 @@ void CEnemy::SetGoodApple(bool isGood)
 
 /***********************
 * GetIsGoodApple: Gets whether enemy is a enemy OR a pickup
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: goodApple - whether enemy is good or bad
 ***********************/
@@ -83,7 +83,7 @@ bool CEnemy::GetIsGoodApple()
 
 /***********************
 * SetXPos: Set x position of enemy
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: newXPos - new x position of enemy
 ***********************/
@@ -94,7 +94,7 @@ void CEnemy::SetXPos(float newXPos)
 
 /***********************
 * SetZPos: Set z position of enemy
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: newXPos - new z position of enemy
 ***********************/
@@ -105,7 +105,7 @@ void CEnemy::SetZPos(float newYPos)
 
 /***********************
 * SetXPos: Get x position of enemy
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: newXPos - new x position of enemy
 ***********************/
@@ -116,7 +116,7 @@ float CEnemy::GetXPos()
 
 /***********************
 * GetZPos: Get z position of enemy
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: newYPos - new y position of enemy
 ***********************/

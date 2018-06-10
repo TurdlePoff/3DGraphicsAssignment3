@@ -8,7 +8,7 @@
 //
 // File Name	: "Level.cpp"
 // Description	: Level implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -22,7 +22,7 @@ CLevel::CLevel(){}
 
 /***********************
 * Level constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 ***********************/
 CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
@@ -61,11 +61,11 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		AddToTextList(startText);
 
 		std::shared_ptr<CTextLabel> multiText(new CTextLabel("MULTIPLAYER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 100))));
-		multiText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		multiText->SetColor(glm::vec3(0.0f, 0.5f, 1.0f));
 		AddToTextList(multiText);
 
 		std::shared_ptr<CTextLabel> instrText(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, ((SCR_HEIGHT / 2) - 200))));
-		instrText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		instrText->SetColor(glm::vec3(0.0f, 0.5f, 1.0f));
 		AddToTextList(instrText);
 	}
 	else if (m_iLevelNumber == 11)	//IF THE LEVEL IS THE INSTRUCTIONS SCREEN
@@ -80,37 +80,42 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		exText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(exText);
 
-		std::shared_ptr<CTextLabel> wasd(new CTextLabel("[WASD] - Movement", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_LEFT + 100.0f), ((SCR_HEIGHT / 2) +100))));
+		std::shared_ptr<CTextLabel> wasd(new CTextLabel("[WASD] - Movement", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_LEFT + 100.0f), ((SCR_HEIGHT / 2) +80))));
 		wasd->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		wasd->SetScale(0.5f);
 
 		AddToTextList(wasd);
 
-		std::shared_ptr<CTextLabel> spc(new CTextLabel("[SPACE] - Shoot bubble", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2)))));
+		std::shared_ptr<CTextLabel> spc(new CTextLabel("[SPACE] - Shoot bubble", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) + 20))));
 		spc->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		spc->SetScale(0.5f);
 
 		AddToTextList(spc);
 
-		std::shared_ptr<CTextLabel> msc(new CTextLabel("[Mouse Scroll click]", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 100))));
+		std::shared_ptr<CTextLabel> msc(new CTextLabel("[Mouse Scroll click]", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 40))));
 		msc->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		msc->SetScale(0.5f);
 		AddToTextList(msc);
 
-		std::shared_ptr<CTextLabel> msc2(new CTextLabel("Drag to change perspective", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 150))));
+		std::shared_ptr<CTextLabel> msc2(new CTextLabel("Drag to change perspective", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 90))));
 		msc2->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		msc2->SetScale(0.5f);
 		AddToTextList(msc2);
 
-		std::shared_ptr<CTextLabel> mCam(new CTextLabel("[ArrowKeys] - Move Camera Position", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 250))));
+		std::shared_ptr<CTextLabel> mCam(new CTextLabel("[ArrowKeys] - Move Camera Position", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 150))));
 		mCam->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		mCam->SetScale(0.5f);
 		AddToTextList(mCam);
 
-		std::shared_ptr<CTextLabel> scroll(new CTextLabel("[Scroll Wheel] - Zoom in and out", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 350))));
+		std::shared_ptr<CTextLabel> scroll(new CTextLabel("[Scroll Wheel] - Zoom in and out", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 210))));
 		scroll->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		scroll->SetScale(0.5f);
 		AddToTextList(scroll);
+
+		std::shared_ptr<CTextLabel> pUpI(new CTextLabel("POWERUP - Grants invincibility", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 270))));
+		pUpI->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		pUpI->SetScale(0.5f);
+		AddToTextList(pUpI);
 	}
 	else if (m_iLevelNumber == 12)	//IF THE LEVEL IS THE GAME OVER SCREEN
 	{
@@ -182,7 +187,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 
 /***********************
 * Level destructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 ***********************/
 CLevel::~CLevel() {
@@ -192,7 +197,7 @@ CLevel::~CLevel() {
 
 /***********************
 * Render: Renders all items in the level
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CLevel::Render()
@@ -237,7 +242,7 @@ void CLevel::Render()
 
 /***********************
 * Update: Updates all items in the game
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CLevel::Update()
@@ -339,7 +344,7 @@ void CLevel::Update()
 
 /***********************
 * CheckEnemyCollision: Check enemy collision
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: player - player to check collision with enemies
 ***********************/
@@ -368,7 +373,7 @@ void CLevel::CheckEnemyCollision(std::shared_ptr<CSprite> player)
 
 /***********************
 * CheckEnemyCollision: Check enemy collision
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: player - player to check collision with enemies
 ***********************/
@@ -399,7 +404,7 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 
 /***********************
 * CheckEnemyBulletCollision: Check Enemy Bullet Collision
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: player - player to check collision with enemies
 ***********************/	
@@ -432,7 +437,7 @@ void CLevel::CheckBulletEnemyCollision()
 
 /***********************
 * CheckBulletBoundaries: Check Bullet Boundaries
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CLevel::CheckBulletBoundaries()
@@ -451,7 +456,7 @@ void CLevel::CheckBulletBoundaries()
 
 /***********************
 * IsMouseOverButton: Detects if mouse is hovering over a button location
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: text - text button being hovered
 * @return: true if button is hovered
@@ -475,7 +480,7 @@ bool CLevel::IsMouseOverButton(std::shared_ptr<CTextLabel> text)
 
 /***********************
 * IsMouseOverButton: Detects if mouse is hovering over a button location
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_bGameOver
 ***********************/
@@ -491,7 +496,7 @@ void CLevel::CheckButtonHovered()
 			}
 			else
 			{
-				m_pTextList[i]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+				m_pTextList[i]->SetColor(glm::vec3(0.0f, 0.8f, 1.0f));
 			}
 		}
 	}
@@ -503,7 +508,7 @@ void CLevel::CheckButtonHovered()
 		}
 		else
 		{
-			m_pTextList[3]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+			m_pTextList[3]->SetColor(glm::vec3(0.0f, 0.8f, 1.0f));
 		}
 	}
 	else if (m_iLevelNumber == 12) //Game over screen
@@ -514,14 +519,14 @@ void CLevel::CheckButtonHovered()
 		}
 		else
 		{
-			m_pTextList[5]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+			m_pTextList[5]->SetColor(glm::vec3(0.0f, 0.8f, 1.0f));
 		}
 	}
 }
 
 /***********************
 * HandleStartScreenButtons: Decides what to do with the buttons in the starting screen
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_bGameOver
 ***********************/
@@ -582,7 +587,7 @@ void CLevel::HandleStartScreenButtons()
 
 /***********************
 * GetIsGameOver: Gets variable that determines whether game is over or not
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_bGameOver
 ***********************/
@@ -593,7 +598,7 @@ bool CLevel::GetIsGameOver()
 
 /***********************
 * SetGameOver: Sets the game as over
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CLevel::SetGameOver()

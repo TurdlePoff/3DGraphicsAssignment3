@@ -8,7 +8,7 @@
 //
 // File Name	: "Bullet.cpp"
 // Description	: Bullet declaration file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -16,7 +16,7 @@
 
 /***********************
 * CBullet constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 * @parameter: bulletSprite - sprite of bullet
 * @parameter: damage - damage of bullet
@@ -29,14 +29,14 @@ CBullet::CBullet(std::shared_ptr<CSprite> _bulletSprite, int _damage, EBullets _
 
 /***********************
 * CBullet destructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 ***********************/
 CBullet::~CBullet() {}
 
 /***********************
 * Update: Update the bullet
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CBullet::Update()
@@ -73,7 +73,7 @@ void CBullet::Update()
 
 /***********************
 * SetDamagePoint: Sets the bullet damage to a new one
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 * @parameter: damage - damage of bullet to set
 ***********************/
@@ -84,7 +84,7 @@ void CBullet::SetDamagePoint(int damage)
 
 /***********************
 * GetDamagePoint: Gets the bullet damage
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 * @return: numDamage - damage of bullet
 ***********************/
@@ -95,7 +95,7 @@ int CBullet::GetDamagePoint()
 
 /***********************
 * GetSprite: Gets the bullet's sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_pBulletSprite - returns the bullet's sprite
 ***********************/

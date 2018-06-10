@@ -9,7 +9,7 @@
 //
 // File Name	: "TextLabel.h"
 // Description	: TextLabel declaration file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 

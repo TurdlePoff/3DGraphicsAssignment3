@@ -8,7 +8,7 @@
 //
 // File Name	: "SoundManager.cpp"
 // Description	: SoundManager implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -18,7 +18,7 @@ CSoundManager* CSoundManager::s_pSoundInstance = 0;
 
 /***********************
 * GetInstance: Gets Sound manager Instance
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * return s_pSoundInstance - instance of sound manager
 ***********************/
@@ -33,7 +33,7 @@ CSoundManager* CSoundManager::GetInstance()
 
 /***********************
 * DestroyInstance: Destroys Sound manager Instance
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CSoundManager::DestroyInstance()
@@ -48,7 +48,7 @@ void CSoundManager::DestroyInstance()
 
 /***********************
 * InitFmod: Initialises FMOD
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @return bool - true if initialised, else, false.
 ***********************/
@@ -72,7 +72,7 @@ bool CSoundManager::InitFmod()
 
 /***********************
 * LoadAudio: Loads audio
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @return const bool - true if loaded successfully
 ***********************/
@@ -93,7 +93,7 @@ const bool CSoundManager::LoadAudio()
 
 /***********************
 * InitSound: Plays sound
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CSoundManager::InitBackground()
@@ -105,7 +105,7 @@ void CSoundManager::InitBackground()
 
 /***********************
 * InitSound: Plays sound
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CSoundManager::InitThump()

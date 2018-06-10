@@ -8,7 +8,7 @@
 //
 // File Name	: "SceneManager.cpp"
 // Description	: SceneManager implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -20,7 +20,7 @@ CSceneManager* CSceneManager::s_pSceneInstance = 0;
 
 /***********************
 * GetInstance: Gets scene manager Instance
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * return s_pSoundInstance - instance of sound manager
 ***********************/
@@ -35,7 +35,7 @@ CSceneManager* CSceneManager::GetInstance()
 
 /***********************
 * DestroyInstance: Destroys scene manager Instance
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CSceneManager::DestroyInstance()
@@ -50,7 +50,7 @@ void CSceneManager::DestroyInstance()
 
 /***********************
 * SetUpScenes: Set up scene items
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CSceneManager::SetUpScenes()
@@ -76,7 +76,7 @@ void CSceneManager::SetUpScenes()
 
 /***********************
 * AddScene: Add scene to scene manager
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: scene - scene to add
 ***********************/
@@ -87,7 +87,7 @@ void CSceneManager::AddScene(std::shared_ptr<CScene> scene)
 
 /***********************
 * RemoveScene: Remove scene from scene manager
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: scene - scene to add
 ***********************/
@@ -116,7 +116,7 @@ void CSceneManager::RemoveScene(int scene)
 
 /***********************
 * SwitchScene: Switch scene to the number specified
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: level - scene to change to
 ***********************/
@@ -134,7 +134,7 @@ void CSceneManager::SwitchScene(int level)
 
 /***********************
 * ResetLevels: Method resetting all levels of the game + player stats
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CSceneManager::ResetLevels(std::shared_ptr<CPlayer> _player)
@@ -157,7 +157,7 @@ void CSceneManager::ResetLevels(std::shared_ptr<CPlayer> _player)
 
 /***********************
 * UpdateScene: Update the scene specified
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: scene - scene to update
 ***********************/
@@ -168,7 +168,7 @@ void CSceneManager::UpdateScene(std::shared_ptr<CScene> scene)
 
 /***********************
 * RenderScene: Render the scene specified
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: scene - scene to render
 ***********************/
@@ -179,7 +179,7 @@ void CSceneManager::RenderScene(std::shared_ptr<CScene> scene)
 
 /***********************
 * GetCurrentScene: Gets the current scene
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @return: currentScene - the current scene
 ***********************/
@@ -190,7 +190,7 @@ std::shared_ptr<CScene> CSceneManager::GetCurrentScene()
 
 /***********************
 * GetCurrentSceneNumber: Gets the current scene number
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @return: currentScene->GetLevelNum() - the current scene's level number
 ***********************/

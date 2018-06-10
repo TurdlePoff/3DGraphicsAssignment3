@@ -8,7 +8,7 @@
 //
 // File Name	: "Time.cpp"
 // Description	: Time implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -21,7 +21,7 @@ float CTime::lastFrame = 0.0f; // Time of last frame
 
 /***********************
 * CTime constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 ***********************/
 CTime::CTime()
@@ -32,14 +32,14 @@ CTime::CTime()
 
 /***********************
 * ~CTime destructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 ***********************/
 CTime::~CTime(){}
 
 /***********************
 * GetInstance: Gets the instance of the time singleton class
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: s_pTimeInstance - Instance of the Time singleton class
 ***********************/
@@ -54,7 +54,7 @@ CTime * CTime::GetInstance()
 
 /***********************
 * DestroyInstance: Destroys the instance of the Time singleton class if there is one
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CTime::DestroyInstance()
@@ -69,7 +69,7 @@ void CTime::DestroyInstance()
 
 /***********************
 * GetDeltaTime: Gets the current time on the system
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 9/04/18
 * @return current time in seconds;
 ***********************/

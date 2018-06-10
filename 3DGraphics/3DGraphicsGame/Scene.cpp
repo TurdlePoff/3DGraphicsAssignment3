@@ -8,7 +8,7 @@
 //
 // File Name	: "Scene.cpp"
 // Description	: Scene implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -16,21 +16,21 @@
 
 /***********************
 * Render: Render Scene	//VIRTUAL
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CScene::Render() {}
 
 /***********************
 * Render: Update Scene	//VIRTUAL
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CScene::Update() {}
 
 /***********************
 * CreateBackground: Create Background for Scene
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: bg - background to create and set
 ***********************/
@@ -42,7 +42,7 @@ void CScene::CreateBackground(EImage bg)
 
 /***********************
 * AddToSpriteList: Add sprite to the scene's spritelist
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _spr - sprite to add to sprite list
 ***********************/
@@ -53,7 +53,7 @@ void CScene::AddToSpriteList(std::shared_ptr<CSprite> _spr)
 
 /***********************
 * AddToTextList: Add text to the scene's textlist
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _txt - txt to add to text list
 ***********************/
@@ -64,7 +64,7 @@ void CScene::AddToTextList(std::shared_ptr<CTextLabel> _txt)
 
 /***********************
 * AddToEnemyList: Add enemy to the scene's enemyList
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _ene - enemy to add to enemy list
 ***********************/
@@ -76,7 +76,7 @@ void CScene::AddToEnemyList(std::shared_ptr<CEnemy> _ene)
 
 /***********************
 * AddToPowerUpList: Add powerup to the scene's powerup list
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _spr - powerup to add to powerup list
 ***********************/
@@ -87,7 +87,7 @@ void CScene::AddToPowerUpList(std::shared_ptr<CPowerUp> _pow)
 
 /***********************
 * AddToBulletList: Add bullet to the scene's bullet list
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _blt - bullet to add to bullet list
 ***********************/
@@ -98,7 +98,7 @@ void CScene::AddToBulletList(std::shared_ptr<CBullet> _blt)
 
 /***********************
 * SetRemainingEnemies: Sets remaining enemies in level
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 8/06/18
 * @parameter: remaining - remaining enemies
 ***********************/
@@ -109,7 +109,7 @@ void CScene::SetRemainingEnemies(int remaining)
 
 /***********************
 * GetRemainingEnemies:
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 8/06/18
 * @return: m_iEnemiesRemaining - remaining enemies in level
 ***********************/
@@ -120,7 +120,7 @@ int CScene::GetRemainingEnemies()
 
 /***********************
 * GetLevelNum: Gets the current level number/scene
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_iLevelNumber - current level/scene
 ***********************/
@@ -131,7 +131,7 @@ int CScene::GetLevelNum()
 
 /***********************
 * GetPlayer: Player of the scene
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_pPlayer - player of the scene
 ***********************/

@@ -8,7 +8,7 @@
 //
 // File Name	: "Lighting.cpp"
 // Description	: Lighting implementation file 
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -18,7 +18,7 @@ CLighting* CLighting::s_pLightingInstance = 0;
 
 /***********************
 * GetInstance: Gets scene manager Instance
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * return s_pSoundInstance - instance of sound manager
 ***********************/
@@ -33,7 +33,7 @@ CLighting* CLighting::GetInstance()
 
 /***********************
 * DestroyInstance: Destroys scene manager Instance
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CLighting::DestroyInstance()

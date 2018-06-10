@@ -8,7 +8,7 @@
 //
 // File Name	: "Camera.cpp"
 // Description	: Camera implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -23,14 +23,14 @@ glm::mat4 CCamera::MVP = glm::mat4(); // field of view
 
 /***********************
 * CCamera: Camera constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 CCamera::CCamera(){}
 
 /***********************
 * GetInstance: Gets the instance of the camera singleton class
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: s_pCameraInstance - Instance of the Camera singleton class
 ***********************/
@@ -45,7 +45,7 @@ CCamera* CCamera::GetInstance()
 
 /***********************
 * DestroyInstance: Destroys the instance of the camera singleton class if there is one
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CCamera::DestroyInstance()
@@ -60,7 +60,7 @@ void CCamera::DestroyInstance()
 
 /***********************
 * SetMVP: Destroys the instance of the camera singleton class if there is one
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _trans - Translation
 * @parameter: _scale - Scale
@@ -95,7 +95,7 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 
 /***********************
 * SetFOV: Sets the field of view
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _fov to change
 ***********************/
@@ -111,7 +111,7 @@ float CCamera::GetFOV()
 
 /***********************
 * SetCamFront: Sets the camera front
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _cFront - the coordinates of the camera front to change to
 ***********************/
@@ -122,7 +122,7 @@ void CCamera::SetCamFront(glm::vec3 _cFront)
 
 /***********************
 * SetCamPos: Sets the camera position
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _cPos - the coordinates of the camera position to change to
 ***********************/
@@ -133,7 +133,7 @@ void CCamera::SetCamPos(glm::vec3 _cPos)
 
 /***********************
 * SetCamUp: Sets camera up
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _cUp - the coordinates of camera up to change to
 ***********************/
@@ -144,7 +144,7 @@ void CCamera::SetCamUp(glm::vec3 _cUp)
 
 /***********************
 * SetCamSpeed: Sets the speed of the camera
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _cSpeed - the camera speed to change to
 ***********************/
@@ -175,7 +175,7 @@ void CCamera::CameraMovement(float _camSpeed)
 
 /***********************
 * GetCamFront: Gets the camera front
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: cameraFront - the camera front
 ***********************/
@@ -186,7 +186,7 @@ glm::vec3 CCamera::GetCamFront()
 
 /***********************
 * GetCamPos: Gets the camera's position
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: cameraPos - the camera's position
 ***********************/
@@ -197,7 +197,7 @@ glm::vec3 CCamera::GetCamPos()
 
 /***********************
 * GetCamUp: Gets the camera up coordinates
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: cameraUp - the camera up coordinate
 ***********************/
@@ -208,7 +208,7 @@ glm::vec3 CCamera::GetCamUp()
 
 /***********************
 * GetCamSpeed: Gets the camera speed
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: cameraSpeed - the camera speed
 ***********************/

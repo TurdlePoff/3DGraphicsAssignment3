@@ -8,7 +8,7 @@
 //
 // File Name	: "Input.cpp"
 // Description	: Input implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -36,7 +36,7 @@ GLfloat yOffset;
 
 /***********************
 * GetInstance: Gets the instance of the Singleton Input class
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: s_pInputInstance - Instance of the Input singleton class
 ***********************/
@@ -51,7 +51,7 @@ CInput * CInput::GetInstance()
 
 /***********************
 * DestroyInstance: Destroys the instance of the Singleton Input class
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CInput::DestroyInstance()
@@ -66,14 +66,14 @@ void CInput::DestroyInstance()
 
 /***********************
 * ~CInput Destructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 CInput::~CInput() {}
 
 /***********************
 * Keyboard_Down: Sets the KeyState of the given pressed key as INPUT_HOLD
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: key - the character inputted
 ***********************/
@@ -97,7 +97,7 @@ void CInput::Keyboard_Down(unsigned char key, int x, int y)
 
 /***********************
 * Keyboard_Down: Sets the KeyState of the given released key as INPUT_RELEASED
-* @author: Vivian Ngo 
+* @author: Vivian Ngo & Melanie Jacobson 
 * @date: 08/05/18
 * @parameter: key - the character released
 ***********************/
@@ -118,7 +118,7 @@ void CInput::Keyboard_Up(unsigned char key, int x, int y)
 
 /***********************
 * MouseClicked: Sets the MouseState as the currently held/released mouse button
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: button - the mouse button clicked/released
 * @parameter: glutState - the state of the mouse button
@@ -133,7 +133,7 @@ void CInput::MouseClicked(int button, int glutState, int x, int y)
 
 /***********************
 * MousePassiveMovement: Allows screen to change pitch and yaw when navigating window
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 29/05/18
 * @parameter: x - x position of the mouse
 * @parameter: y - y position of the mouse
@@ -176,7 +176,7 @@ void CInput::MousePassiveMovement(int x, int y)
 
 /***********************
 * MousePassiveMovement: Allows screen to change pitch and yaw when navigating window
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 29/05/18
 * @parameter: x - x position of the mouse
 * @parameter: y - y position of the mouse
@@ -223,7 +223,7 @@ void CInput::MouseScrollHold(int x, int y)
 
 /***********************
 * ScollCallback: Scroll window
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 29/05/18
 * @parameter: button - button 
 * @parameter: glutState - scroll state
@@ -257,7 +257,7 @@ void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
 
 /***********************
 * SpecialKeyPress: Sets special key as pressed
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: key - key pressed
 * @parameter: x
@@ -293,7 +293,7 @@ void CInput::SpecialKeyPress(int key, int x, int y)
 
 /***********************
 * SpecialKeyRelease: Release special keys
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: key - key pressed
 * @parameter: x
@@ -329,7 +329,7 @@ void CInput::SpecialKeyRelease(int key, int x, int y)
 
 /***********************
 * SetHitStartTime: Sets start time of when collided with
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CInput::SetStartPressed()
@@ -339,7 +339,7 @@ void CInput::SetStartPressed()
 
 /***********************
 * SetHitEndTime: Sets latest time of when collided with
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CInput::SetLastPressed()
@@ -349,7 +349,7 @@ void CInput::SetLastPressed()
 
 /***********************
 * SetHitEndTime: Sets latest time of when collided with
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_StartTime - time of when enemy was first collided
 ***********************/
@@ -360,7 +360,7 @@ float CInput::GetStartPressed()
 
 /***********************
 * SetHitEndTime: Sets latest time of when collided with
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 float CInput::GetLastPressed()
@@ -370,7 +370,7 @@ float CInput::GetLastPressed()
 
 /***********************
 * GetElapsedHitTime: Gets the elapsed hit time from when the enemy was first collided to now
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 float CInput::GetElapsedPressedTime()
@@ -380,7 +380,7 @@ float CInput::GetElapsedPressedTime()
 
 /***********************
 * SetHit: Set sprite is hit
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _isHit - Set whether sprite entity is hit or not
 ***********************/
@@ -391,7 +391,7 @@ void CInput::SetIsPressed(bool _isHit)
 
 /***********************
 * GetIsHit: Get sprite is hit
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_isHit - Gets whether sprite entity is hit or not
 ***********************/

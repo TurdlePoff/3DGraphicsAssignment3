@@ -8,7 +8,7 @@
 //
 // File Name	: "Texture.cpp"
 // Description	: Texture implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -23,7 +23,7 @@ EShape Texture::m_shape = TWOD;
 
 /***********************
 * BindTexture: Binds the texture
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: filename - file name of the texture
 * @parameter: _fWidth - the width of the texture specified by the creator
@@ -332,12 +332,12 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 
 /***********************
 * Render: Render the texture
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: vao - vertex array object
 * @parameter: texture - texture of the object
 ***********************/
-void Texture::Render(GLuint vao, GLuint texture)
+void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 {
 	if (m_shape == CUBEMAP)
 	{

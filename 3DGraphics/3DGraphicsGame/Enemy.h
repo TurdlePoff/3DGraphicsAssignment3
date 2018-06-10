@@ -9,7 +9,7 @@
 //
 // File Name	: "Enemy.h"
 // Description	: Enemy declaration file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -43,7 +43,7 @@ public:
 
 	/***********************
 	* SetKillPoint: Sets how much the enemy can damage the player
-	* @author: Vivian Ngo
+	* @author: Vivian Ngo & Melanie Jacobson
 	* @date: 08/05/18
 	* @parameter: point - point to set as the kill point
 	***********************/
@@ -51,7 +51,7 @@ public:
 
 	/***********************
 	* GetKillPoint: Gets how much the enemy can damage the player
-	* @author: Vivian Ngo
+	* @author: Vivian Ngo & Melanie Jacobson
 	* @date: 08/05/18
 	* @return: point - amount of points the enemy can damage the player
 	***********************/
@@ -59,7 +59,7 @@ public:
 
 	/***********************
 	* SetGainPoint: Sets how much the player gains when enemy is killed
-	* @author: Vivian Ngo
+	* @author: Vivian Ngo & Melanie Jacobson
 	* @date: 08/05/18
 	* @parameter: point - amount player gains when enemy is killed
 	***********************/
@@ -67,7 +67,7 @@ public:
 
 	/***********************
 	* GetGainPoint: Gets how much the player gains when enemy is killed
-	* @author: Vivian Ngo
+	* @author: Vivian Ngo & Melanie Jacobson
 	* @date: 08/05/18
 	* @return: point - amount player gains when enemy is killed
 	***********************/

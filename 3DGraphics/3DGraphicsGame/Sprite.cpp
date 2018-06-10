@@ -8,7 +8,7 @@
 //
 // File Name	: "Sprite.cpp"
 // Description	: Sprite implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -18,7 +18,7 @@
 
 /***********************
 * CSprite: CSprite constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _spriteType - type of the sprite
 ***********************/
@@ -33,18 +33,18 @@ CSprite::CSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 
 /***********************
 * Draw: Draaw the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CSprite::Draw()
 {
 	CCamera::GetInstance()->SetMVP(m_vPos, m_vScale, m_vRotation);
-	Texture::Render(m_vao, m_texture);
+	Texture::Render(m_vao, m_texture, m_eShape);
 }
 
 /***********************
 * Update: Update the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CSprite::Update()
@@ -53,7 +53,7 @@ void CSprite::Update()
 
 /***********************
 * OnDestroy: When destroying sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CSprite::OnDestroy()
@@ -63,7 +63,7 @@ void CSprite::OnDestroy()
 
 /***********************
 * Translate: Translate the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: Movement - move sprite
 ***********************/
@@ -74,7 +74,7 @@ void CSprite::Translate(glm::vec3 Movement)
 
 /***********************
 * SetRotatation: SetRotatation of sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: Rotation - new rotation of sprite
 ***********************/
@@ -85,7 +85,7 @@ void CSprite::SetRotatation(glm::vec3 Rotation)
 
 /***********************
 * SetScale: Set Scale of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: scale - scale sprite
 ***********************/
@@ -180,7 +180,7 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 
 /***********************
 * GetPos: Get Pos of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_vPos - Get pos of sprite
 ***********************/
@@ -191,7 +191,7 @@ glm::vec3 CSprite::GetPos()
 
 /***********************
 * GetRot: Get rotation of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_vRotation - Get rotation of sprite
 ***********************/
@@ -202,7 +202,7 @@ glm::vec3 CSprite::GetRot()
 
 /***********************
 * GetScale: Get scale of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_vScale - Get scale of sprite
 ***********************/
@@ -213,7 +213,7 @@ glm::vec3 CSprite::GetScale()
 
 /***********************
 * GetWidth: Get Width of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_fWidth - Get width of sprite
 ***********************/
@@ -224,7 +224,7 @@ float CSprite::GetWidth()
 
 /***********************
 * GetHeight: Get Height of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_fHeight - Get Height of sprite
 ***********************/
@@ -235,7 +235,7 @@ float CSprite::GetHeight()
 
 /***********************
 * GetAxisZ: Get z pos of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_vPos.z - Get position z
 ***********************/
@@ -246,7 +246,7 @@ float CSprite::GetAxisZ()
 
 /***********************
 * GetTopLeft: Get top left pos of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_vTopLeft - Top left position
 ***********************/
@@ -257,7 +257,7 @@ glm::vec3 CSprite::GetTopLeft()
 
 /***********************
 * GetBotRight: Get bot right pos of the sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_fBotRight - bot right position
 ***********************/
@@ -268,7 +268,7 @@ glm::vec3 CSprite::GetBotRight()
 
 /***********************
 * GetIsDead: Check if sprite is dead
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_bIsDead - variable stating whether sprite is dead or not / not shown on screen
 ***********************/
@@ -279,7 +279,7 @@ bool CSprite::GetIsDead()
 
 /***********************
 * SetIsDead: Set sprite is dead
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: dead - set is dead or not dead
 ***********************/
@@ -290,7 +290,7 @@ void CSprite::SetIsDead(bool dead)
 
 /***********************
 * IsCollidingWith: Checks if sprite is colliding with another sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _e2 - The other sprite being compared to this one
 * @return: colliding - bool whether the current sprite is colliding with another
@@ -322,7 +322,7 @@ bool CSprite::IsCollidingWith(std::shared_ptr<CSprite> _e2)//std::shared_ptr<CSp
 
 /***********************
 * SetHitStartTime: Sets start time of when collided with
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CSprite::SetHitStartTime()
@@ -332,7 +332,7 @@ void CSprite::SetHitStartTime()
 
 /***********************
 * SetHitEndTime: Sets latest time of when collided with
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CSprite::SetHitEndTime()
@@ -342,7 +342,7 @@ void CSprite::SetHitEndTime()
 
 /***********************
 * SetHitEndTime: Sets latest time of when collided with
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_StartTime - time of when enemy was first collided
 ***********************/
@@ -353,7 +353,7 @@ float CSprite::GetHitStartTime()
 
 /***********************
 * SetHitEndTime: Sets latest time of when collided with
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 float CSprite::GetHitEndTime()
@@ -363,7 +363,7 @@ float CSprite::GetHitEndTime()
 
 /***********************
 * GetElapsedHitTime: Gets the elapsed hit time from when the enemy was first collided to now
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 float CSprite::GetElapsedHitTime()
@@ -373,7 +373,7 @@ float CSprite::GetElapsedHitTime()
 
 /***********************
 * SetHit: Set sprite is hit
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _isHit - Set whether sprite entity is hit or not
 ***********************/
@@ -384,7 +384,7 @@ void CSprite::SetIsHit(bool _isHit)
 
 /***********************
 * GetIsHit: Get sprite is hit
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_isHit - Gets whether sprite entity is hit or not
 ***********************/

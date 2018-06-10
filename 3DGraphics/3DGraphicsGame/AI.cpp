@@ -8,7 +8,7 @@
 //
 // File Name	: "AI.cpp"
 // Description	: AI declaration file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -19,7 +19,7 @@ CAIManager* CAIManager::s_pAIInstance = 0;
 
 /***********************
 * GetInstance: Gets the instance of the Singleton AI class
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: s_pAIInstance - Instance of the AI singleton class
 ***********************/
@@ -34,7 +34,7 @@ CAIManager * CAIManager::GetInstance()
 
 /***********************
 * DestroyInstance: Destroys AI manager Instance
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CAIManager::DestroyInstance()
@@ -53,7 +53,7 @@ seek arrival pathfinding obstacle avoidance
 
 /***********************
 * Seek: AI that seeks the player
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
@@ -75,7 +75,7 @@ void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _en)
 
 /***********************
 * Seek: AI that seeks the player
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
@@ -89,7 +89,7 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 
 /***********************
 * Flee: AI that flees the player
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to

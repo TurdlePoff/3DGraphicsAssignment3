@@ -8,7 +8,7 @@
 //
 // File Name	: "ShaderLoader.cpp"
 // Description	: ShaderLoader implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -16,21 +16,21 @@
 
 /***********************
 * ShaderLoader: ShaderLoader Constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 ShaderLoader::ShaderLoader(void) {}
 
 /***********************
 * ~ShaderLoader: ShaderLoader destructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 ShaderLoader::~ShaderLoader(void) {}
 
 /***********************
 * ReadShader: Read Shader file
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: filename - file to read from
 ***********************/
@@ -54,7 +54,7 @@ std::string ShaderLoader::ReadShader(char *filename)
 
 /***********************
 * CreateShader: Creates Shader file
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: shaderType - type of shader
 * @parameter: source - shader source
@@ -89,7 +89,7 @@ GLuint ShaderLoader::CreateShader(GLenum shaderType, std::string
 
 /***********************
 * CreateProgram: Creates Shader program
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: vertexShaderFilename - vertex shader file
 * @parameter: fragmentShaderFilename - fragment shader file

@@ -8,7 +8,7 @@
 //
 // File Name	: "TextLabel.cpp"
 // Description	: TextLabel implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -16,7 +16,7 @@
 
 /***********************
 * CTextLabel: CTextLabel constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 * @parameter: newText - text to set up
 * @parameter: newFont - font of text
@@ -100,7 +100,7 @@ CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 
 /***********************
 * Render: Renders Textlabel onto screen
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08 / 05 / 18
 ***********************/
 void CTextLabel::Render()

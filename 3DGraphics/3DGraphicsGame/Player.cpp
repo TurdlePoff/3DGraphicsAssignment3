@@ -8,7 +8,7 @@
 //
 // File Name	: "Player.cpp"
 // Description	: Player implementation file
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -18,7 +18,7 @@
 
 /***********************
 * CPlayer: Player constructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: playerSprite - Set sprite
 ***********************/
@@ -31,7 +31,7 @@ CPlayer::CPlayer(std::shared_ptr<CSprite> playerSprite)
 
 /***********************
 * ~CPlayer: Player destructor
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 CPlayer::~CPlayer(){}
@@ -39,7 +39,7 @@ CPlayer::~CPlayer(){}
 
 /***********************
 * GetPlayerLives: Gets current player lives
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_iCurrentLives - num of player lives
 ***********************/
@@ -50,7 +50,7 @@ int CPlayer::GetPlayerLives()
 
 /***********************
 * SetPlayerLives: Sets player lives
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _lives - num of player lives to set
 ***********************/
@@ -61,7 +61,7 @@ void CPlayer::SetPlayerLives(int _lives)
 
 /***********************
 * GetScore: Gets player's score
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_iScore - player score
 ***********************/
@@ -72,7 +72,7 @@ int CPlayer::GetScore()
 
 /***********************
 * SetScore: Sets player's score
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: _newScore - new player score
 ***********************/
@@ -93,7 +93,7 @@ void CPlayer::ResetPlayerStats()
 
 /***********************
 * MovePlayer: Move player based on player input
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CPlayer::MovePlayer()
@@ -150,7 +150,7 @@ void CPlayer::MovePlayer()
 
 /***********************
 * GetSprite: Gets player's sprite
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_pPlayerSprite - player's sprite
 ***********************/
@@ -161,7 +161,7 @@ std::shared_ptr<CSprite> CPlayer::GetSprite()
 
 /***********************
 * SetPowerUpStartTime: Sets a timer if player obtains an invibility power up
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CPlayer::SetPowerUpStartTime()
@@ -171,7 +171,7 @@ void CPlayer::SetPowerUpStartTime()
 
 /***********************
 * SetPowerUpEndTime: Sets a the latest time checked 
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void CPlayer::SetPowerUpEndTime()
@@ -181,7 +181,7 @@ void CPlayer::SetPowerUpEndTime()
 
 /***********************
 * GetPowerUpStartTime: Gets start of timer
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 float CPlayer::GetPowerUpStartTime()
@@ -191,7 +191,7 @@ float CPlayer::GetPowerUpStartTime()
 
 /***********************
 * GetPowerUpEndTime: Gets latest call of timer
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 float CPlayer::GetPowerUpEndTime()
@@ -201,7 +201,7 @@ float CPlayer::GetPowerUpEndTime()
 
 /***********************
 * CreateBullet: Creates bullet infront of player
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: player - player to shoot bullet
 ***********************/
@@ -247,7 +247,7 @@ std::shared_ptr<CBullet> CPlayer::CreateBullet()
 
 /***********************
 * SetInvincible: Sets player as invincible (or not)
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @parameter: invincible - set if invincible or not
 ***********************/
@@ -266,7 +266,7 @@ void CPlayer::SetInvincible(bool invincible)
 
 /***********************
 * GetInvincible: Get if player is invincible
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 * @return: m_invincible - whether player is invincible or not
 ***********************/
@@ -277,7 +277,7 @@ bool CPlayer::GetInvincible()
 
 ///*********************** not sure if will use yet
 //* GetCurrentLevel: Gets current level player is in
-//* @author: Vivian Ngo
+//* @author: Vivian Ngo & Melanie Jacobson
 //* @date: 08/05/18
 //***********************/
 //int CPlayer::GetCurrentLevel()

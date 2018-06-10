@@ -10,7 +10,7 @@
 // File Name	: "stdafx.h"
 // Description	: stdafx declaration file 
 //				  Stores static variables to be used throughout the application
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 

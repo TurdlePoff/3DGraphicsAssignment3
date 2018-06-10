@@ -8,7 +8,7 @@
 //
 // File Name	: "main.cpp"
 // Description	: main.cpp OpenGL Project
-// Author		: Vivian Ngo
+// Author		: Vivian Ngo & Melanie Jacobson
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
@@ -36,7 +36,7 @@ std::unique_ptr<CInput> InputFunc(CInput::GetInstance());
 
 /***********************
 * Init: Initialises items for the application
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void Init() 
@@ -61,7 +61,7 @@ void Init()
 
 /***********************
 * Render: Renders objects of the application
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void Render(void)
@@ -75,7 +75,7 @@ void Render(void)
 
 /***********************
 * Update: Updates the application
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void Update()
@@ -87,7 +87,7 @@ void Update()
 
 /***********************
 * Exit: Destroys all singleton instances of the application
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 void Exit()
@@ -103,7 +103,7 @@ void Exit()
 
 /***********************
 * main: main for OpenGL application
-* @author: Vivian Ngo
+* @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
 int main(int argc, char **argv) 
