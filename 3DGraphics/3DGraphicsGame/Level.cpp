@@ -105,8 +105,8 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	}
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
-		glCullFace(GL_CCW);
-		pugModel = new Model("Resources/Models/pug/Dog 1.obj", CCamera::GetInstance(), Utils::programModel);
+		//glCullFace(GL_CCW);
+		//pugModel = new Model("Resources/Models/pug/Dog 1.obj", CCamera::GetInstance(), Utils::programModel);
 
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_INVINCIBLE));
@@ -164,10 +164,10 @@ void CLevel::Render()
 	//Draw/Render every item in scene
 	m_pBackgroundSprite->Draw();
 
-	if (m_iLevelNumber == 1)
+	/*if (m_iLevelNumber == 1)
 	{
 		pugModel->Render();
-	}
+	}*/
 
 	//Render all items in sprite list
 	for (unsigned int sList = 0; sList < m_pSpriteList.size(); ++sList)
