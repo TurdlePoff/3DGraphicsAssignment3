@@ -18,6 +18,7 @@ GLuint Utils::program;
 GLuint Utils::programText;
 GLuint Utils::programTextured;
 GLuint Utils::programLight;
+GLuint Utils::programCMap;
 
 unsigned int Utils::KeyState[255];
 unsigned int Utils::SpaceState[255];

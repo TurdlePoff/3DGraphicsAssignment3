@@ -47,7 +47,8 @@ void Init()
 	ShaderLoader sLoader;
 	Utils::program = sLoader.CreateProgram("Shaders/VertexShader.txt", "Shaders/FragmentShader.txt");
 	Utils::programTextured = sLoader.CreateProgram("Shaders/TextureVertexShader.txt", "Shaders/TextureFragmentShader.txt");
-	
+	Utils::programCMap = sLoader.CreateProgram("Shaders/CMapVertexShader.txt", "Shaders/CMapFragmentShader.txt");
+
 	//Initialise fmod, load the audio and play it
 	sndManager->InitFmod();
 	sndManager->LoadAudio();
