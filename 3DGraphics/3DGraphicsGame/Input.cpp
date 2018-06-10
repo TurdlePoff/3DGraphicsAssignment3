@@ -205,6 +205,14 @@ void CInput::MouseScrollHold(int x, int y)
 
 		Pitch -= yOffset;
 
+		if (Pitch > 89.0f)
+		{
+			Pitch = 89.0f;
+		}
+		if (Pitch < -89.0f)
+		{
+			Pitch = -89.0f;
+		}
 
 		glm::vec3 frontVector(-cos(glm::radians(Pitch))*sin(glm::radians(Yaw)),
 			sin(glm::radians(Pitch)),

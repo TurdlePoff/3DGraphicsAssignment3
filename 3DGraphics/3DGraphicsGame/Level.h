@@ -14,7 +14,8 @@
 //
 
 #include "Scene.h"
-
+#include "CubeMap.h"
+//class CCubeMap;
 class CLevel : public CScene
 {
 public:
@@ -24,7 +25,6 @@ public:
 
 	void Render();
 	void Update();
-	void MovePlayer(std::shared_ptr<CSprite> player);
 	void CheckEnemyCollision(std::shared_ptr<CSprite> player);
 	void CheckPowerUpCollision(std::shared_ptr<CSprite> player);
 	void CheckBulletEnemyCollision();
@@ -45,4 +45,7 @@ private:
 	float m_move = 5.0f;
 	
 	std::string sc;
+
+	CCubeMap* cMap;
+
 };

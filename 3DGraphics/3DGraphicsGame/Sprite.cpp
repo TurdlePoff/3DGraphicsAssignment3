@@ -158,10 +158,9 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 		}
 		case SKYBOX:
 		{			
-			m_vScale = glm::vec3(15, 0.2f, 60);
 			m_filename = " ";
-			m_vScale = glm::vec3(100.0f, 100.0f, 100.0f);
-			m_vRotation = glm::vec3(0.0f, 0.0f, 0.0f);
+			m_vScale = glm::vec3(10.0f, 10.0f, 10.0f);
+			m_vRotation = glm::vec3(0.0f, 0.0f, 180.0f);
 			break;
 		}
 	}

@@ -46,11 +46,12 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 		int width, height;
 		unsigned char* image = NULL;
 
-		std::string fullPathName = "Resources/Textures/CubeMap/";
 		for (GLuint i = 0; i < 6; i++)
 		{
+			std::string fullPathName = "Resources/images/CubeMap/";
+
 			fullPathName.append(g_faces[i]);
-			image = SOIL_load_image(filename, &width, &height, 0,
+			image = SOIL_load_image(fullPathName.c_str(), &width, &height, 0,
 				SOIL_LOAD_RGB);
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB,
 				width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
@@ -65,8 +66,6 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 
 		//Generate Mipmap
 		glGenerateMipmap(GL_TEXTURE_CUBE_MAP);
-
-		// Free soil image
 
 		// Clear texture 2D
 		glBindTexture(GL_TEXTURE_CUBE_MAP, 0);
@@ -342,7 +341,6 @@ void Texture::Render(GLuint vao, GLuint texture)
 {
 	if (m_shape == CUBEMAP)
 	{
-		std::cout << "QAQ";
 		glDepthMask(GL_FALSE);
 		glUseProgram(Utils::programCMap);
 
@@ -361,6 +359,7 @@ void Texture::Render(GLuint vao, GLuint texture)
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
 		glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		//glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+		glUseProgram(0);
 
 		glDepthMask(GL_TRUE);
 		glDisable(GL_TEXTURE_CUBE_MAP_SEAMLESS);

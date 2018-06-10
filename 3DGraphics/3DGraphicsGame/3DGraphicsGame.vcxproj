@@ -140,6 +140,7 @@
     <ClInclude Include="AI.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CubeMap.h" />
     <ClInclude Include="Lighting.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Input.h" />
@@ -161,6 +162,7 @@
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CubeMap.cpp" />
     <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Input.cpp" />

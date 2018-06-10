@@ -22,6 +22,7 @@
 #include "SceneManager.h"
 #include "AI.h"
 #include "Lighting.h"
+#include "CubeMap.h"
 
 #include <vld.h>
 
@@ -49,6 +50,8 @@ void Init()
 	Utils::programTextured = sLoader.CreateProgram("Shaders/TextureVertexShader.txt", "Shaders/TextureFragmentShader.txt");
 	/*Utils::programCubeMap = sLoader.CreateProgram("Shaders/CubeMapVertexShader.txt", "Shaders/CubeMapFragmentShader.txt");*/
 	Utils::programCMap = sLoader.CreateProgram("Shaders/CMapVertexShader.txt", "Shaders/CMapFragmentShader.txt");
+	
+	
 
 	//Initialise fmod, load the audio and play it
 	sndManager->InitFmod();

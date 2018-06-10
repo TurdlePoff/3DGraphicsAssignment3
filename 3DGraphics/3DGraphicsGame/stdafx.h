@@ -139,34 +139,22 @@ static GLfloat verticesCube[216] = {
 };
 
 static GLfloat verticesCubeMap[] = {
-	// Positions // Colors // TexCoords
 	-1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, 0.0f,
 	1.0f, -1.0f, 1.0f,
 	-1.0f, -1.0f, 1.0f,
+
 	// Right Face
 	1.0f, 1.0f, 1.0f,
 	1.0f, 1.0f, -1.0f,
 	1.0f, -1.0f, -1.0f,
-
-static GLfloat verticesCubeMap[216] = {
-	// Positions
-	-1.0f, 1.0f, 1.0f,
-	1.0f, 1.0f, 0.0f, 
-	1.0f, -1.0f, 1.0f,
-	-1.0f, -1.0f, 1.0f,
-
-	// Right Face
-	1.0f, 1.0f, 1.0f,	
-	1.0f, 1.0f, -1.0f,
-	1.0f, -1.0f, -1.0f,	
 	1.0f, -1.0f, 1.0f,
 
 	// Back Face
 	1.0f, 1.0f, -1.0f,
 	-1.0f, 1.0f, -1.0f,
 	-1.0f, -1.0f, -1.0f,
-	1.0f, -1.0f, -1.0f,	
+	1.0f, -1.0f, -1.0f,
 
 	// Left Face
 	-1.0f, 1.0f, -1.0f,
@@ -175,8 +163,8 @@ static GLfloat verticesCubeMap[216] = {
 
 	// Left Face
 	-1.0f, 1.0f, -1.0f,
-	-1.0f, 1.0f, 1.0f,	
-	-1.0f, -1.0f, 1.0f,	
+	-1.0f, 1.0f, 1.0f,
+	-1.0f, -1.0f, 1.0f,
 	-1.0f, -1.0f, -1.0f,
 
 	// Top Face
