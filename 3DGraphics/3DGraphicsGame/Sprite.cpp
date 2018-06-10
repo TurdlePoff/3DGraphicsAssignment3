@@ -104,7 +104,13 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 	m_vRotation = glm::vec3(0.0f, 0.0f, 0.0f);
 	switch (_spriteType)
 	{
-		case LAPPLE:
+		case INVAPPLE:
+		{
+			m_filename = "Resources/images/rainbowApple.png";
+			m_vScale = glm::vec3(2.0f, 2.0f, 2.0f);
+			break;
+		}
+		case BULLETDAMAPPLE:
 		{
 			m_filename = "Resources/images/goodApple.png";
 			m_vScale = glm::vec3(2.0f, 2.0f, 2.0f);
@@ -148,6 +154,13 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 			m_filename = "Resources/images/bubblesBg.jpg";
 			m_vScale = glm::vec3(15, 0.2f, 60);
 			m_vRotation = glm::vec3(0.0f, 0.0f, 180.0f);
+			break;
+		}
+		case SKYBOX:
+		{
+			m_filename = "";
+			m_vScale = glm::vec3(15, 0.2f, 60);
+			m_vRotation = glm::vec3(0.0f, 0.0f, 0.0f);
 			break;
 		}
 	}

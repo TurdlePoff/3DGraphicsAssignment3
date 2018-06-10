@@ -47,7 +47,8 @@ void Init()
 	ShaderLoader sLoader;
 	Utils::program = sLoader.CreateProgram("Shaders/VertexShader.txt", "Shaders/FragmentShader.txt");
 	Utils::programTextured = sLoader.CreateProgram("Shaders/TextureVertexShader.txt", "Shaders/TextureFragmentShader.txt");
-	
+	/*Utils::programCubeMap = sLoader.CreateProgram("Shaders/CubeMapVertexShader.txt", "Shaders/CubeMapFragmentShader.txt");*/
+
 	//Initialise fmod, load the audio and play it
 	sndManager->InitFmod();
 	sndManager->LoadAudio();
@@ -121,7 +122,8 @@ int main(int argc, char **argv)
 	glutPassiveMotionFunc(CInput::MousePassiveMovement);
 	glutMotionFunc(CInput::MouseScrollHold);
 	glutMouseWheelFunc(CInput::ScollCallback);
-	//glutIgnoreKeyRepeat(2);
+	glutSpecialFunc(CInput::SpecialKeyPress);
+	glutSpecialUpFunc(CInput::SpecialKeyRelease);
 
 	glutDisplayFunc(Render);
 	glutIdleFunc(Update);

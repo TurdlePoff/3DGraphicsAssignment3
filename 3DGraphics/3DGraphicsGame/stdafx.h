@@ -138,6 +138,51 @@ static GLfloat verticesCube[216] = {
 	-1.0f, -1.0f, -1.0f,	0.0f, 0.0f, 1.0f, 0.0f,		0.0f, 1.0f,
 };
 
+static GLfloat verticesCubeMap[] = {
+	// Positions // Colors // TexCoords
+	-1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,
+	1.0f, -1.0f, 1.0f,
+	-1.0f, -1.0f, 1.0f,
+	// Right Face
+	1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, -1.0f,
+	1.0f, -1.0f, -1.0f,
+	1.0f, -1.0f, 1.0f,
+
+	// Back Face
+	1.0f, 1.0f, -1.0f,
+	-1.0f, 1.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,
+	1.0f, -1.0f, -1.0f,	
+	// Left Face
+	-1.0f, 1.0f, -1.0f,
+	-1.0f, 1.0f, 1.0f,
+	-1.0f, -1.0f, 1.0f,
+	-1.0f, -1.0f, -1.0f,
+
+	// Top Face
+	-1.0f, 1.0f, -1.0f,
+	1.0f, 1.0f, -1.0f,
+	1.0f, 1.0f, 1.0f,
+	-1.0f, 1.0f, 1.0f,
+	// Bottom Face
+	-1.0f, -1.0f, 1.0f,
+	1.0f, -1.0f, 1.0f,
+	1.0f, -1.0f, -1.0f,
+	-1.0f, -1.0f, -1.0f,
+};
+
+static std::vector<std::string> g_sFaces
+{
+	"right.jpg",
+	"left.jpg",
+	"top.jpg",
+	"bottom.jpg",
+	"front.jpg",
+	"back.jpg"
+};
+
 static GLfloat quadVertices[32] = {
 	// Position				// Normals			// TexCoord
 	-1.0f, 1.0f, 0.0f,		0.0f, 0.0f, 1.0f,	0.0f, 0.0f,
@@ -148,19 +193,22 @@ static GLfloat quadVertices[32] = {
 
 //Enums of images within the game
 enum EImage {
-	LAPPLE,
+	INVAPPLE,
+	BULLETDAMAPPLE,
 	ROTTENAPPLE,
 	BIRB1,
 	BUBBLE,
 	BG,
 	STARTSCR,
-	ENDSCR
+	ENDSCR,
+	SKYBOX
 };
 
 enum EShape {
 	TWOD,
 	PYRAMID,
-	CUBE
+	CUBE,
+	CUBEMAP
 };
 
 enum EMouse

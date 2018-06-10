@@ -248,6 +248,89 @@ void CInput::ScollCallback(int button, int glutState, int xOffset, int yOffset)
 }
 
 /***********************
+* SpecialKeyPress: Sets special key as pressed
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: key - key pressed
+* @parameter: x
+* @parameter: y
+***********************/
+void CInput::SpecialKeyPress(int key, int x, int y)
+{
+	switch (key)
+	{
+		case GLUT_KEY_UP:
+		{
+			Utils::SpecKeyState[0] = INPUT_HOLD;
+			std::cout << "UP\n";
+			break;
+		}
+		case GLUT_KEY_DOWN:
+		{
+			Utils::SpecKeyState[1] = INPUT_HOLD;
+			std::cout << "DOWN\n";
+			break;
+
+		}
+		case GLUT_KEY_LEFT:
+		{
+			Utils::SpecKeyState[2] = INPUT_HOLD;
+			std::cout << "LEFT\n";
+			break;
+		}
+		case GLUT_KEY_RIGHT:
+		{
+			Utils::SpecKeyState[3] = INPUT_HOLD;
+			std::cout << "RIGHT\n";
+			break;
+		} 
+	}
+}
+
+/***********************
+* SpecialKeyRelease: Release special keys
+* @author: Vivian Ngo
+* @date: 08/05/18
+* @parameter: key - key pressed
+* @parameter: x
+* @parameter: y
+***********************/
+void CInput::SpecialKeyRelease(int key, int x, int y)
+{
+	switch (key)
+	{
+		case GLUT_KEY_UP:
+		{
+			Utils::SpecKeyState[0] = INPUT_RELEASED;
+			std::cout << "UP\n";
+			break;
+		}
+		case GLUT_KEY_DOWN:
+		{
+			Utils::SpecKeyState[1] = INPUT_RELEASED;
+			std::cout << "DOWN\n";
+
+			break;
+
+		}
+		case GLUT_KEY_LEFT:
+		{
+			Utils::SpecKeyState[2] = INPUT_RELEASED;
+			std::cout << "LEFT\n";
+
+			break;
+		}
+		case GLUT_KEY_RIGHT:
+		{
+			Utils::SpecKeyState[3] = INPUT_RELEASED;
+			std::cout << "RIGHT\n";
+
+			break;
+		}
+	}
+}
+
+/***********************
 * SetHitStartTime: Sets start time of when collided with
 * @author: Vivian Ngo
 * @date: 08/05/18

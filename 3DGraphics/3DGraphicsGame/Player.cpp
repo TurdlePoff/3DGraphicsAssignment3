@@ -106,7 +106,7 @@ void CPlayer::MovePlayer()
 	//Moves player depending on direction moved
 	if (Utils::KeyState[(unsigned int)'a'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'A'] == INPUT_HOLD)
 	{
-		if (GetSprite()->GetPos().x < -45.0f) //x boundary - If player is at further than -10 x then prevent them from moving any further
+		if (GetSprite()->GetPos().x < SCR_LEFT) //x boundary - If player is at further than -10 x then prevent them from moving any further
 			m_fX = 0;
 		else
 			m_fX -= val;
@@ -115,7 +115,7 @@ void CPlayer::MovePlayer()
 	}
 	else if (Utils::KeyState[(unsigned int)'d'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'D'] == INPUT_HOLD)
 	{
-		if (GetSprite()->GetPos().x > 45.0f) //x boundary - If player is further than 10 x then prevent them from moving any further
+		if (GetSprite()->GetPos().x > SCR_RIGHT) //x boundary - If player is further than 10 x then prevent them from moving any further
 			m_fX = 0;
 		else
 			m_fX += val;
@@ -124,7 +124,7 @@ void CPlayer::MovePlayer()
 	}
 	else if (Utils::KeyState[(unsigned int)'w'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'W'] == INPUT_HOLD)
 	{
-		if (GetSprite()->GetPos().z < -40.0f) //z boundary - If player is further than -10 z then prevent them from moving any further
+		if (GetSprite()->GetPos().z < SCR_TOP) //z boundary - If player is further than -10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ -= val;
@@ -133,7 +133,7 @@ void CPlayer::MovePlayer()
 	}
 	else if (Utils::KeyState[(unsigned int)'s'] == INPUT_HOLD || Utils::KeyState[(unsigned int)'S'] == INPUT_HOLD)
 	{
-		if (GetSprite()->GetPos().z > 50.0f) //z boundary - If player is further than 10 z then prevent them from moving any further
+		if (GetSprite()->GetPos().z > SCR_BOT) //z boundary - If player is further than 10 z then prevent them from moving any further
 			m_fZ = 0;
 		else
 			m_fZ += val;

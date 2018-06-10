@@ -30,6 +30,8 @@ public:
 	static void MousePassiveMovement(int x, int y);
 	static void MouseScrollHold(int x, int y);
 	static void ScollCallback(int button, int glutState, int xOffset, int yOffset);
+	static void SpecialKeyPress(int key, int x, int y);
+	static void SpecialKeyRelease(int key, int x, int y);
 
 	//Times
 	static void SetStartPressed();

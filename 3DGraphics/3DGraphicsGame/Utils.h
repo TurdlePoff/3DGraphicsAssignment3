@@ -24,7 +24,9 @@ public:
 	static GLuint Utils::programText;
 	static GLuint Utils::programTextured;
 	static GLuint Utils::programLight;
+	static GLuint Utils::programCubeMap;
 
+	static unsigned int SpecKeyState[4];
 	static unsigned int KeyState[255];
 	static unsigned int SpaceState[255];
 

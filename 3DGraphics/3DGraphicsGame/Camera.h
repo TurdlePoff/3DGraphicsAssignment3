@@ -36,7 +36,9 @@ public:
 	glm::vec3 GetCamPos();
 	glm::vec3 GetCamUp();
 	float GetCamSpeed();
-
+	glm::mat4 GetMVP() { return MVP; }
+	glm::mat4 GetProjection() { return projection; }
+	glm::mat4 GetView() { return view; }
 
 private:
 	static CCamera* s_pCameraInstance;
@@ -58,5 +60,6 @@ private:
 	float cameraSpeed = 0.05f;
 
 	GLfloat currentTime;
+	static glm::mat4 MVP;
 };
 
