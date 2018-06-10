@@ -17,6 +17,7 @@
 #include "Time.h"
 #include "AI.h"
 #include "SoundManager.h"
+#include "Model.h"
 
 CLevel::CLevel(){}
 
@@ -44,7 +45,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	AddToTextList(yText);
 
 	if (m_iLevelNumber == 10)	//IF THE LEVEL IS THE START SCREEN
-	{
+	{		
 		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
 		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("BUBBLETRON", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 100.0f, SCR_HEIGHT / 2 + 200)));
@@ -104,6 +105,9 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	}
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
+		glCullFace(GL_CCW);
+		pugModel = new Model("Resources/Models/pug/Dog 1.obj", CCamera::GetInstance(), Utils::programModel);
+
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_INVINCIBLE));
 		//lAppleSprite1->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
@@ -159,6 +163,11 @@ void CLevel::Render()
 {
 	//Draw/Render every item in scene
 	m_pBackgroundSprite->Draw();
+
+	if (m_iLevelNumber == 1)
+	{
+		pugModel->Render();
+	}
 
 	//Render all items in sprite list
 	for (unsigned int sList = 0; sList < m_pSpriteList.size(); ++sList)

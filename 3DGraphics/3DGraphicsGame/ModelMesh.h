@@ -1,17 +1,13 @@
 // Std. Includes
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <vector>
+
 using namespace std;
 // GL Includes
 
-#include "Utils.h"
+//#include "Utils.h"
+#include "stdafx.h"
 #include "Camera.h"
 
 struct Vertex {
-	
 	glm::vec3 Position; // Position	
 	glm::vec3 Normal; // Normal	
 	glm::vec2 TexCoords; // TexCoords
@@ -69,7 +65,8 @@ public:
 			glBindTexture(GL_TEXTURE_2D, this->textures[i].id);
 		}
 		
-		glm::mat4 model;
+		//glm::mat4 model;
+		//CCamera::GetInstance()->SetMVP({ 0.0f,0.0f,0.0f }, { 10.0f,10.0f,10.0f }, { 0.0f,0.0f,0.0f });
 		glm::mat4 mvp = CCamera::GetInstance()->GetMVP();
 		GLint mvpLoc = glGetUniformLocation(program, "MVP");
 		glUniformMatrix4fv(mvpLoc, 1, GL_FALSE, glm::value_ptr(mvp));

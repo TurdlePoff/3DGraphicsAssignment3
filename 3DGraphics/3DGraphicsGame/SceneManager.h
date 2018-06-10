@@ -32,6 +32,10 @@ public:
 	void SetWinner(bool winner) { m_bWinner = winner; }
 	bool GetWinner() { return m_bWinner; }
 
+	std::vector<std::shared_ptr<CScene>>::iterator it;
+	std::vector<std::shared_ptr<CScene>> scenesList;
+	std::shared_ptr<CScene> currentScene;
+
 	std::shared_ptr<CScene> GetCurrentScene();
 	int GetCurrentSceneNumber();
 
@@ -39,10 +43,6 @@ public:
 private:
 	static CSceneManager* s_pSceneInstance;
 	CSceneManager() {};
-
-	std::vector<std::shared_ptr<CScene>>::iterator it;
-	std::vector<std::shared_ptr<CScene>> scenesList;
-	std::shared_ptr<CScene> currentScene;
 
 	bool m_bWinner;
 	

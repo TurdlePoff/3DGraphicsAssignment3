@@ -15,12 +15,16 @@
 
 #include "Scene.h"
 
+
+class Model;
 class CLevel : public CScene
 {
 public:
 	CLevel();
 	CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player);
 	~CLevel();
+
+	Model* pugModel;
 
 	void Render();
 	void Update();
@@ -33,7 +37,6 @@ public:
 	bool IsMouseOverButton(std::shared_ptr<CTextLabel> t);
 	void CheckButtonHovered();
 	void HandleStartScreenButtons();
-
 	bool GetIsGameOver();
 	void SetGameOver();
 

@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(ProjectDir)\Dependencies\assimp;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(ProjectDir)\Dependencies\assimp;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(ProjectDir)\Dependencies\assimp;C:\apps\vld\2.5\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;$(ProjectDir)\Dependencies\assimp;C:\apps\vld\2.5\lib\Win32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)\Dependencies\soil;$(ProjectDir)\Dependencies\freeglut;$(ProjectDir)\Dependencies\glew;$(ProjectDir)\Dependencies\glm;$(ProjectDir)\Dependencies\FMOD;$(ProjectDir)\Dependencies\freetype;$(ProjectDir)\Dependencies\;C:\apps\vld\2.5\include;$(IncludePath)</IncludePath>
@@ -94,7 +94,7 @@
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>SOIL.lib;opengl32.lib;freeglut.lib;glew32.lib;freetype.lib;fmod_vc.lib;assimp-vc130-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SOIL.lib;opengl32.lib;freeglut.lib;glew32.lib;freetype.lib;fmod_vc.lib;assimp-vc130-mtd.lib;vld.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <GenerateDebugInformation>DebugFull</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
@@ -179,6 +179,18 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Shaders\FragmentShader.txt" />
+    <Text Include="Shaders\LightFragmentShader.txt" />
+    <Text Include="Shaders\LightVertexShader.txt" />
+    <Text Include="Shaders\ModelFragmentShader.txt" />
+    <Text Include="Shaders\ModelVertexShader.txt" />
+    <Text Include="Shaders\TextFragmentShader.txt" />
+    <Text Include="Shaders\TextureFragmentShader.txt" />
+    <Text Include="Shaders\TextureVertexShader.txt" />
+    <Text Include="Shaders\TextVertexShader.txt" />
+    <Text Include="Shaders\VertexShader.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

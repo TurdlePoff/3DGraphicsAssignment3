@@ -16,6 +16,7 @@
 #include "Camera.h"
 #include "Texture.h"
 
+
 /***********************
 * CSprite: CSprite constructor
 * @author: Vivian Ngo

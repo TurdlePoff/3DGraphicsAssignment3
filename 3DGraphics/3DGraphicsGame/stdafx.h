@@ -22,6 +22,13 @@
 #include "Dependencies\glm\gtc\matrix_transform.hpp"
 #include "Dependencies\glm\gtc\type_ptr.hpp"
 
+#include "glm\gtc\quaternion.hpp"
+#include "glm\gtx\quaternion.hpp"
+
+#include "assimp/Importer.hpp"
+#include "assimp/scene.h"
+#include "assimp/postprocess.h"
+
 #include "Dependencies\FMOD\fmod.hpp"
 #include "Utils.h"
 
@@ -31,6 +38,7 @@
 #include <algorithm>
 #include <memory>
 #include <fstream>
+#include <sstream>
 
 #include "Time.h"
 

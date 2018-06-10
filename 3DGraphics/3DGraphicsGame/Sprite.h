@@ -18,7 +18,7 @@
 
 #include "stdafx.h" 
 #include <memory>
-
+#include "Model.h"
 class CSprite
 {
 public:
@@ -33,7 +33,6 @@ public:
 	void Draw();
 	virtual void Update();
 	void OnDestroy();
-
 	void Translate(glm::vec3 Movement);
 	void SetRotatation(glm::vec3 Rotation);
 	void SetScale(glm::vec3 scale);
@@ -62,7 +61,6 @@ public:
 	float GetElapsedHitTime();
 	void SetIsHit(bool _isHit);
 	bool GetIsHit();
-
 	bool IsCollidingWith(std::shared_ptr<CSprite> _e2);//std::shared_ptr<CSprite> e);
 
 private:

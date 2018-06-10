@@ -47,7 +47,8 @@ void Init()
 	ShaderLoader sLoader;
 	Utils::program = sLoader.CreateProgram("Shaders/VertexShader.txt", "Shaders/FragmentShader.txt");
 	Utils::programTextured = sLoader.CreateProgram("Shaders/TextureVertexShader.txt", "Shaders/TextureFragmentShader.txt");
-	
+	Utils::programModel = sLoader.CreateProgram("Shaders/ModelVertexShader.txt", "Shaders/ModelFragmentShader.txt");
+
 	//Initialise fmod, load the audio and play it
 	sndManager->InitFmod();
 	sndManager->LoadAudio();
@@ -64,6 +65,7 @@ void Render(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	//Render everything from the current scene
+
 	scManager->RenderScene(scManager->GetCurrentScene());
 	glutSwapBuffers();
 }

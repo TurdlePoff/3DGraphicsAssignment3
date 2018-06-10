@@ -1,31 +1,7 @@
 #pragma once
 // Std. Includes
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
-#include <vector>
-using namespace std;
-// GL Includes
-
-#include "../Dependencies\glew\glew.h"
-#include "../Dependencies\freeglut\freeglut.h"
-#include "../Dependencies\soil\SOIL.h"
-
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-#include "glm/gtc/type_ptr.hpp"
-
-#include "glm\gtc\quaternion.hpp"
-#include "glm\gtx\quaternion.hpp"
-
-#include "assimp/Importer.hpp"
-#include "assimp/scene.h"
-#include "assimp/postprocess.h"
-
+#include "stdafx.h"
 #include "ModelMesh.h"
-#include "Camera.h"
 
 class Model
 {
@@ -42,7 +18,11 @@ public:
 		this->camera = camera;
 		this->loadModel(path);
 	}
+	/*Model(std::string path, GLuint program) {
 
+		this->program = program;
+		this->loadModel(path);
+	}*/
 	// Draws the model, and thus all its meshes
 	void Render()
 	{
@@ -50,7 +30,7 @@ public:
 
 		//printf("mesh size: %d \n", meshes.size());
 
-			this->meshes[i].Render(camera, program);
+			this->meshes[i].Render(CCamera::GetInstance(), Utils::programModel);
 		}
 	}
 
@@ -112,18 +92,18 @@ private:
 		// Walk through each of the mesh's vertices
 		for (GLuint i = 0; i < mesh->mNumVertices; i++)
 		{
-			Vertex vertex;
+			Vertex vertex1;
 			glm::vec3 vector; // We declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
 							  // Positions
 			vector.x = mesh->mVertices[i].x;
 			vector.y = mesh->mVertices[i].y;
 			vector.z = mesh->mVertices[i].z;
-			vertex.Position = vector;
+			vertex1.Position = vector;
 			// Normals
 			vector.x = mesh->mNormals[i].x;
 			vector.y = mesh->mNormals[i].y;
 			vector.z = mesh->mNormals[i].z;
-			vertex.Normal = vector;
+			vertex1.Normal = vector;
 			// Texture Coordinates
 			if (mesh->mTextureCoords[0]) // Does the mesh contain texture coordinates?
 			{
@@ -132,11 +112,11 @@ private:
 				// use models where a vertex can have multiple texture coordinates so we always take the first set (0).
 				vec.x = mesh->mTextureCoords[0][i].x;
 				vec.y = mesh->mTextureCoords[0][i].y;
-				vertex.TexCoords = vec;
+				vertex1.TexCoords = vec;
 			}
 			else
-				vertex.TexCoords = glm::vec2(0.0f, 0.0f);
-			vertices.push_back(vertex);
+				vertex1.TexCoords = glm::vec2(0.0f, 0.0f);
+			vertices.push_back(vertex1);
 		}
 		// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
 		for (GLuint i = 0; i < mesh->mNumFaces; i++)
