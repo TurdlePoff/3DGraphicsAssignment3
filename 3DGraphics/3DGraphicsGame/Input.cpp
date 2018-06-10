@@ -270,26 +270,22 @@ void CInput::SpecialKeyPress(int key, int x, int y)
 		case GLUT_KEY_UP:
 		{
 			Utils::SpecKeyState[0] = INPUT_HOLD;
-			std::cout << "UP\n";
 			break;
 		}
 		case GLUT_KEY_DOWN:
 		{
 			Utils::SpecKeyState[1] = INPUT_HOLD;
-			std::cout << "DOWN\n";
 			break;
 
 		}
 		case GLUT_KEY_LEFT:
 		{
 			Utils::SpecKeyState[2] = INPUT_HOLD;
-			std::cout << "LEFT\n";
 			break;
 		}
 		case GLUT_KEY_RIGHT:
 		{
 			Utils::SpecKeyState[3] = INPUT_HOLD;
-			std::cout << "RIGHT\n";
 			break;
 		} 
 	}
@@ -310,29 +306,22 @@ void CInput::SpecialKeyRelease(int key, int x, int y)
 		case GLUT_KEY_UP:
 		{
 			Utils::SpecKeyState[0] = INPUT_RELEASED;
-			std::cout << "UP\n";
 			break;
 		}
 		case GLUT_KEY_DOWN:
 		{
 			Utils::SpecKeyState[1] = INPUT_RELEASED;
-			std::cout << "DOWN\n";
-
 			break;
 
 		}
 		case GLUT_KEY_LEFT:
 		{
 			Utils::SpecKeyState[2] = INPUT_RELEASED;
-			std::cout << "LEFT\n";
-
 			break;
 		}
 		case GLUT_KEY_RIGHT:
 		{
 			Utils::SpecKeyState[3] = INPUT_RELEASED;
-			std::cout << "RIGHT\n";
-
 			break;
 		}
 	}

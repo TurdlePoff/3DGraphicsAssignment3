@@ -15,7 +15,7 @@
 
 #include "Scene.h"
 #include "CubeMap.h"
-//class CCubeMap;
+
 class CLevel : public CScene
 {
 public:
@@ -46,6 +46,6 @@ private:
 	
 	std::string sc;
 
-	CCubeMap* cMap;
+	std::shared_ptr<CCubeMap> cMap;
 
 };

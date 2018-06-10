@@ -24,7 +24,7 @@
 CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 {
 	m_pEnemySprite = enemySprite;
-	m_vel = { 0.5f, 1.5f };
+	m_vel = { 0.3f, 0.9f };
 	m_acc = { 0.5f, 1.5f };
 	m_force = { 0.5f, 1.5f };
 

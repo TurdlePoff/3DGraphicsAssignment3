@@ -301,8 +301,8 @@ bool CSprite::IsCollidingWith(std::shared_ptr<CSprite> _e2)//std::shared_ptr<CSp
 	bool colliding = false;
 
 	float e1 = this->GetHeight() * 2;
-	float e1X = this->GetPos().x* this->GetScale().x;
-	float e1Y = this->GetPos().z* this->GetScale().z;
+	float e1X = this->GetPos().x * this->GetScale().x;
+	float e1Y = this->GetPos().z * this->GetScale().z;
 
 	float e2 = _e2->GetHeight() * 2;
 	float e2X = _e2->GetPos().x * _e2->GetScale().x;

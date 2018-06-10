@@ -350,8 +350,11 @@ void Texture::Render(GLuint vao, GLuint texture)
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 		glUniform1i(glGetUniformLocation(Utils::programCMap, "cubeSampler"), 0);
+		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(-80.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
 		glm::mat4 model = glm::scale(glm::mat4(), glm::vec3(1000.0f, 1000.0f, 1000.0f));
-		glm::mat4 MVP =  CCamera::GetInstance()->GetProjection() *  CCamera::GetInstance()->GetView() * model;
+		glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(-80.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		glm::mat4 MVP =  CCamera::GetInstance()->GetProjection() *  CCamera::GetInstance()->GetView() * model * ROT;
+		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
 		glUniformMatrix4fv(glGetUniformLocation(Utils::programCMap, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 
 		glBindVertexArray(vao);

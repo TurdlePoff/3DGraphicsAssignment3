@@ -28,6 +28,7 @@ CLevel::CLevel(){}
 CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 {
 	m_iLevelNumber = levelNum;
+	
 	CreateBackground(bgSprite);
 	m_pPlayer = player;
 	AddToSpriteList(m_pPlayer->GetSprite());
@@ -43,9 +44,10 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	yText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 	AddToTextList(yText);
 
-	std::shared_ptr<CSprite> skyBox(new CSprite(SKYBOX, CUBEMAP, glm::vec3(0.0f, 0.0f, 0.0)));
-	AddToSpriteList(skyBox);
-
+	//std::shared_ptr<CSprite> skyBox(new CSprite(SKYBOX, CUBEMAP, glm::vec3(0.0f, 0.0f, 0.0)));
+	//AddToSpriteList(skyBox);
+	std::shared_ptr<CCubeMap> cubeMap(new CCubeMap());
+	cMap = cubeMap;
 	if (m_iLevelNumber == 10)	//IF THE LEVEL IS THE START SCREEN
 	{
 		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
@@ -74,14 +76,41 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(titleText1);
 
-		std::shared_ptr<CTextLabel> startText(new CTextLabel("W H Y", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 5.0f, ((SCR_HEIGHT / 2)))));
-		startText->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
-		AddToTextList(startText);
-
-		std::shared_ptr<CTextLabel> exText(new CTextLabel("BACK", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f + 25.0f, ((SCR_HEIGHT / 2) - 300))));
+		std::shared_ptr<CTextLabel> exText(new CTextLabel("BACK", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) + 180.0f, ((SCR_HEIGHT / 2) + 30))));
 		exText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(exText);
 
+		std::shared_ptr<CTextLabel> wasd(new CTextLabel("[WASD] - Movement", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_LEFT + 100.0f), ((SCR_HEIGHT / 2) +100))));
+		wasd->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		wasd->SetScale(0.5f);
+
+		AddToTextList(wasd);
+
+		std::shared_ptr<CTextLabel> spc(new CTextLabel("[SPACE] - Shoot bubble", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2)))));
+		spc->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		spc->SetScale(0.5f);
+
+		AddToTextList(spc);
+
+		std::shared_ptr<CTextLabel> msc(new CTextLabel("[Mouse Scroll click]", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 100))));
+		msc->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		msc->SetScale(0.5f);
+		AddToTextList(msc);
+
+		std::shared_ptr<CTextLabel> msc2(new CTextLabel("Drag to change perspective", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 150))));
+		msc2->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		msc2->SetScale(0.5f);
+		AddToTextList(msc2);
+
+		std::shared_ptr<CTextLabel> mCam(new CTextLabel("[ArrowKeys] - Move Camera Position", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 250))));
+		mCam->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		mCam->SetScale(0.5f);
+		AddToTextList(mCam);
+
+		std::shared_ptr<CTextLabel> scroll(new CTextLabel("[Scroll Wheel] - Zoom in and out", "Resources/Fonts/bubble.TTF", glm::vec2(SCR_LEFT + 100.0f, ((SCR_HEIGHT / 2) - 350))));
+		scroll->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+		scroll->SetScale(0.5f);
+		AddToTextList(scroll);
 	}
 	else if (m_iLevelNumber == 12)	//IF THE LEVEL IS THE GAME OVER SCREEN
 	{
@@ -113,9 +142,12 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, ENMY_NORM));
 
+		std::shared_ptr<CSprite> mAppleSprite2(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
+		std::shared_ptr<CEnemy> enemyBad2(new CEnemy(mAppleSprite2, ENMY_NORM));
 
 		AddToPowerUpList(goodApple);
 		AddToEnemyList(enemyBad);
+		AddToEnemyList(enemyBad2);
 
 		std::string score = "1000";
 		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2(5.0f, 40.0f)));
@@ -145,7 +177,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		invText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(actualLivesText);
 	}
-	//cMap = new CCubeMap();
+	cubeMap->Render();
 }
 
 /***********************
@@ -166,8 +198,9 @@ CLevel::~CLevel() {
 void CLevel::Render()
 {
 	//Draw/Render every item in scene
+	cMap->Render();
+
 	m_pBackgroundSprite->Draw();
-	//cMap->Render();
 
 	//Render all items in sprite list
 	for (unsigned int sList = 0; sList < m_pSpriteList.size(); ++sList)
@@ -209,6 +242,7 @@ void CLevel::Render()
 ***********************/
 void CLevel::Update()
 {
+	//m_pSpriteList[1]->Draw();
 	m_pTextList[0]->SetText(std::to_string(Utils::mouseX));
 	m_pTextList[1]->SetText(std::to_string(Utils::mouseY));
 	//If the player is currently in level 0 or 2
@@ -228,14 +262,13 @@ void CLevel::Update()
 			Utils::SpaceState[' '] = INPUT_RELEASED;
 		}
 
+		if (m_pEnemyList.size() != 0)
+			CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
+
 		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 		{
 			m_pPlayerBulletList[bList]->Update();
 		}
-
-
-		if(m_pEnemyList.size() != 0)
-			CAIManager::GetInstance()->BouncyBall(m_pEnemyList[0]);
 
 		CheckEnemyCollision(player);
 		CheckPowerUpCollision(player);
@@ -285,7 +318,7 @@ void CLevel::Update()
 			CSceneManager::GetInstance()->SwitchScene(12);
 		}
 
-		m_pTextList[6]->SetText((GetPlayer()->GetInvincible() ? "invincible" : "nOPE"));
+		//m_pTextList[6]->SetText((GetPlayer()->GetInvincible() ? "invincible" : "nOPE"));
 
 	}
 	
@@ -381,7 +414,7 @@ void CLevel::CheckBulletEnemyCollision()
 			{
 				if (m_pPlayerBulletList[bList]->GetSprite()->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
 				{
-					m_pEnemyList[eList]->SetIsHit(true);
+ 					m_pEnemyList[eList]->SetIsHit(true);
 					m_pEnemyList[eList]->SetIsDead(true);
 
 					GetPlayer()->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetGainPoint());
@@ -464,13 +497,13 @@ void CLevel::CheckButtonHovered()
 	}
 	else if (m_iLevelNumber == 11) //Instructions
 	{
-		if (IsMouseOverButton(m_pTextList[4]))//Hover over return button
+		if (IsMouseOverButton(m_pTextList[3]))//Hover over return button
 		{
-			m_pTextList[4]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+			m_pTextList[3]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
 		}
 		else
 		{
-			m_pTextList[4]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+			m_pTextList[3]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		}
 	}
 	else if (m_iLevelNumber == 12) //Game over screen
@@ -524,7 +557,7 @@ void CLevel::HandleStartScreenButtons()
 	}
 	else if(m_iLevelNumber == 11) //Instructions
 	{
-		if (m_pTextList[4]->GetIsHovering())
+		if (m_pTextList[3]->GetIsHovering())
 		{
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{

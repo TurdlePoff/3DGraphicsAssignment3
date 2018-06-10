@@ -39,6 +39,7 @@ public:
 	glm::mat4 GetMVP() { return MVP; }
 	glm::mat4 GetProjection() { return projection; }
 	glm::mat4 GetView() { return view; }
+	void SetRotation(glm::mat4 rot) {ROT = rot; }
 
 private:
 	static CCamera* s_pCameraInstance;
@@ -61,5 +62,7 @@ private:
 
 	GLfloat currentTime;
 	static glm::mat4 MVP;
+	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+
 };
 

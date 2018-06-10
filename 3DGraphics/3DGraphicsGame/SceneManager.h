@@ -14,6 +14,7 @@
 //
 
 #include "Scene.h"
+//#include "CubeMap.h"
 
 class CSceneManager
 {
@@ -35,7 +36,6 @@ public:
 	std::shared_ptr<CScene> GetCurrentScene();
 	int GetCurrentSceneNumber();
 
-
 private:
 	static CSceneManager* s_pSceneInstance;
 	CSceneManager() {};
@@ -45,6 +45,6 @@ private:
 	std::shared_ptr<CScene> currentScene;
 
 	bool m_bWinner;
-	
+
 };
 

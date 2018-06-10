@@ -77,15 +77,13 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 
 	glm::mat4 Model = translate * rotation * scale;
 
-	//cameraFront = CInput::GetInstance()->MousePassiveMovement();
-
 	//Moves the camera when WASD input is pressed
 	float cameraSpeed = 0.01f * CTime::GetInstance()->GetCurTimeSecs();
 
 	CameraMovement(cameraSpeed);
 
 	//ROTATE CAMERA TO VIEW AS EAGLE EYE
-	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	/*ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f));*/
 	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * ROT;
 	projection = glm::perspective(m_fov, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 10000.0f);
 
@@ -159,19 +157,19 @@ void CCamera::CameraMovement(float _camSpeed)
 {
 	if (Utils::SpecKeyState[0] == INPUT_HOLD || Utils::SpecKeyState[0] == INPUT_HOLD)
 	{
-		cameraPos += cameraSpeed * cameraUp;
+		cameraPos.z += cameraSpeed; //+= cameraSpeed * cameraUp;
 	}
 	else if (Utils::SpecKeyState[1] == INPUT_HOLD || Utils::SpecKeyState[1] == INPUT_HOLD)
 	{
-		cameraPos -= cameraSpeed * cameraUp;
+		cameraPos.z -= +cameraSpeed; //-= cameraSpeed * cameraUp;
 	}
 	else if (Utils::SpecKeyState[2] == INPUT_HOLD || Utils::SpecKeyState[2] == INPUT_HOLD)
 	{
-		cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		cameraPos.y -= cameraSpeed; //-= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
 	else if (Utils::SpecKeyState[3] == INPUT_HOLD || Utils::SpecKeyState[3] == INPUT_HOLD)
 	{
-		cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+		cameraPos.y += cameraSpeed; //glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
 	}
 }
 
