@@ -148,6 +148,18 @@ static GLfloat verticesCubeMap[] = {
 	1.0f, 1.0f, 1.0f,
 	1.0f, 1.0f, -1.0f,
 	1.0f, -1.0f, -1.0f,
+
+static GLfloat verticesCubeMap[216] = {
+	// Positions
+	-1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, 0.0f, 
+	1.0f, -1.0f, 1.0f,
+	-1.0f, -1.0f, 1.0f,
+
+	// Right Face
+	1.0f, 1.0f, 1.0f,	
+	1.0f, 1.0f, -1.0f,
+	1.0f, -1.0f, -1.0f,	
 	1.0f, -1.0f, 1.0f,
 
 	// Back Face
@@ -155,10 +167,16 @@ static GLfloat verticesCubeMap[] = {
 	-1.0f, 1.0f, -1.0f,
 	-1.0f, -1.0f, -1.0f,
 	1.0f, -1.0f, -1.0f,	
+
 	// Left Face
 	-1.0f, 1.0f, -1.0f,
 	-1.0f, 1.0f, 1.0f,
 	-1.0f, -1.0f, 1.0f,
+
+	// Left Face
+	-1.0f, 1.0f, -1.0f,
+	-1.0f, 1.0f, 1.0f,	
+	-1.0f, -1.0f, 1.0f,	
 	-1.0f, -1.0f, -1.0f,
 
 	// Top Face
@@ -166,21 +184,12 @@ static GLfloat verticesCubeMap[] = {
 	1.0f, 1.0f, -1.0f,
 	1.0f, 1.0f, 1.0f,
 	-1.0f, 1.0f, 1.0f,
+
 	// Bottom Face
 	-1.0f, -1.0f, 1.0f,
 	1.0f, -1.0f, 1.0f,
 	1.0f, -1.0f, -1.0f,
 	-1.0f, -1.0f, -1.0f,
-};
-
-static std::vector<std::string> g_sFaces
-{
-	"right.jpg",
-	"left.jpg",
-	"top.jpg",
-	"bottom.jpg",
-	"front.jpg",
-	"back.jpg"
 };
 
 static GLfloat quadVertices[32] = {
@@ -235,4 +244,14 @@ enum EBullets {
 
 enum EEnemyType {
 	ENMY_NORM
+};
+
+static const char* g_faces[] =
+{
+	"right.jpg",
+	"left.jpg",
+	"top.jpg",
+	"bottom.jpg",
+	"front.jpg",
+	"back.jpg"
 };
