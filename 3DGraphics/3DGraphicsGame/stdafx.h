@@ -111,6 +111,15 @@ static GLfloat verticesPyramid[] = {
 	0.0f, 1.0f, 0.0f,		0.0f, 1.0f, 1.0f, 0.0f,		0.5f, 0.0f, // 12 // Top Point
 };
 
+static GLfloat realLightVertices[] = {
+	-1.0f,-1.0f,-1.0f,   0.0f, 0.0f,   0.0f, -1.0f, 0.0f,
+	1.0f,-1.0f,-1.0f,   1.0f, 0.0f,   0.0f, -1.0f, 0.0f,
+	-1.0f,-1.0f, 1.0f,   0.0f, 1.0f,   0.0f, -1.0f, 0.0f,
+	1.0f,-1.0f,-1.0f,   1.0f, 0.0f,   0.0f, -1.0f, 0.0f,
+	1.0f,-1.0f, 1.0f,   1.0f, 1.0f,   0.0f, -1.0f, 0.0f,
+	-1.0f,-1.0f, 1.0f,   0.0f, 1.0f,   0.0f, -1.0f, 0.0f,
+};
+
 static GLfloat verticesCube[216] = {
 	// Positions // Colors // TexCoords
 	-1.0f, 1.0f, 1.0f,		1.0f, 1.0f, 1.0f, 0.0f,		0.0f, 0.0f,
@@ -162,13 +171,16 @@ enum EImage {
 	BUBBLE,
 	BG,
 	STARTSCR,
-	ENDSCR
+	ENDSCR,
+	WHITE,
+	RED
 };
 
 enum EShape {
 	TWOD,
 	PYRAMID,
-	CUBE
+	CUBE,
+	LIGHT
 };
 
 enum EMouse

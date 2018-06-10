@@ -62,6 +62,7 @@ public:
 	void SetIsHit(bool _isHit);
 	bool GetIsHit();
 	bool IsCollidingWith(std::shared_ptr<CSprite> _e2);//std::shared_ptr<CSprite> e);
+	//void RedMove(std::shared_ptr<CSprite> ree);
 
 private:
 	EImage m_eSpriteType;

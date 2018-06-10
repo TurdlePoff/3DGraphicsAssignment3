@@ -13,6 +13,7 @@
 //
 
 #include "Lighting.h"
+#include "Texture.h"
 
 CLighting* CLighting::s_pLightingInstance = 0;
 

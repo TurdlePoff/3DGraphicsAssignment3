@@ -151,6 +151,12 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 			m_vRotation = glm::vec3(0.0f, 0.0f, 180.0f);
 			break;
 		}
+		case RED:
+		{
+			m_filename = "Resources/images/red.png";
+			m_vScale = glm::vec3(2.0f, 2.0f, 2.0f);
+			break;
+		}
 	}
 
 	m_vPos = _pos;
@@ -307,6 +313,11 @@ bool CSprite::IsCollidingWith(std::shared_ptr<CSprite> _e2)//std::shared_ptr<CSp
 
 	return colliding;
 }
+
+//void CSprite::RedMove(std::shared_ptr<CSprite> ree)
+//{
+//	
+//}
 
 /***********************
 * SetHitStartTime: Sets start time of when collided with

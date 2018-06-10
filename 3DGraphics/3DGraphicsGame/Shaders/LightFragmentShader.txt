@@ -1,10 +1,13 @@
-#version 450 core
-out vec4 fragColor;
+#version 450 core 
+in vec2 fragTexCoord;
 
-uniform vec4 objectColor;
-uniform vec4 lightColor;
+out vec4 color;
+uniform float ambientStr; // = 0.05f;
+uniform vec3 ambientColor; // = glm::vec3(1.0f, 1.0f, 1.0f);
 
-void main(void)
-{
-	fragColor = vec4(lightColor * objectColor, 1.0);
+void main() 
+{ 
+	vec3 ambient = ambientStr * ambientColor;
+
+	color = vec4(ambient, 1.0f) * texture(tex, fragTexCoord);
 }

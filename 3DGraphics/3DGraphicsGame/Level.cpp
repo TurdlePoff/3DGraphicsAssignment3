@@ -18,6 +18,16 @@
 #include "AI.h"
 #include "SoundManager.h"
 #include "Model.h"
+#include "Lighting.h"
+
+static GLfloat lightPos[32] =
+{
+	// Position			// Normals		// TexCoord
+	-1.0f, 1.0f, 0.0f,	0.0f, 0.0f,		1.0f, 0.0f, 0.0f,
+	1.0f, 1.0f, 0.0f,	0.0f, 0.0f,		1.0f, 1.0f, 0.0f,
+	1.0f, -1.0f, 0.0f,	0.0f, 0.0f,		1.0f, 1.0f, 1.0f,
+	-1.0f, -1.0f, 0.0f, 0.0f, 0.0f,		1.0f, 0.0f, 1.0f,
+};
 
 CLevel::CLevel(){}
 
@@ -109,11 +119,16 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		//pugModel = new Model("Resources/Models/pug/Dog 1.obj", CCamera::GetInstance(), Utils::programModel);
 
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(LAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
+		
+		
+
 		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_INVINCIBLE));
 		//lAppleSprite1->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-10.0f, 0.0f, 0.0)));
+		std::shared_ptr<CSprite> red(new CSprite(RED, CUBE, glm::vec3(20.0f, 0.0f, 0.0)));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, ENMY_NORM));
 
+		AddToSpriteList(red);
 		AddToPowerUpList(goodApple);
 		AddToEnemyList(enemyBad);
 

@@ -24,9 +24,14 @@ public:
 
 	static void SetUpLighting();
 
+	struct Light
+	{
+		glm::vec3 position;
+		glm::vec3 color;
+	};
+
 private:
 	static CLighting* s_pLightingInstance;
 	CLighting() {};
-
 };
 
