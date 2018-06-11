@@ -89,7 +89,17 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 
 	//Calculate a desire velocity so enemy knows not to directly travel to the player
 	glm::vec3 desiredVelocity = _player->GetSprite()->GetPos() - enS->GetPos();
-	desiredVelocity = (glm::normalize(desiredVelocity) * m_maxVelocity);
+
+	//Make sure desiredVelocity is not at 0 or normalize will break it
+	if (glm::length(desiredVelocity) != 0.0f)
+	{
+		desiredVelocity = (glm::normalize(desiredVelocity) * m_maxVelocity);
+	}
+	else
+	{
+		//Set as 0 instead of normalizing it
+		desiredVelocity = glm::vec3();
+	}
 
 	//Calculate a steer which will allow the AI to decrease 
 	//the angle/distance slowly instead of heading straight towards the target
@@ -98,6 +108,10 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 
 	//Calculate final velocity by adding the steer to the current velocity
 	glm::vec3 finalVelocity = enS->GetVel() + steer;
+	if (glm::length(finalVelocity) > m_maxVelocity)
+	{
+		finalVelocity = glm::normalize(finalVelocity) * m_maxVelocity;
+	}
 	enS->SetVel(finalVelocity);
 
 	//Apply to enemy
@@ -114,13 +128,23 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 void CAIManager::Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
+	
+	glm::vec3 desiredVelocity = enS->GetPos() - _player->GetSprite()->GetPos();
 
+	
 	//If the player is within the radius of the enemy, evade
-	if (glm::distance(_player->GetSprite()->GetPos(), enS->GetPos()) < 70.0f)
+	if (glm::length(desiredVelocity) < m_radius)
 	{
-		//Calculate a desire velocity so enemy knows not to directly travel away from the player
-		glm::vec3 desiredVelocity = enS->GetPos() - _player->GetSprite()->GetPos();
-		desiredVelocity = (glm::normalize(desiredVelocity) * m_maxVelocity);
+		//Calculate a desired velocity so enemy knows not to directly travel to the player
+		if (glm::length(desiredVelocity) != 0.0f)
+		{
+			desiredVelocity = (glm::normalize(desiredVelocity) * m_maxVelocity);
+		}
+		else
+		{
+			//Set as 0 instead of normalizing it
+			desiredVelocity = glm::vec3();
+		}
 
 		//Calculate a steer which will allow the AI to decrease 
 		//the angle/distance slowly instead of heading straight away from the target
@@ -129,6 +153,10 @@ void CAIManager::Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 
 		//Calculate final velocity by adding the steer to the current velocity
 		glm::vec3 finalVelocity = enS->GetVel() + steer;
+		if (glm::length(finalVelocity) > m_maxVelocity)
+		{
+			finalVelocity = glm::normalize(finalVelocity) * m_maxVelocity;
+		}
 		enS->SetVel(finalVelocity);
 
 		//Calculate boundaries so enemy does not leave the game space
@@ -162,10 +190,47 @@ void CAIManager::Arrival(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnem
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
-	if (glm::distance(_player->GetSprite()->GetPos(), enS->GetPos()) < 70.0f)
-	{
+	//Calculate a desired velocity so enemy knows not to directly travel to the player
+	glm::vec3 desiredVelocity = _player->GetSprite()->GetPos() - enS->GetPos();
 
+	//Calculate a desire velocity so enemy knows not to directly travel away from the player
+	if (glm::length(desiredVelocity) != 0.0f)
+	{
+		if (glm::length(desiredVelocity) < m_radius)
+		{
+			//Slow down gradually so AI arrives at player perfectly without overshooting
+			desiredVelocity = glm::normalize(desiredVelocity) * m_maxVelocity 
+						   * (glm::length(desiredVelocity) / m_radius);
+		}
+		else
+		{
+			//Speed to target at max speed if distance is higher than radius of target
+			desiredVelocity = glm::normalize(desiredVelocity) * m_maxVelocity;
+		}
 	}
+	else
+	{
+		//Set as 0 instead of normalizing it
+		desiredVelocity = glm::vec3();
+	}
+
+	//Calculate a steer which will allow the AI to decrease 
+	//the angle/distance slowly instead of heading straight towards the target
+	glm::vec3 steer = desiredVelocity - enS->GetVel();
+	steer /= m_mass;
+	glm::vec3 finalVelocity = glm::vec3();
+	//Calculate final velocity by adding the steer to the current velocity
+ 	finalVelocity = enS->GetVel() + steer;
+	if (glm::length(finalVelocity) > m_maxVelocity)
+	{
+		finalVelocity = glm::normalize(finalVelocity) * m_maxVelocity;
+	}
+	enS->SetVel(finalVelocity);
+
+	//Apply to enemy
+	enS->Translate(enS->GetPos() + enS->GetVel());
+
+	
 }
 
 /***********************

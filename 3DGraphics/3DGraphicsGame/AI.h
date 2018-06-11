@@ -45,7 +45,7 @@ private:
 	float m_maxVelocity = 0.1f;
 	float m_maxforce = 1.0f;
 	float m_mass = 100.0f;
-
+	float m_radius = 50.0f;
 
 };
 

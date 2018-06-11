@@ -31,7 +31,6 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	
 	CreateBackground(bgSprite);
 	m_pPlayer = player;
-	m_pPlayer->SetInvincible(true);
 	AddToSpriteList(m_pPlayer->GetSprite());
 
 	//Mouse position text
@@ -145,8 +144,9 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(INVAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_INVINCIBLE));
 		//lAppleSprite1->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
-		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(40.0f, 0.0f, -20.0)));
+		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(0.0f, 0.0f, 0.0)));
 		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, ENMY_NORM));
+
 
 		std::shared_ptr<CSprite> mAppleSprite2(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
 		std::shared_ptr<CEnemy> enemyBad2(new CEnemy(mAppleSprite2, ENMY_NORM));
@@ -270,7 +270,7 @@ void CLevel::Update()
 
 		if (m_pEnemyList.size() != 0)
 		{
-			CAIManager::GetInstance()->Flee(GetPlayer(), m_pEnemyList[0]);
+			CAIManager::GetInstance()->Arrival(GetPlayer(), m_pEnemyList[0]);
 		}
 
 		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
@@ -280,7 +280,7 @@ void CLevel::Update()
 
 		//CheckEnemyCollision(player);
 		CheckPowerUpCollision(player);
-		CheckBulletEnemyCollision();
+		//CheckBulletEnemyCollision();
 		CheckBulletBoundaries();
 
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
