@@ -35,12 +35,13 @@ public:
 	void Seek(glm::vec3 _target, std::shared_ptr<CEnemy> _enemy);
 	void Flee(glm::vec3 _target, std::shared_ptr<CEnemy>  _enemy);
 	void Arrival(glm::vec3 _target, std::shared_ptr<CEnemy>  _enemy);
-	void ObstacleAvoidance(glm::vec3 _target, std::shared_ptr<CEnemy>  _enemy);
+	void ObstacleAvoidance(std::vector<glm::vec3> _obstList, std::shared_ptr<CEnemy>  _enemy);
 	void Wander(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy);
 	
 	
 	void CheckBoundaries(std::shared_ptr<CEnemy>  _enemy);
-	
+	bool FindClosestPoint();
+
 private:
 	static CAIManager* s_pAIInstance;
 	CAIManager() {};

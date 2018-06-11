@@ -229,14 +229,14 @@ void CAIManager::Arrival(glm::vec3 _target, std::shared_ptr<CEnemy> _enemy)
 	enS->Translate(enS->GetPos() + enS->GetVel());	//Apply to enemy
 }
 
-void CAIManager::ObstacleAvoidance(glm::vec3 _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::ObstacleAvoidance(std::vector<glm::vec3> _obstList, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
 	glm::vec3 ahead = enS->GetPos() + glm::normalize(enS->GetVel()) * m_maxSeeAhead;
 	glm::vec3 ahead2 = enS->GetPos() + glm::normalize(enS->GetVel()) * (m_maxSeeAhead * 0.5f);
-	glm::vec3 avoidance_force = ahead - _target;
-	avoidance_force = normalize(avoidance_force) * m_maxAvoidanceForce;
+	/*glm::vec3 avoidance_force = ahead - _target;
+	avoidance_force = normalize(avoidance_force) * m_maxAvoidanceForce;*/
 
 
 }
