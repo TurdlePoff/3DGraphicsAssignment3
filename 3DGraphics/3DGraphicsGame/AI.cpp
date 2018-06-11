@@ -229,11 +229,21 @@ void CAIManager::Arrival(glm::vec3 _target, std::shared_ptr<CEnemy> _enemy)
 	enS->Translate(enS->GetPos() + enS->GetVel());	//Apply to enemy
 }
 
-void CAIManager::ObstacleAvoidance(std::vector<glm::vec3> _obstList, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::PathFollowing(std::vector<glm::vec3> _obstList, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
-	glm::vec3 ahead = enS->GetPos() + glm::normalize(enS->GetVel()) * m_maxSeeAhead;
+	glm::vec3 target = _obstList[_enemy->targetListNum];
+
+	if (Distance(enS->GetPos(), target) <= m_pathRadius) {
+		_enemy->targetListNum += 1;
+
+		if (_enemy->targetListNum >= _obstList.size()) {
+			_enemy->targetListNum = 0;
+		}
+	}
+	Seek(target, _enemy);
+	/*glm::vec3 ahead = enS->GetPos() + glm::normalize(enS->GetVel()) * m_maxSeeAhead;
 	glm::vec3 ahead2 = enS->GetPos() + glm::normalize(enS->GetVel()) * (m_maxSeeAhead * 0.5f);
 	
 	glm::vec3 avoidance_force;
@@ -247,9 +257,7 @@ void CAIManager::ObstacleAvoidance(std::vector<glm::vec3> _obstList, std::shared
 	else
 	{
 		_enemy->targetListNum = 0;
-	}
-
-
+	}*/
 }
 
 /***********************
@@ -263,6 +271,36 @@ void CAIManager::Wander(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
+}
+
+/***********************
+* Pursuit: AI that Pursuits the player
+* @author: Vivian Ngo & Melanie Jacobson
+* @date: 08 / 05 / 18
+* @parameter: _target - _target to search
+* @parameter: _enemy - enemy to apply AI to
+***********************/
+void CAIManager::Pursuit(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
+{
+	glm::vec3 dist = glm::normalize(_target->GetSprite()->GetPos() - _enemy->GetSprite()->GetPos());
+	float ahead = glm::length(dist) / m_maxVelocity;
+	glm::vec3 futurePos = _target->GetSprite()->GetPos() + (_target->GetSprite()->GetVel() * ahead);
+	Seek(futurePos, _enemy);
+}
+
+/***********************
+* Evade: AI that Evades the player
+* @author: Vivian Ngo & Melanie Jacobson
+* @date: 08 / 05 / 18
+* @parameter: _target - _target to search
+* @parameter: _enemy - enemy to apply AI to
+***********************/
+void CAIManager::Evade(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
+{
+	glm::vec3 dist = glm::normalize(_target->GetSprite()->GetPos() - _enemy->GetSprite()->GetPos());
+	float ahead = glm::length(dist) / m_maxVelocity;
+	glm::vec3 futurePos = _target->GetSprite()->GetPos() + (_target->GetSprite()->GetVel() * ahead);
+	Flee(futurePos, _enemy);
 }
 
 /***********************
@@ -303,7 +341,7 @@ void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 int CAIManager::FindClosestPoint(std::vector<glm::vec3> _obstList, glm::vec3 _AI)
 {
 	int lowest = 100;
-	for (int i = 0; i < _obstList.size(); ++i)
+	for (unsigned int i = 0; i < _obstList.size(); ++i)
 	{
 		if (glm::distance(_obstList[i], _AI) < lowest)
 		{
@@ -311,4 +349,9 @@ int CAIManager::FindClosestPoint(std::vector<glm::vec3> _obstList, glm::vec3 _AI
 		}
 	}
 	return lowest;
+}
+
+float CAIManager::Distance(glm::vec3 a, glm::vec3 b)
+{
+	return glm::sqrt((a.x - b.x) * (a.x - b.x) + (a.z - b.z) * (a.z - b.z));;
 }

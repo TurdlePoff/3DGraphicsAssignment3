@@ -146,8 +146,11 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	{
 		pathToFollow = {
 			glm::vec3(-35.0f, 0.0f, -35.0f),
-			glm::vec3(-35.0f, 0.0f, 45.0f),
+			glm::vec3(-40.0f, 0.0f, 0.0f),
+			glm::vec3(-40.0f, 0.0f, 35.0f),
+			glm::vec3(0.0f, 0.0f, 44.0f),
 			glm::vec3(40.0f, 0.0f, 45.0f),
+			glm::vec3(40.0f, 0.0f, 0.0f),
 			glm::vec3(40.0f, 0.0f, -35.0f),
 		};
 
@@ -159,17 +162,35 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		//Create Enemies
 		std::shared_ptr<CSprite> eSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(0.0f, 0.0f, 0.0)));
 		std::shared_ptr<CEnemy> enemyBad1(new CEnemy(eSprite1, ENMY_SEEK));
+		eSprite1->SetColour(glm::vec4(0.0f, 0.5, 1.0f, 1.0f));
 
 		std::shared_ptr<CSprite> eSprite2(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
 		std::shared_ptr<CEnemy> enemyBad2(new CEnemy(eSprite2, ENMY_FLEE));
+		eSprite2->SetColour(glm::vec4(0.0f, 0.5, 0.5f, 1.0f));
 
 		std::shared_ptr<CSprite> eSprite3(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
 		std::shared_ptr<CEnemy> enemyBad3(new CEnemy(eSprite3, ENMY_ARRIVAL));
+		
+		std::shared_ptr<CSprite> eSprite4(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(40.0f, 0.0f, 40.0)));
+		std::shared_ptr<CEnemy> enemyBad4(new CEnemy(eSprite4, ENMY_PURSUIT));
+
+		std::shared_ptr<CSprite> eSprite5(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-20.0f, 0.0f, -40.0)));
+		std::shared_ptr<CEnemy> enemyBad5(new CEnemy(eSprite5, ENMY_EVADE));
 
 		AddToEnemyList(enemyBad1);
 		AddToEnemyList(enemyBad2);
 		AddToEnemyList(enemyBad3);
+		AddToEnemyList(enemyBad4);
+		AddToEnemyList(enemyBad5);
 
+		for (unsigned int i = 0; i < 8; ++i)
+		{
+			std::shared_ptr<CSprite> eSprite6(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-35.0f - i, 0.0f, -35.0f + i)));
+			std::shared_ptr<CEnemy> enemyBad6(new CEnemy(eSprite6, ENMY_PFOLLOW));
+			eSprite6->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
+			AddToEnemyList(enemyBad6);
+		}
+	
 		//Create text for level
 		std::string score = "1000";
 		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2(5.0f, 40.0f)));
@@ -278,10 +299,10 @@ void CLevel::Update()
 		//Process player input to shoot bullet
 		if (Utils::SpaceState[' '] == INPUT_HOLD)
 		{
-			std::shared_ptr<CBullet> newBullet = GetPlayer()->CreateBullet();
+			/*std::shared_ptr<CBullet> newBullet = GetPlayer()->CreateBullet();
 			newBullet->Draw();
 			newBullet->Update();
-			AddToBulletList(GetPlayer()->CreateBullet());
+			AddToBulletList(newBullet);*/
 			Utils::SpaceState[' '] = INPUT_RELEASED;
 		}
 
@@ -631,6 +652,21 @@ void CLevel::SetUpAI()
 					case ENMY_ARRIVAL:
 					{
 						CAIManager::GetInstance()->Arrival(GetPlayer()->GetSprite()->GetPos(), m_pEnemyList[eList]);
+						break;
+					}
+					case ENMY_PURSUIT:
+					{
+						CAIManager::GetInstance()->Pursuit(GetPlayer(), m_pEnemyList[eList]);
+						break;
+					}
+					case ENMY_EVADE:
+					{
+						CAIManager::GetInstance()->Evade(GetPlayer(), m_pEnemyList[eList]);
+						break;
+					}
+					case ENMY_PFOLLOW:
+					{
+						CAIManager::GetInstance()->PathFollowing(pathToFollow, m_pEnemyList[eList]);
 						break;
 					}
 				}

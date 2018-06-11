@@ -70,7 +70,7 @@ public:
 
 	void SetType(EEnemyType _e) { m_eType = _e; }
 	EEnemyType GetType() { return m_eType; }
-	int targetListNum;
+	unsigned int targetListNum;
 
 private:
 	int m_killPoint;
