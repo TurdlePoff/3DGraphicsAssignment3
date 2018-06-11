@@ -5,35 +5,6 @@
 //
 //class Model
 //{
-//public:
-//	
-//	GLuint program;
-//	CCamera* camera;
-//	
-//	/*  Functions   */
-//	// Constructor, expects a filepath to a 3D model.
-//	Model(std::string path, CCamera* camera, GLuint program){
-//
-//		this->program = program;
-//		this->camera = camera;
-//		this->loadModel(path);
-//	}
-//	/*Model(std::string path, GLuint program) {
-//
-//		this->program = program;
-//		this->loadModel(path);
-//	}*/
-//	// Draws the model, and thus all its meshes
-//	void Render()
-//	{
-//		for (GLuint i = 0; i < this->meshes.size(); i++) {
-//
-//		//printf("mesh size: %d \n", meshes.size());
-//
-//			this->meshes[i].Render(CCamera::GetInstance(), Utils::programModel);
-//		}
-//	}
-//
 //private:
 //	/*  Model Data  */
 //	vector<ModelMesh> meshes;
@@ -115,7 +86,7 @@
 //				vertex1.TexCoords = vec;
 //			}
 //			else
-//				vertex1.TexCoords = glm::vec2(0.0f, 0.0f);
+//				vertex1.TexCoords = glm::vec2(4.0f, 4.0f);
 //			vertices.push_back(vertex1);
 //		}
 //		// Now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -208,5 +179,34 @@
 //		SOIL_free_image_data(image);
 //		return textureID;
 //	}
+//
+//	public:
+//
+//		GLuint program;
+//		CCamera* camera;
+//
+//		/*  Functions   */
+//		// Constructor, expects a filepath to a 3D model.
+//		/*Model(std::string path, CCamera* camera, GLuint program){
+//
+//		this->program = program;
+//		this->camera = camera;
+//		this->loadModel(path);
+//		}*/
+//		Model(std::string path, GLuint program) {
+//
+//			this->program = program;
+//			this->loadModel(path);
+//		}
+//		// Draws the model, and thus all its meshes
+//		void Render()
+//		{
+//			for (GLuint i = 0; i < this->meshes.size(); i++) {
+//
+//				//printf("mesh size: %d \n", meshes.size());
+//
+//				this->meshes[i].Render(CCamera::GetInstance(), Utils::programModel);
+//			}
+//		}
 //};
 //

@@ -21,6 +21,7 @@
 //
 //class ModelMesh {
 //public:
+//
 //	/*  Mesh Data  */
 //	vector<Vertex> vertices;
 //	vector<GLuint> indices;

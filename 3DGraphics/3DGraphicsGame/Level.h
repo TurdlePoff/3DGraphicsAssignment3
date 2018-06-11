@@ -28,7 +28,6 @@ public:
 
 	void Render();
 	void Update();
-	void MovePlayer(std::shared_ptr<CSprite> player);
 	void CheckEnemyCollision(std::shared_ptr<CSprite> player);
 	void CheckPowerUpCollision(std::shared_ptr<CSprite> player);
 	void CheckBulletEnemyCollision();
@@ -39,6 +38,10 @@ public:
 	void HandleStartScreenButtons();
 	bool GetIsGameOver();
 	void SetGameOver();
+	/*bool loadOBJ(const char * path,
+		std::vector < glm::vec3 > & out_vertices,
+		std::vector < glm::vec2 > & out_uvs,
+		std::vector < glm::vec3 > & out_normals);*/
 
 private:
 	int m_iTimeTilHive;
