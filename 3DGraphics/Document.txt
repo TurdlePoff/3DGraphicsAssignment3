@@ -1,0 +1,11 @@
+Vivian:
+- Seek and Flee
+- Pursue and Evade
+- Arrival
+- Path following
+
+Melanie:
+- Wander
+	- Function has one parameter which is the enemy sprite. It then gets the x and z position and sets these to random values within the range of the game screen.
+	  These random points change every 0.5 seconds and every 0.5 seconds the sprite seeks towards this random point.
+- Wall following
