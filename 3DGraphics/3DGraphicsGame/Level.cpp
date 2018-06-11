@@ -177,11 +177,15 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CSprite> eSprite5(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-20.0f, 0.0f, -40.0)));
 		std::shared_ptr<CEnemy> enemyBad5(new CEnemy(eSprite5, ENMY_EVADE));
 
+		std::shared_ptr<CSprite> eSprite6(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-40.0f, 0.0f, 0.0)));
+		std::shared_ptr<CEnemy> enemyBad6(new CEnemy(eSprite6, ENMY_WANDER));
+
 		AddToEnemyList(enemyBad1);
 		AddToEnemyList(enemyBad2);
 		AddToEnemyList(enemyBad3);
 		AddToEnemyList(enemyBad4);
 		AddToEnemyList(enemyBad5);
+		AddToEnemyList(enemyBad6);
 
 		for (unsigned int i = 0; i < 8; ++i)
 		{
@@ -667,6 +671,11 @@ void CLevel::SetUpAI()
 					case ENMY_PFOLLOW:
 					{
 						CAIManager::GetInstance()->PathFollowing(pathToFollow, m_pEnemyList[eList]);
+						break;
+					}
+					case ENMY_WANDER:
+					{
+						CAIManager::GetInstance()->Wander(m_pEnemyList[eList]);
 						break;
 					}
 				}
