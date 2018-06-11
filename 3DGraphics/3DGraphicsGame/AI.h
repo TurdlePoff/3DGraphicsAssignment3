@@ -40,7 +40,7 @@ public:
 	
 	
 	void CheckBoundaries(std::shared_ptr<CEnemy>  _enemy);
-	bool FindClosestPoint();
+	int FindClosestPoint(std::vector<glm::vec3> _obstList, glm::vec3 _AI);
 
 private:
 	static CAIManager* s_pAIInstance;

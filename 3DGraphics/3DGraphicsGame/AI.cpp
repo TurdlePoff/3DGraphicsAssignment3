@@ -235,8 +235,19 @@ void CAIManager::ObstacleAvoidance(std::vector<glm::vec3> _obstList, std::shared
 
 	glm::vec3 ahead = enS->GetPos() + glm::normalize(enS->GetVel()) * m_maxSeeAhead;
 	glm::vec3 ahead2 = enS->GetPos() + glm::normalize(enS->GetVel()) * (m_maxSeeAhead * 0.5f);
-	/*glm::vec3 avoidance_force = ahead - _target;
-	avoidance_force = normalize(avoidance_force) * m_maxAvoidanceForce;*/
+	
+	glm::vec3 avoidance_force;
+	if (_obstList.size() > _enemy->targetListNum)
+	{
+		avoidance_force = ahead - _obstList[_enemy->targetListNum];
+		avoidance_force = normalize(avoidance_force) * m_maxAvoidanceForce;
+		bool bla = FindClosestPoint(_obstList, enS->GetPos());
+		++_enemy->targetListNum;
+	}
+	else
+	{
+		_enemy->targetListNum = 0;
+	}
 
 
 }
@@ -281,4 +292,23 @@ void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 			_enemy->GetSprite()->GetVel().z * -1)
 		);
 	}
+}
+
+/***********************
+* FindClosestPoint: Finds the vector that is closest to the given position
+* @author: Vivian Ngo & Melanie Jacobson
+* @date: 08 / 05 / 18
+* @parameter: _enemy - enemy to apply AI to
+***********************/
+int CAIManager::FindClosestPoint(std::vector<glm::vec3> _obstList, glm::vec3 _AI)
+{
+	int lowest = 100;
+	for (int i = 0; i < _obstList.size(); ++i)
+	{
+		if (glm::distance(_obstList[i], _AI) < lowest)
+		{
+			lowest = i;
+		}
+	}
+	return lowest;
 }

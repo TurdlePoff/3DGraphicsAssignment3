@@ -70,6 +70,7 @@ public:
 
 	void SetType(EEnemyType _e) { m_eType = _e; }
 	EEnemyType GetType() { return m_eType; }
+	int targetListNum;
 
 private:
 	int m_killPoint;
@@ -79,7 +80,7 @@ private:
 	std::shared_ptr<CSprite> m_pEnemySprite;
 
 	EEnemyType m_eType;
-
+	
 	/*float m_xSpeed = 0.5f;
 	float m_zSpeed = 1.5f;*/
 

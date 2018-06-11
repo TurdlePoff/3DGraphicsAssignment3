@@ -25,7 +25,7 @@ CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 {
 	m_pEnemySprite = enemySprite;
 	m_eType = _enemyType;
-
+	targetListNum = 0;
 	m_gainPoints = 1;
 	m_killPoint = -1;
 }
