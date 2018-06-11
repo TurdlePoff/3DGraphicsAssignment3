@@ -58,22 +58,16 @@ seek arrival pathfinding obstacle avoidance
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _en)
+void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _enemy)
 {
-	_en->m_pos->x = _en->m_pos->x + _en->m_vel->x;
-	_en->m_pos->z = _en->m_pos->z + _en->m_vel->z;
+	_enemy->m_pos->x = _enemy->m_pos->x + _enemy->m_vel->x;
+	_enemy->m_pos->z = _enemy->m_pos->z + _enemy->m_vel->z;
 
-	_en->Update();
+	_enemy->Update();
 
+	//Calculate boundaries so enemy does not leave the game space
+	CheckBoundaries(_enemy);
 
-	if ((_en->GetXPos() > SCR_RIGHT) || (_en->GetXPos() < SCR_LEFT))
-	{
-		_en->m_vel->x *= -1;
-	}
-	if ((_en->GetZPos() > SCR_BOT) || (_en->GetZPos() < SCR_TOP))
-	{
-		_en->m_vel->z *= -1;
-	}
 }
 
 /***********************
@@ -113,6 +107,9 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 		finalVelocity = glm::normalize(finalVelocity) * m_maxVelocity;
 	}
 	enS->SetVel(finalVelocity);
+
+	//Calculate boundaries so enemy does not leave the game space
+	CheckBoundaries(_enemy);
 
 	//Apply to enemy
 	enS->Translate(enS->GetPos() + enS->GetVel());
@@ -160,14 +157,7 @@ void CAIManager::Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 		enS->SetVel(finalVelocity);
 
 		//Calculate boundaries so enemy does not leave the game space
-		if ((_enemy->GetXPos() > SCR_RIGHT) || (_enemy->GetXPos() < SCR_LEFT))
-		{
-			enS->SetVel(glm::vec3(enS->GetVel().x * -1, enS->GetVel().y, enS->GetVel().z));
-		}
-		if ((_enemy->GetZPos() > SCR_BOT) || (_enemy->GetZPos() < SCR_TOP))
-		{
-			enS->SetVel(glm::vec3(enS->GetVel().x, enS->GetVel().y, enS->GetVel().z * -1));
-		}
+		CheckBoundaries(_enemy);
 
 		//Apply to enemy
 		enS->Translate(enS->GetPos() + enS->GetVel());
@@ -227,10 +217,42 @@ void CAIManager::Arrival(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnem
 	}
 	enS->SetVel(finalVelocity);
 
+	//Calculate boundaries so enemy does not leave the game space
+	CheckBoundaries(_enemy);
+
 	//Apply to enemy
 	enS->Translate(enS->GetPos() + enS->GetVel());
 
 	
+}
+
+/***********************
+* CheckBoundaries: Checks the boundaries of the AI
+* @author: Vivian Ngo & Melanie Jacobson
+* @date: 08 / 05 / 18
+* @parameter: _enemy - enemy to apply AI to
+***********************/
+void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
+{
+	//If AI is horizontally out of boundaries, reverse the velocity (simulate bounce back)
+	if ((_enemy->GetXPos() > SCR_RIGHT) || (_enemy->GetXPos() < SCR_LEFT))
+	{
+		_enemy->GetSprite()->SetVel(glm::vec3(
+			_enemy->GetSprite()->GetVel().x * -1, 
+			_enemy->GetSprite()->GetVel().y,
+			_enemy->GetSprite()->GetVel().z)
+		);
+	}
+
+	//If AI is vertically out of boundaries, reverse the velocity (simulate bounce back)
+	if ((_enemy->GetZPos() > SCR_BOT) || (_enemy->GetZPos() < SCR_TOP))
+	{
+		_enemy->GetSprite()->SetVel(glm::vec3(
+			_enemy->GetSprite()->GetVel().x, 
+			_enemy->GetSprite()->GetVel().y, 
+			_enemy->GetSprite()->GetVel().z * -1)
+		);
+	}
 }
 
 /***********************
