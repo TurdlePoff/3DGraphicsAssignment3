@@ -24,20 +24,10 @@
 CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 {
 	m_pEnemySprite = enemySprite;
-	m_pos = new CAIVector(GetXPos(), GetZPos());
-	m_vel = new CAIVector( 0.3f, 0.9f );
-	m_acc = new CAIVector( 0.5f, 1.5f );
-	m_force = new CAIVector( 0.5f, 1.5f );
+	m_eType = _enemyType;
 
-	switch (_enemyType)
-	{
-		case ENMY_NORM:
-		{
-			m_gainPoints = 1;
-			m_killPoint = -1;
-			break;
-		}
-	}
+	m_gainPoints = 1;
+	m_killPoint = -1;
 }
 
 /***********************
@@ -45,20 +35,7 @@ CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 * @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
 ***********************/
-CEnemy::~CEnemy()
-{
-	delete m_pos;
-	m_pos = 0;
-
-	delete m_vel;
-	m_vel = 0;
-
-	delete m_acc;
-	m_acc = 0;
-
-	delete m_force;
-	m_force = 0;
-}
+CEnemy::~CEnemy(){}
 
 /***********************
 * GetSprite: Gets the enemy's sprite

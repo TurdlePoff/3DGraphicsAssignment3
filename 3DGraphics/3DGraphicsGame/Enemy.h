@@ -15,9 +15,6 @@
 
 #include "stdafx.h"
 #include "Sprite.h"
-#include "AIVector.h"
-
-class CAIVector;
 
 class CEnemy : public CSprite
 {
@@ -71,22 +68,8 @@ public:
 	***********************/
 	int GetGainPoint() { return m_gainPoints; }
 
-	/*void SetXSpeed(float newSpeed) { m_xSpeed = newSpeed; }
-	void SetZSpeed(float newSpeed) { m_zSpeed = newSpeed; }
-
-	float GetXSpeed() { return m_xSpeed; }
-	float GetZSpeed() { return m_zSpeed; }
-
-	void SetXSpeed(float newSpeed) { m_vel.x = newSpeed; }
-	void SetZSpeed(float newSpeed) { m_vel.z = newSpeed; }
-
-	float GetXSpeed() { return m_vel.x; }
-	float GetZSpeed() { return m_vel.z; }*/
-
-	CAIVector* m_pos;
-	CAIVector* m_vel;
-	CAIVector* m_acc;
-	CAIVector* m_force;
+	void SetType(EEnemyType _e) { m_eType = _e; }
+	EEnemyType GetType() { return m_eType; }
 
 private:
 	int m_killPoint;
@@ -94,6 +77,8 @@ private:
 
 	bool goodApple;
 	std::shared_ptr<CSprite> m_pEnemySprite;
+
+	EEnemyType m_eType;
 
 	/*float m_xSpeed = 0.5f;
 	float m_zSpeed = 1.5f;*/

@@ -52,6 +52,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	{
 		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
+		//Create text for level
 		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("BUBBLETRON", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 100.0f, SCR_HEIGHT / 2 + 200)));
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(titleText1);
@@ -72,6 +73,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	{
 		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
+		//Create text for level
 		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, SCR_HEIGHT / 2 + 200)));
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(titleText1);
@@ -119,6 +121,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	}
 	else if (m_iLevelNumber == 12)	//IF THE LEVEL IS THE GAME OVER SCREEN
 	{
+		//Create text for level
 		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 100.0f, (SCR_HEIGHT / 2) - 100.0f)));
 		scoreText->SetScale(0.8f);
 		scoreText->SetColor(glm::vec3(0.6f, 0.1f, 0.3f));
@@ -141,20 +144,33 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	}
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
+		pathToFollow = {
+			glm::vec3(-35.0f, 0.0f, -35.0f),
+			glm::vec3(-35.0f, 0.0f, 45.0f),
+			glm::vec3(40.0f, 0.0f, 45.0f),
+			glm::vec3(40.0f, 0.0f, -35.0f),
+		};
+
+		//Create Powerup
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(INVAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_INVINCIBLE));
-		//lAppleSprite1->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
-		std::shared_ptr<CSprite> mAppleSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(0.0f, 0.0f, 0.0)));
-		std::shared_ptr<CEnemy> enemyBad(new CEnemy(mAppleSprite1, ENMY_NORM));
-
-
-		std::shared_ptr<CSprite> mAppleSprite2(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
-		std::shared_ptr<CEnemy> enemyBad2(new CEnemy(mAppleSprite2, ENMY_NORM));
-
 		AddToPowerUpList(goodApple);
-		AddToEnemyList(enemyBad);
-		AddToEnemyList(enemyBad2);
 
+		//Create Enemies
+		std::shared_ptr<CSprite> eSprite1(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(0.0f, 0.0f, 0.0)));
+		std::shared_ptr<CEnemy> enemyBad1(new CEnemy(eSprite1, ENMY_SEEK));
+
+		std::shared_ptr<CSprite> eSprite2(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
+		std::shared_ptr<CEnemy> enemyBad2(new CEnemy(eSprite2, ENMY_FLEE));
+
+		std::shared_ptr<CSprite> eSprite3(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
+		std::shared_ptr<CEnemy> enemyBad3(new CEnemy(eSprite3, ENMY_ARRIVAL));
+
+		AddToEnemyList(enemyBad1);
+		AddToEnemyList(enemyBad2);
+		AddToEnemyList(enemyBad3);
+
+		//Create text for level
 		std::string score = "1000";
 		std::shared_ptr<CTextLabel> scoreText(new CTextLabel("Score: ", "Resources/Fonts/bubble.TTF", glm::vec2(5.0f, 40.0f)));
 		scoreText->SetScale(0.3f);
@@ -177,11 +193,6 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		actualLivesText->SetScale(0.3f);
 		actualLivesText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(actualLivesText);
-
-		std::shared_ptr<CTextLabel> invText(new CTextLabel("ye", "Resources/Fonts/bubble.TTF", glm::vec2(80.0f, 10.0f)));
-		invText->SetScale(0.3f);
-		invText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
-		AddToTextList(actualLivesText);
 	}
 	//cubeMap->Render();
 }
@@ -194,6 +205,11 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 CLevel::~CLevel() {
 	/*delete cMap;
 	cMap = 0;*/
+
+	while (pathToFollow.size() != 0)
+	{
+		pathToFollow.pop_back();
+	}
 }
 
 /***********************
@@ -257,8 +273,9 @@ void CLevel::Update()
 	{
 		std::shared_ptr<CSprite> player = (GetPlayer()->GetSprite());
 
-		GetPlayer()->MovePlayer();
+		GetPlayer()->MovePlayer(); // Process player input to move player
 
+		//Process player input to shoot bullet
 		if (Utils::SpaceState[' '] == INPUT_HOLD)
 		{
 			std::shared_ptr<CBullet> newBullet = GetPlayer()->CreateBullet();
@@ -268,26 +285,22 @@ void CLevel::Update()
 			Utils::SpaceState[' '] = INPUT_RELEASED;
 		}
 
-		if (m_pEnemyList.size() != 0)
-		{
-			CAIManager::GetInstance()->Arrival(GetPlayer(), m_pEnemyList[0]);
-			CAIManager::GetInstance()->Seek(GetPlayer(), m_pEnemyList[1]);
+		SetUpAI();	//Sets up the AI for enemies
 
-		}
-
+		//Update player bullets
 		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 		{
 			m_pPlayerBulletList[bList]->Update();
 		}
 
-		//CheckEnemyCollision(player);
+		//CheckEnemyCollision(player);	//Not trying to kill player as showing AI
 		CheckPowerUpCollision(player);
-		//CheckBulletEnemyCollision();
+		//CheckBulletEnemyCollision();	//Not trying to kill Enemies as showing AI
 		CheckBulletBoundaries();
 
+		//Set updated score and live texts
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
 		m_pTextList[5]->SetText(std::to_string(GetPlayer()->GetPlayerLives()));
-
 
 		//If player was hit, player is temporarily red
 		if (GetPlayer()->GetSprite()->GetIsHit())
@@ -587,6 +600,44 @@ void CLevel::HandleStartScreenButtons()
 				CSceneManager::GetInstance()->SwitchScene(10);		//RETURN TO MAIN MENU
 			}
 		}
+	}
+}
+
+/***********************
+* SetUpAI: Sets up AI
+* @author: Vivian Ngo & Melanie Jacobson
+* @date: 08/05/18
+***********************/
+void CLevel::SetUpAI()
+{
+	if (m_pEnemyList.size() != 0)
+	{
+		for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
+		{
+			if (m_pEnemyList[eList]->GetIsDead() != true)
+			{
+				switch (m_pEnemyList[eList]->GetType())
+				{
+					case ENMY_SEEK:
+					{
+						CAIManager::GetInstance()->Seek(GetPlayer()->GetSprite()->GetPos(), m_pEnemyList[eList]);
+						break;
+					}
+					case ENMY_FLEE:
+					{
+						CAIManager::GetInstance()->Flee(GetPlayer()->GetSprite()->GetPos(), m_pEnemyList[eList]);
+						break;
+					}
+					case ENMY_ARRIVAL:
+					{
+						CAIManager::GetInstance()->Arrival(GetPlayer()->GetSprite()->GetPos(), m_pEnemyList[eList]);
+						break;
+					}
+				}
+
+			}
+		}
+		
 	}
 }
 

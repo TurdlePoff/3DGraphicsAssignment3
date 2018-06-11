@@ -231,7 +231,12 @@ enum EBullets {
 };
 
 enum EEnemyType {
-	ENMY_NORM
+	ENMY_NORM,
+	ENMY_SEEK,
+	ENMY_FLEE,
+	ENMY_ARRIVAL,
+	ENMY_WANDER,
+
 };
 
 static const char* g_faces[] =
@@ -243,3 +248,8 @@ static const char* g_faces[] =
 	"front.jpg",
 	"back.jpg"
 };
+
+//static const float SCR_TOP = -40.0f;
+//static const float SCR_BOT = 50.0f;
+//static const float SCR_LEFT = -45.0f;
+//static const float SCR_RIGHT = 45.0f;

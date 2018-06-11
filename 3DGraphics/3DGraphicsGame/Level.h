@@ -33,6 +33,7 @@ public:
 	bool IsMouseOverButton(std::shared_ptr<CTextLabel> t);
 	void CheckButtonHovered();
 	void HandleStartScreenButtons();
+	void SetUpAI();
 
 	bool GetIsGameOver();
 	void SetGameOver();
@@ -47,5 +48,5 @@ private:
 	std::string sc;
 
 	std::shared_ptr<CCubeMap> cMap;
-
+	std::vector<glm::vec3> pathToFollow;
 };

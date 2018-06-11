@@ -74,12 +74,12 @@ void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _enemy)
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Seek(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Seek(glm::vec3 _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
 	//Calculate a desire velocity so enemy knows not to directly travel to the player
-	glm::vec3 desiredVelocity = _target->GetSprite()->GetPos() - enS->GetPos();
+	glm::vec3 desiredVelocity = _target - enS->GetPos();
 
 	//Make sure desiredVelocity is not at 0 or normalize will break it
 	if (glm::length(desiredVelocity) != 0.0f)
@@ -122,11 +122,11 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> 
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Flee(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Flee(glm::vec3 _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 	
-	glm::vec3 desiredVelocity = enS->GetPos() - _target->GetSprite()->GetPos();
+	glm::vec3 desiredVelocity = enS->GetPos() - _target;
 
 	//If the player is within the radius of the enemy, evade
 	if (glm::length(desiredVelocity) < m_radius)
@@ -178,12 +178,12 @@ void CAIManager::Flee(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> 
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Arrival(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Arrival(glm::vec3 _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
 	//Calculate a desired velocity so enemy knows not to directly travel to the player
-	glm::vec3 desiredVelocity = _target->GetSprite()->GetPos() - enS->GetPos();
+	glm::vec3 desiredVelocity = _target - enS->GetPos();
 
 	//Calculate a desire velocity so enemy knows not to directly travel away from the player
 	if (glm::length(desiredVelocity) != 0.0f)
@@ -232,6 +232,7 @@ void CAIManager::Arrival(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnem
 void CAIManager::ObstacleAvoidance(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
+	//pathToFollow
 
 }
 

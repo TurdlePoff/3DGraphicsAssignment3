@@ -37,6 +37,5 @@ public:
 	static float testX;
 	static float testY;
 	static float testZ;
-
 };
 
