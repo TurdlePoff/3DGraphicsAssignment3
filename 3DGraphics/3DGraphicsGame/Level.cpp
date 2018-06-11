@@ -58,15 +58,15 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		AddToTextList(titleText1);
 
 		std::shared_ptr<CTextLabel> startText(new CTextLabel("START", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 5.0f, ((SCR_HEIGHT / 2)))));
-		startText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		startText->SetColor(glm::vec3(0.0f, 0.5f, 0.5f));
 		AddToTextList(startText);
 
 		std::shared_ptr<CTextLabel> multiText(new CTextLabel("MULTIPLAYER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 100))));
-		multiText->SetColor(glm::vec3(0.0f, 0.5f, 1.0f));
+		multiText->SetColor(glm::vec3(0.0f, 0.5f, 0.5f));
 		AddToTextList(multiText);
 
 		std::shared_ptr<CTextLabel> instrText(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, ((SCR_HEIGHT / 2) - 200))));
-		instrText->SetColor(glm::vec3(0.0f, 0.5f, 1.0f));
+		instrText->SetColor(glm::vec3(0.0f, 0.5f, 0.5f));
 		AddToTextList(instrText);
 	}
 	else if (m_iLevelNumber == 11)	//IF THE LEVEL IS THE INSTRUCTIONS SCREEN
@@ -178,11 +178,16 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CSprite> eSprite5(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-20.0f, 0.0f, -40.0)));
 		std::shared_ptr<CEnemy> enemyBad5(new CEnemy(eSprite5, ENMY_EVADE));
 
+		std::shared_ptr<CSprite> eSprite7(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-40.0f, 0.0f, 0.0)));
+		std::shared_ptr<CEnemy> enemyBad7(new CEnemy(eSprite7, ENMY_WANDER));
+		eSprite2->SetColour(glm::vec4(0.3f, 1.0, 0.2f, 1.0f));
+
 		AddToEnemyList(enemyBad1);
 		AddToEnemyList(enemyBad2);
 		AddToEnemyList(enemyBad3);
 		AddToEnemyList(enemyBad4);
 		AddToEnemyList(enemyBad5);
+		AddToEnemyList(enemyBad7);
 
 		for (unsigned int i = 0; i < 8; ++i)
 		{
@@ -668,6 +673,11 @@ void CLevel::SetUpAI()
 					case ENMY_PFOLLOW:
 					{
 						CAIManager::GetInstance()->PathFollowing(pathToFollow, m_pEnemyList[eList]);
+						break;
+					}
+					case ENMY_WANDER:
+					{
+						CAIManager::GetInstance()->Wander(m_pEnemyList[eList]);
 						break;
 					}
 				}

@@ -24,6 +24,9 @@
 #include "Lighting.h"
 #include "CubeMap.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <vld.h>
 
 void Init();
@@ -41,6 +44,8 @@ std::unique_ptr<CInput> InputFunc(CInput::GetInstance());
 ***********************/
 void Init() 
 {
+	srand((unsigned int)time(NULL));
+
 	//Set up the scenes of the game
 	scManager->SetUpScenes();
 
