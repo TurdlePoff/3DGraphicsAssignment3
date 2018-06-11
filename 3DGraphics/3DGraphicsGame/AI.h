@@ -34,6 +34,7 @@ public:
 	void BouncyBall(std::shared_ptr<CEnemy> _enemy);
 	void Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy);
 	void Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy>  _enemy);
+	void Arrival(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy>  _enemy);
 
 	void Wander(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy);
 
