@@ -1,0 +1,12 @@
+Pursuit
+- Similar to Seek but calculates a predicted position of the target based on it's current position and velocity
+
+Evade
+- Similar to Evade but avoids the target by avoiding it's predicted position
+
+PathFollowing
+- AI follows a set path of nodes by seeking for one after another
+- In our case, if it reaches the last node, it seeks for the first node again
+
+Crowd PathFollowing
+- A crowd of AI following the set path of nodes through seek
