@@ -15,12 +15,9 @@
 
 #include "stdafx.h"
 #include "Sprite.h"
+#include "AIVector.h"
 
-struct enVector
-{
-	float x;
-	float z;
-};
+class CAIVector;
 
 class CEnemy : public CSprite
 {
@@ -30,6 +27,7 @@ public:
 	~CEnemy();
 
 	std::shared_ptr<CSprite> GetSprite();
+	virtual void Update();
 
 	
 	void SetGoodApple(bool ga);
@@ -85,10 +83,10 @@ public:
 	float GetXSpeed() { return m_vel.x; }
 	float GetZSpeed() { return m_vel.z; }*/
 
-	enVector m_vel;
-
-	enVector m_acc;
-	enVector m_force;
+	CAIVector* m_pos;
+	CAIVector* m_vel;
+	CAIVector* m_acc;
+	CAIVector* m_force;
 
 private:
 	int m_killPoint;

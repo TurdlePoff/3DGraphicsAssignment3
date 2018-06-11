@@ -49,6 +49,7 @@ void CSprite::Draw()
 ***********************/
 void CSprite::Update()
 {
+
 }
 
 /***********************

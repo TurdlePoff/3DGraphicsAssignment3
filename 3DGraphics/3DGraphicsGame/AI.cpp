@@ -60,16 +60,23 @@ seek arrival pathfinding obstacle avoidance
 ***********************/
 void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _en)
 {
-	_en->SetXPos(_en->GetXPos() + _en->m_vel.x);
+	/*_en->SetXPos(_en->GetXPos() + _en->m_vel.x);
 	_en->SetZPos(_en->GetZPos() + _en->m_vel.z);
+*/
+	//_en->m_pos.x += _en->m_vel->x;
 
-	if ((_en->GetXPos() > SCR_RIGHT) || (_en->GetXPos() < SCR_LEFT))
+	_en->m_pos = _en->m_vel;
+	
+	_en->SetXPos(_en->m_pos->x);
+	_en->SetZPos(_en->m_pos->z);
+
+	if ((_en->m_pos->x > SCR_RIGHT) || (_en->m_pos->x < SCR_LEFT))
 	{
-		_en->m_vel.x *= -1;
+		_en->m_vel->x *= -1;
 	}
-	if ((_en->GetZPos() > SCR_BOT) || (_en->GetZPos() < SCR_TOP))
+	if ((_en->m_pos->z > SCR_BOT) || (_en->m_pos->z < SCR_TOP))
 	{
-		_en->m_vel.z *= -1;
+		_en->m_vel->z *= -1;
 	}
 }
 
@@ -83,7 +90,7 @@ void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _en)
 void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> en = _enemy->GetSprite();
-
+	
 
 }
 

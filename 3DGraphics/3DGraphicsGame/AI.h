@@ -17,11 +17,6 @@
 #include "Player.h"
 #include "Enemy.h"
 
-struct location //may need to keep in player class
-{
-	float x;
-	float y;
-};
 //
 //struct location
 //{

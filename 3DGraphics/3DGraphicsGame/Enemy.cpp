@@ -24,9 +24,10 @@
 CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 {
 	m_pEnemySprite = enemySprite;
-	m_vel = { 0.3f, 0.9f };
-	m_acc = { 0.5f, 1.5f };
-	m_force = { 0.5f, 1.5f };
+	m_pos = new CAIVector(GetXPos(), GetZPos());
+	m_vel = new CAIVector( 0.3f, 0.9f );
+	m_acc = new CAIVector( 0.5f, 1.5f );
+	m_force = new CAIVector( 0.5f, 1.5f );
 
 	switch (_enemyType)
 	{
@@ -46,6 +47,14 @@ CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 ***********************/
 CEnemy::~CEnemy()
 {
+	delete m_vel;
+	m_vel = 0;
+
+	delete m_acc;
+	m_acc = 0;
+
+	delete m_force;
+	m_force = 0;
 }
 
 /***********************
@@ -57,6 +66,18 @@ CEnemy::~CEnemy()
 std::shared_ptr<CSprite> CEnemy::GetSprite()
 {
 	return m_pEnemySprite;
+}
+
+/***********************
+* Update: Updates the enemy
+* @author: Vivian Ngo & Melanie Jacobson
+* @date: 08/05/18
+* @return: m_pEnemySprite - returns the enemy's sprite
+***********************/
+void CEnemy::Update()
+{
+	/*SetXPos(m_pos->x);
+	SetZPos(m_pos->z);*/
 }
 
 /***********************
