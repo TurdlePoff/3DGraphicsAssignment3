@@ -32,11 +32,11 @@ public:
 	~CAIManager() {};
 
 	void BouncyBall(std::shared_ptr<CEnemy> _enemy);
-	void Seek(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy);
-	void Flee(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy>  _enemy);
-	void Arrival(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy>  _enemy);
-	void Arrival(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy>  _enemy);
-	void Wander(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy);
+	void Seek(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy);
+	void Flee(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy>  _enemy);
+	void Arrival(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy>  _enemy);
+	void ObstacleAvoidance(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy>  _enemy);
+	void Wander(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy);
 	
 	
 	void CheckBoundaries(std::shared_ptr<CEnemy>  _enemy);

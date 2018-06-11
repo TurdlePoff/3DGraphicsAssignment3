@@ -46,8 +46,8 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 
 	//std::shared_ptr<CSprite> skyBox(new CSprite(SKYBOX, CUBEMAP, glm::vec3(0.0f, 0.0f, 0.0)));
 	//AddToSpriteList(skyBox);
-	std::shared_ptr<CCubeMap> cubeMap(new CCubeMap());
-	cMap = cubeMap;
+	/*std::shared_ptr<CCubeMap> cubeMap(new CCubeMap());
+	cMap = cubeMap;*/
 	if (m_iLevelNumber == 10)	//IF THE LEVEL IS THE START SCREEN
 	{
 		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
@@ -183,7 +183,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		invText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(actualLivesText);
 	}
-	cubeMap->Render();
+	//cubeMap->Render();
 }
 
 /***********************
@@ -204,7 +204,7 @@ CLevel::~CLevel() {
 void CLevel::Render()
 {
 	//Draw/Render every item in scene
-	cMap->Render();
+	//cMap->Render();
 
 	m_pBackgroundSprite->Draw();
 

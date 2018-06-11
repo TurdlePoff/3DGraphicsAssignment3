@@ -74,12 +74,12 @@ void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _enemy)
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Seek(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Seek(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
 	//Calculate a desire velocity so enemy knows not to directly travel to the player
-	glm::vec3 desiredVelocity = _target->GetPos() - enS->GetPos();
+	glm::vec3 desiredVelocity = _target->GetSprite()->GetPos() - enS->GetPos();
 
 	//Make sure desiredVelocity is not at 0 or normalize will break it
 	if (glm::length(desiredVelocity) != 0.0f)
@@ -122,11 +122,11 @@ void CAIManager::Seek(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> 
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Flee(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Flee(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 	
-	glm::vec3 desiredVelocity = enS->GetPos() - _target->GetPos();
+	glm::vec3 desiredVelocity = enS->GetPos() - _target->GetSprite()->GetPos();
 
 	//If the player is within the radius of the enemy, evade
 	if (glm::length(desiredVelocity) < m_radius)
@@ -178,12 +178,12 @@ void CAIManager::Flee(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> 
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Arrival(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Arrival(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
 	//Calculate a desired velocity so enemy knows not to directly travel to the player
-	glm::vec3 desiredVelocity = _target->GetPos() - enS->GetPos();
+	glm::vec3 desiredVelocity = _target->GetSprite()->GetPos() - enS->GetPos();
 
 	//Calculate a desire velocity so enemy knows not to directly travel away from the player
 	if (glm::length(desiredVelocity) != 0.0f)
@@ -229,6 +229,12 @@ void CAIManager::Arrival(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnem
 	enS->Translate(enS->GetPos() + enS->GetVel());	//Apply to enemy
 }
 
+void CAIManager::ObstacleAvoidance(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
+{
+	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
+
+}
+
 /***********************
 * Wander: AI that Wanders
 * @author: Vivian Ngo & Melanie Jacobson
@@ -236,8 +242,9 @@ void CAIManager::Arrival(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnem
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Wander(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Wander(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
 {
+	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
 }
 
@@ -250,7 +257,7 @@ void CAIManager::Wander(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy
 void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 {
 	//If AI is horizontally out of boundaries, reverse the velocity (simulate bounce back)
-	if ((_enemy->GetXPos() > SCR_RIGHT) || (_enemy->GetXPos() < SCR_LEFT))
+	if ((_enemy->GetXPos() >= SCR_RIGHT) || (_enemy->GetXPos() <= SCR_LEFT))
 	{
 		_enemy->GetSprite()->SetVel(glm::vec3(
 			_enemy->GetSprite()->GetVel().x * -1,
@@ -260,7 +267,7 @@ void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 	}
 
 	//If AI is vertically out of boundaries, reverse the velocity (simulate bounce back)
-	if ((_enemy->GetZPos() > SCR_BOT) || (_enemy->GetZPos() < SCR_TOP))
+	if ((_enemy->GetZPos() >= SCR_BOT) || (_enemy->GetZPos() <= SCR_TOP))
 	{
 		_enemy->GetSprite()->SetVel(glm::vec3(
 			_enemy->GetSprite()->GetVel().x,
