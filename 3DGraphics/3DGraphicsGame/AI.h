@@ -52,7 +52,7 @@ private:
 	float m_maxforce = 1.0f;
 	float m_mass = 100.0f;
 	float m_radius = 50.0f;
-	float m_pathRadius = 5.0f;
+	float m_pathRadius = 10.0f;
 	float m_maxSeeAhead = 20.0f;
 	float m_avoidanceForce = 1.0f;
 	float m_maxAvoidanceForce = 5.0f;

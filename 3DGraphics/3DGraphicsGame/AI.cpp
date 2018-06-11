@@ -314,6 +314,7 @@ void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 	//If AI is horizontally out of boundaries, reverse the velocity (simulate bounce back)
 	if ((_enemy->GetXPos() >= SCR_RIGHT) || (_enemy->GetXPos() <= SCR_LEFT))
 	{
+		_enemy->SetXPos(SCR_RIGHT);
 		_enemy->GetSprite()->SetVel(glm::vec3(
 			_enemy->GetSprite()->GetVel().x * -1,
 			_enemy->GetSprite()->GetVel().y,
