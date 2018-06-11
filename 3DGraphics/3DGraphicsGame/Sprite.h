@@ -39,8 +39,13 @@ public:
 	void SetScale(glm::vec3 scale);
 	void SetColour(glm::vec4 colour);
 	void ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 pos);
+	void SetVel(glm::vec3 vec) { m_vVel = vec; }
+	void SetSteering(glm::vec3 ste) { m_vSte = ste; }
+
 
 	glm::vec3 GetPos();
+	glm::vec3 GetVel() { return m_vVel; }
+	glm::vec3 GetSteering() { return m_vSte; }
 	glm::vec3 GetRot();
 	glm::vec3 GetScale();
 
@@ -69,6 +74,9 @@ private:
 	EImage m_eSpriteType;
 
 	glm::vec3 m_vPos;
+	glm::vec3 m_vVel;
+	glm::vec3 m_vSte;
+
 	glm::vec3 m_vRotation;
 	glm::vec3 m_vScale;
 	glm::vec4 m_vColour;

@@ -41,8 +41,9 @@ private:
 	static CAIManager* s_pAIInstance;
 	CAIManager() {};
 
-	float m_maxspeed = 10.0f;
-	float maxforce = 1.0f;
+	float m_maxVelocity = 0.1f;
+	float m_maxforce = 1.0f;
+	float m_mass = 100.0f;
 
 
 };

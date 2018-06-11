@@ -81,7 +81,13 @@ void Render(void)
 void Update()
 {
 	//Update everything in the current scene
-	scManager->UpdateScene(scManager->GetCurrentScene());
+	CTime::GetInstance()->SetEndTime();
+
+	if (CTime::GetInstance()->GetDeltaTime() > 0.005f)
+	{
+		scManager->UpdateScene(scManager->GetCurrentScene());
+		CTime::GetInstance()->SetStartTime();
+	}
 	glutPostRedisplay(); //render function is called
 }
 

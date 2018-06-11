@@ -60,21 +60,17 @@ seek arrival pathfinding obstacle avoidance
 ***********************/
 void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _en)
 {
-	/*_en->SetXPos(_en->GetXPos() + _en->m_vel.x);
-	_en->SetZPos(_en->GetZPos() + _en->m_vel.z);
-*/
-	//_en->m_pos.x += _en->m_vel->x;
+	_en->m_pos->x = _en->m_pos->x + _en->m_vel->x;
+	_en->m_pos->z = _en->m_pos->z + _en->m_vel->z;
 
-	_en->m_pos = _en->m_vel;
-	
-	_en->SetXPos(_en->m_pos->x);
-	_en->SetZPos(_en->m_pos->z);
+	_en->Update();
 
-	if ((_en->m_pos->x > SCR_RIGHT) || (_en->m_pos->x < SCR_LEFT))
+
+	if ((_en->GetXPos() > SCR_RIGHT) || (_en->GetXPos() < SCR_LEFT))
 	{
 		_en->m_vel->x *= -1;
 	}
-	if ((_en->m_pos->z > SCR_BOT) || (_en->m_pos->z < SCR_TOP))
+	if ((_en->GetZPos() > SCR_BOT) || (_en->GetZPos() < SCR_TOP))
 	{
 		_en->m_vel->z *= -1;
 	}
@@ -89,9 +85,17 @@ void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _en)
 ***********************/
 void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
 {
-	std::shared_ptr<CSprite> en = _enemy->GetSprite();
-	
+	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
+	glm::vec3 desiredVelocity = _player->GetSprite()->GetPos() - enS->GetPos();
+	desiredVelocity = (glm::normalize(desiredVelocity) * m_maxVelocity);
+
+	glm::vec3 steer = desiredVelocity - enS->GetVel();
+	steer /= m_mass;
+
+	glm::vec3 finalVelocity = enS->GetVel() + steer;
+	enS->SetVel(finalVelocity);
+	enS->Translate(enS->GetPos() + enS->GetVel());
 }
 
 /***********************
@@ -103,4 +107,39 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 ***********************/
 void CAIManager::Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
 {
+	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
+
+	if (glm::distance(_player->GetSprite()->GetPos(), enS->GetPos()) < 70.0f)
+	{
+		glm::vec3 desiredVelocity = enS->GetPos() - _player->GetSprite()->GetPos();
+		desiredVelocity = (glm::normalize(desiredVelocity) * m_maxVelocity);
+
+		glm::vec3 steer = desiredVelocity - enS->GetVel();
+		steer /= m_mass;
+
+		glm::vec3 finalVelocity = enS->GetVel() + steer;
+		enS->SetVel(finalVelocity);
+
+		if ((_enemy->GetXPos() > SCR_RIGHT) || (_enemy->GetXPos() < SCR_LEFT))
+		{
+			enS->SetVel(glm::vec3(enS->GetVel().x * -1, enS->GetVel().y, enS->GetVel().z));
+		}
+		if ((_enemy->GetZPos() > SCR_BOT) || (_enemy->GetZPos() < SCR_TOP))
+		{
+			enS->SetVel(glm::vec3(enS->GetVel().x, enS->GetVel().y, enS->GetVel().z * -1));
+		}
+
+		enS->Translate(enS->GetPos() + enS->GetVel());
+	}
+	else
+	{
+		Seek(_player, _enemy);
+	}
+
+	
+}
+
+void CAIManager::Wander(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
+{
+
 }

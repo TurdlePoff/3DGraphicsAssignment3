@@ -18,6 +18,7 @@
 CTime* CTime::s_pTimeInstance = 0;
 float CTime::deltaTime = 0.0f;	// Time between current frame and last frame
 float CTime::lastFrame = 0.0f; // Time of last frame
+float CTime::startFrame = 0.0f; // Time of last frame
 
 /***********************
 * CTime constructor
@@ -28,6 +29,7 @@ CTime::CTime()
 {
 	deltaTime = 0.0f;	// Time between current frame and last frame
 	lastFrame = 0.0f; // Time of last frame
+	startFrame = 0.0f;
 }
 
 /***********************
@@ -76,4 +78,19 @@ void CTime::DestroyInstance()
 float CTime::GetCurTimeSecs()
 {
 	return (float)glutGet(GLUT_ELAPSED_TIME)/1000;
+}
+
+void CTime::SetStartTime()
+{
+	startFrame = GetCurTimeSecs();
+}
+
+void CTime::SetEndTime()
+{
+	lastFrame = GetCurTimeSecs();
+}
+
+float CTime::GetDeltaTime()
+{
+	return lastFrame - startFrame;
 }

@@ -98,7 +98,8 @@ void CPlayer::ResetPlayerStats()
 ***********************/
 void CPlayer::MovePlayer()
 {
-	float val = 0.5f;// *CTime::GetInstance()->GetDeltaTime();
+	float val = 0.5f;
+
 	float m_fX = 0;
 	float m_fY = 0;
 	float m_fZ = 0;

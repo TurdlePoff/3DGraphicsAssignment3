@@ -31,12 +31,12 @@ CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 
 	switch (_enemyType)
 	{
-	case ENMY_NORM:
-	{
-		m_gainPoints = 1;
-		m_killPoint = -1;
-		break;
-	}
+		case ENMY_NORM:
+		{
+			m_gainPoints = 1;
+			m_killPoint = -1;
+			break;
+		}
 	}
 }
 
@@ -47,6 +47,9 @@ CEnemy::CEnemy(std::shared_ptr<CSprite> enemySprite, EEnemyType _enemyType)
 ***********************/
 CEnemy::~CEnemy()
 {
+	delete m_pos;
+	m_pos = 0;
+
 	delete m_vel;
 	m_vel = 0;
 
@@ -78,6 +81,8 @@ void CEnemy::Update()
 {
 	/*SetXPos(m_pos->x);
 	SetZPos(m_pos->z);*/
+	GetSprite()->Translate(glm::vec3(m_pos->x, GetSprite()->GetPos().y, m_pos->z));
+
 }
 
 /***********************

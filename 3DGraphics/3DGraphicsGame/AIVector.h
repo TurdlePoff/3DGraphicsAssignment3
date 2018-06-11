@@ -16,10 +16,17 @@
 class CAIVector
 {
 public:
+	CAIVector() { x = 0; z = 0; };
 	CAIVector( float _x, float _z) : x(_x), z(_z) {};
 	~CAIVector() {};
 	
-	CAIVector operator+(const CAIVector &_vec2) { x = _vec2.x; z = _vec2.z; };
+	CAIVector operator+(CAIVector const &_vec2)
+	{ 
+		CAIVector newVec;
+		newVec.x = this->x + _vec2.x;
+		newVec.z = this->z + _vec2.z;
+		return newVec;
+	};
 
 	CAIVector( const CAIVector &p2) { x = p2.x; z = p2.z; }
 

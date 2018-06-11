@@ -21,8 +21,13 @@ public:
 
 	static float GetCurTimeSecs();
 
+	static void SetStartTime();
+	static void SetEndTime();
+	static float GetDeltaTime();
+
 	static float deltaTime;	// Time between current frame and last frame
 	static float lastFrame; // Time of last frame
+	static float startFrame; // Time of last frame
 
 private:
 	CTime();
