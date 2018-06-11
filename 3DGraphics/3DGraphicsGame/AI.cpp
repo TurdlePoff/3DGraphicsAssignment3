@@ -243,21 +243,6 @@ void CAIManager::PathFollowing(std::vector<glm::vec3> _obstList, std::shared_ptr
 		}
 	}
 	Seek(target, _enemy);
-	/*glm::vec3 ahead = enS->GetPos() + glm::normalize(enS->GetVel()) * m_maxSeeAhead;
-	glm::vec3 ahead2 = enS->GetPos() + glm::normalize(enS->GetVel()) * (m_maxSeeAhead * 0.5f);
-	
-	glm::vec3 avoidance_force;
-	if (_obstList.size() > _enemy->targetListNum)
-	{
-		avoidance_force = ahead - _obstList[_enemy->targetListNum];
-		avoidance_force = normalize(avoidance_force) * m_maxAvoidanceForce;
-		bool bla = FindClosestPoint(_obstList, enS->GetPos());
-		++_enemy->targetListNum;
-	}
-	else
-	{
-		_enemy->targetListNum = 0;
-	}*/
 }
 
 /***********************
@@ -314,7 +299,16 @@ void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 	//If AI is horizontally out of boundaries, reverse the velocity (simulate bounce back)
 	if ((_enemy->GetXPos() >= SCR_RIGHT) || (_enemy->GetXPos() <= SCR_LEFT))
 	{
-		_enemy->SetXPos(SCR_RIGHT);
+		if (_enemy->GetXPos() <= SCR_LEFT)
+		{
+			_enemy->SetXPos(SCR_LEFT);
+		}
+
+		if (_enemy->GetXPos() >= SCR_RIGHT)
+		{
+			_enemy->SetXPos(SCR_RIGHT);
+		}
+
 		_enemy->GetSprite()->SetVel(glm::vec3(
 			_enemy->GetSprite()->GetVel().x * -1,
 			_enemy->GetSprite()->GetVel().y,
@@ -325,6 +319,15 @@ void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 	//If AI is vertically out of boundaries, reverse the velocity (simulate bounce back)
 	if ((_enemy->GetZPos() >= SCR_BOT) || (_enemy->GetZPos() <= SCR_TOP))
 	{
+		if (_enemy->GetZPos() <= SCR_TOP)
+		{
+			_enemy->SetZPos(SCR_TOP);
+		}
+
+		if (_enemy->GetZPos() >= SCR_BOT)
+		{
+			_enemy->SetZPos(SCR_BOT);
+		}
 		_enemy->GetSprite()->SetVel(glm::vec3(
 			_enemy->GetSprite()->GetVel().x,
 			_enemy->GetSprite()->GetVel().y,

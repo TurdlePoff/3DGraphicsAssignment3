@@ -166,11 +166,12 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 
 		std::shared_ptr<CSprite> eSprite2(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
 		std::shared_ptr<CEnemy> enemyBad2(new CEnemy(eSprite2, ENMY_FLEE));
-		eSprite2->SetColour(glm::vec4(0.0f, 0.5, 0.5f, 1.0f));
+		eSprite2->SetColour(glm::vec4(0.3f, 0.3, 1.0f, 1.0f));
 
 		std::shared_ptr<CSprite> eSprite3(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-30.0f, 0.0f, 40.0)));
 		std::shared_ptr<CEnemy> enemyBad3(new CEnemy(eSprite3, ENMY_ARRIVAL));
-		
+		eSprite3->SetColour(glm::vec4(1.0f, 0.5, 0.5f, 1.0f));
+
 		std::shared_ptr<CSprite> eSprite4(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(40.0f, 0.0f, 40.0)));
 		std::shared_ptr<CEnemy> enemyBad4(new CEnemy(eSprite4, ENMY_PURSUIT));
 
