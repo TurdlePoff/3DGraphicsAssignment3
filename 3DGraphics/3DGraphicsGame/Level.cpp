@@ -271,6 +271,8 @@ void CLevel::Update()
 		if (m_pEnemyList.size() != 0)
 		{
 			CAIManager::GetInstance()->Arrival(GetPlayer(), m_pEnemyList[0]);
+			CAIManager::GetInstance()->Seek(GetPlayer(), m_pEnemyList[1]);
+
 		}
 
 		for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)

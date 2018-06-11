@@ -77,13 +77,7 @@ std::shared_ptr<CSprite> CEnemy::GetSprite()
 * @date: 08/05/18
 * @return: m_pEnemySprite - returns the enemy's sprite
 ***********************/
-void CEnemy::Update()
-{
-	/*SetXPos(m_pos->x);
-	SetZPos(m_pos->z);*/
-	GetSprite()->Translate(glm::vec3(m_pos->x, GetSprite()->GetPos().y, m_pos->z));
-
-}
+void CEnemy::Update(){}
 
 /***********************
 * SetGoodApple: Sets whether enemy is a enemy OR basically a pickup //MUST CHANGE POSSIBLY

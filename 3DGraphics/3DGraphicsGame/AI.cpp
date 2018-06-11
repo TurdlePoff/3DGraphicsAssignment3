@@ -60,14 +60,11 @@ seek arrival pathfinding obstacle avoidance
 ***********************/
 void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _enemy)
 {
-	_enemy->m_pos->x = _enemy->m_pos->x + _enemy->m_vel->x;
-	_enemy->m_pos->z = _enemy->m_pos->z + _enemy->m_vel->z;
-
-	_enemy->Update();
+	_enemy->SetXPos(_enemy->GetXPos() + _enemy->GetSprite()->GetVel().x);
+	_enemy->SetZPos(_enemy->GetZPos() + _enemy->GetSprite()->GetVel().z);
 
 	//Calculate boundaries so enemy does not leave the game space
 	CheckBoundaries(_enemy);
-
 }
 
 /***********************
@@ -77,12 +74,12 @@ void CAIManager::BouncyBall(std::shared_ptr<CEnemy> _enemy)
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Seek(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
 	//Calculate a desire velocity so enemy knows not to directly travel to the player
-	glm::vec3 desiredVelocity = _player->GetSprite()->GetPos() - enS->GetPos();
+	glm::vec3 desiredVelocity = _target->GetPos() - enS->GetPos();
 
 	//Make sure desiredVelocity is not at 0 or normalize will break it
 	if (glm::length(desiredVelocity) != 0.0f)
@@ -102,11 +99,14 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 
 	//Calculate final velocity by adding the steer to the current velocity
 	glm::vec3 finalVelocity = enS->GetVel() + steer;
+
+	//Make sure velocity does not exceed maximum velocity
 	if (glm::length(finalVelocity) > m_maxVelocity)
 	{
 		finalVelocity = glm::normalize(finalVelocity) * m_maxVelocity;
 	}
-	enS->SetVel(finalVelocity);
+
+	enS->SetVel(finalVelocity); //Set final velocity to the AI's velocity
 
 	//Calculate boundaries so enemy does not leave the game space
 	CheckBoundaries(_enemy);
@@ -122,13 +122,12 @@ void CAIManager::Seek(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Flee(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 	
-	glm::vec3 desiredVelocity = enS->GetPos() - _player->GetSprite()->GetPos();
+	glm::vec3 desiredVelocity = enS->GetPos() - _target->GetPos();
 
-	
 	//If the player is within the radius of the enemy, evade
 	if (glm::length(desiredVelocity) < m_radius)
 	{
@@ -150,11 +149,14 @@ void CAIManager::Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 
 		//Calculate final velocity by adding the steer to the current velocity
 		glm::vec3 finalVelocity = enS->GetVel() + steer;
+
+		//Make sure velocity does not exceed maximum velocity
 		if (glm::length(finalVelocity) > m_maxVelocity)
 		{
 			finalVelocity = glm::normalize(finalVelocity) * m_maxVelocity;
 		}
-		enS->SetVel(finalVelocity);
+
+		enS->SetVel(finalVelocity); //Set final velocity to the AI's velocity
 
 		//Calculate boundaries so enemy does not leave the game space
 		CheckBoundaries(_enemy);
@@ -165,7 +167,7 @@ void CAIManager::Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 	else
 	{
 		//If enemy is outside the evade zone, seek (so enemy doesnt stay still)
-		Seek(_player, _enemy);
+		Seek(_target, _enemy);
 	}
 }
 
@@ -176,12 +178,12 @@ void CAIManager::Flee(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> 
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Arrival(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Arrival(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
 	//Calculate a desired velocity so enemy knows not to directly travel to the player
-	glm::vec3 desiredVelocity = _player->GetSprite()->GetPos() - enS->GetPos();
+	glm::vec3 desiredVelocity = _target->GetPos() - enS->GetPos();
 
 	//Calculate a desire velocity so enemy knows not to directly travel away from the player
 	if (glm::length(desiredVelocity) != 0.0f)
@@ -208,22 +210,35 @@ void CAIManager::Arrival(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnem
 	//the angle/distance slowly instead of heading straight towards the target
 	glm::vec3 steer = desiredVelocity - enS->GetVel();
 	steer /= m_mass;
+
 	glm::vec3 finalVelocity = glm::vec3();
+
 	//Calculate final velocity by adding the steer to the current velocity
  	finalVelocity = enS->GetVel() + steer;
+
+	//Make sure velocity does not exceed maximum velocity
 	if (glm::length(finalVelocity) > m_maxVelocity)
 	{
 		finalVelocity = glm::normalize(finalVelocity) * m_maxVelocity;
 	}
-	enS->SetVel(finalVelocity);
+	enS->SetVel(finalVelocity); //Set final velocity to the AI's velocity
 
 	//Calculate boundaries so enemy does not leave the game space
 	CheckBoundaries(_enemy);
 
-	//Apply to enemy
-	enS->Translate(enS->GetPos() + enS->GetVel());
+	enS->Translate(enS->GetPos() + enS->GetVel());	//Apply to enemy
+}
 
-	
+/***********************
+* Wander: AI that Wanders
+* @author: Vivian Ngo & Melanie Jacobson
+* @date: 08 / 05 / 18
+* @parameter: _player - player to search
+* @parameter: _enemy - enemy to apply AI to
+***********************/
+void CAIManager::Wander(std::shared_ptr<CSprite> _target, std::shared_ptr<CEnemy> _enemy)
+{
+
 }
 
 /***********************
@@ -238,7 +253,7 @@ void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 	if ((_enemy->GetXPos() > SCR_RIGHT) || (_enemy->GetXPos() < SCR_LEFT))
 	{
 		_enemy->GetSprite()->SetVel(glm::vec3(
-			_enemy->GetSprite()->GetVel().x * -1, 
+			_enemy->GetSprite()->GetVel().x * -1,
 			_enemy->GetSprite()->GetVel().y,
 			_enemy->GetSprite()->GetVel().z)
 		);
@@ -248,21 +263,9 @@ void CAIManager::CheckBoundaries(std::shared_ptr<CEnemy> _enemy)
 	if ((_enemy->GetZPos() > SCR_BOT) || (_enemy->GetZPos() < SCR_TOP))
 	{
 		_enemy->GetSprite()->SetVel(glm::vec3(
-			_enemy->GetSprite()->GetVel().x, 
-			_enemy->GetSprite()->GetVel().y, 
+			_enemy->GetSprite()->GetVel().x,
+			_enemy->GetSprite()->GetVel().y,
 			_enemy->GetSprite()->GetVel().z * -1)
 		);
 	}
-}
-
-/***********************
-* Wander: AI that Wanders
-* @author: Vivian Ngo & Melanie Jacobson
-* @date: 08 / 05 / 18
-* @parameter: _player - player to search
-* @parameter: _enemy - enemy to apply AI to
-***********************/
-void CAIManager::Wander(std::shared_ptr<CPlayer> _player, std::shared_ptr<CEnemy> _enemy)
-{
-
 }

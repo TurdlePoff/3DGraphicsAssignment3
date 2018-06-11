@@ -168,7 +168,7 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 
 	m_vPos = _pos;
 	m_eShape = _shape;
-	//m_vVel = glm::vec3(0.1f, 0.0f, 0.1f);
+	m_vVel = glm::vec3(0.15f, 0.0f, 0.15f);
 	m_vSte = glm::vec3(0.2f, 0.0f, 0.2f);
 
 	m_vColour = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);
