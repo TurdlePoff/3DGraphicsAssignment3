@@ -13,6 +13,7 @@
 //
 
 #include "AI.h"
+#include "Time.h"
 
 //Initialise instance
 CAIManager* CAIManager::s_pAIInstance = 0;
@@ -252,10 +253,40 @@ void CAIManager::PathFollowing(std::vector<glm::vec3> _obstList, std::shared_ptr
 * @parameter: _player - player to search
 * @parameter: _enemy - enemy to apply AI to
 ***********************/
-void CAIManager::Wander(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
+void CAIManager::Wander(std::shared_ptr<CEnemy> _enemy)
 {
 	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
 
+	m_wanderEnd = CTime::GetCurTimeSecs();
+	//m_wanderStart = CTime::GetCurTimeSecs();
+
+	if (m_wanderEnd - m_wanderStart > 0.5f)
+	{
+		int x = (int)_enemy->GetXPos();
+		int z = (int)_enemy->GetZPos();
+
+		x = rand() % 45;
+		z = rand() % 45;
+
+		int r = rand() % 1;
+		
+		if (r == 1)
+		{
+			x *= 1;
+		}
+		else
+		{
+			z *= -1;
+		}
+
+		randWander = { x, 0.0f, z };
+
+		
+
+		//Do code
+		m_wanderStart = CTime::GetCurTimeSecs();
+	}
+	Seek(randWander, _enemy);
 }
 
 /***********************
