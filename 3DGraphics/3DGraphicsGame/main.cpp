@@ -44,7 +44,7 @@ std::unique_ptr<CInput> InputFunc(CInput::GetInstance());
 ***********************/
 void Init() 
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 
 	//Set up the scenes of the game
 	scManager->SetUpScenes();
