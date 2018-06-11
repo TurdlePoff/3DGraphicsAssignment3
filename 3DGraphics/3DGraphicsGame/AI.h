@@ -35,7 +35,7 @@ public:
 	void Seek(glm::vec3 _target, std::shared_ptr<CEnemy> _enemy);
 	void Flee(glm::vec3 _target, std::shared_ptr<CEnemy>  _enemy);
 	void Arrival(glm::vec3 _target, std::shared_ptr<CEnemy>  _enemy);
-	void ObstacleAvoidance(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy>  _enemy);
+	void ObstacleAvoidance(glm::vec3 _target, std::shared_ptr<CEnemy>  _enemy);
 	void Wander(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy);
 	
 	
@@ -50,6 +50,7 @@ private:
 	float m_mass = 100.0f;
 	float m_radius = 50.0f;
 	float m_maxSeeAhead = 20.0f;
-
+	float m_avoidanceForce = 1.0f;
+	float m_maxAvoidanceForce = 5.0f;
 };
 

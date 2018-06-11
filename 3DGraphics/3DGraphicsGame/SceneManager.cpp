@@ -93,7 +93,6 @@ void CSceneManager::AddScene(std::shared_ptr<CScene> scene)
 ***********************/
 void CSceneManager::RemoveScene(int scene)
 {
-	
 	std::shared_ptr<CScene> tempScene;
 	for (unsigned int i = 0; i < scenesList.size(); ++i)
 	{
