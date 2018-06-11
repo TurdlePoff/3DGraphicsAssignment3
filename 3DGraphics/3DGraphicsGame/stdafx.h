@@ -238,8 +238,8 @@ enum EEnemyType {
 	ENMY_WANDER,
 	ENMY_PURSUIT,
 	ENMY_EVADE,
-	ENMY_PFOLLOW
-
+	ENMY_PFOLLOW,
+	ENMY_WALLFOLLOW
 };
 
 static const char* g_faces[] =
@@ -251,8 +251,3 @@ static const char* g_faces[] =
 	"front.jpg",
 	"back.jpg"
 };
-
-//static const float SCR_TOP = -40.0f;
-//static const float SCR_BOT = 50.0f;
-//static const float SCR_LEFT = -45.0f;
-//static const float SCR_RIGHT = 45.0f;

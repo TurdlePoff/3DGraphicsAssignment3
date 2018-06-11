@@ -347,7 +347,8 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 		glDisable(GL_CULL_FACE);
 
-		glActiveTexture(GL_TEXTURE0);
+		glActiveTexture(GL_TEXTURE0);
+
 		glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 		glUniform1i(glGetUniformLocation(Utils::programCMap, "cubeSampler"), 0);
 		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(-80.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
@@ -360,7 +361,8 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 		glBindVertexArray(vao);
 
 		//glDrawArrays(GL_TRIANGLES, 0, 36);
-		glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+		glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+
 		//glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		glUseProgram(0);
 

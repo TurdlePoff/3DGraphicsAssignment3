@@ -49,4 +49,5 @@ private:
 
 	std::shared_ptr<CCubeMap> cMap;
 	std::vector<glm::vec3> pathToFollow;
+	std::vector<glm::vec3> wallPath;
 };

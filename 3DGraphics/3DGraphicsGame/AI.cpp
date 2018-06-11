@@ -319,6 +319,24 @@ void CAIManager::Evade(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy>
 	Flee(futurePos, _enemy);
 }
 
+void CAIManager::WallFollowing(std::vector<glm::vec3> points, std::shared_ptr<CEnemy> _enemy)
+{
+	std::shared_ptr<CSprite> enS = _enemy->GetSprite();
+
+	glm::vec3 target = points[_enemy->targetListNum];
+
+	if (Distance(enS->GetPos(), target) <= m_pathRadius) 
+	{
+		_enemy->targetListNum += 1;
+
+		if (_enemy->targetListNum >= points.size()) 
+		{
+			_enemy->targetListNum = 0;
+		}
+	}
+	Seek(target, _enemy);
+}
+
 /***********************
 * CheckBoundaries: Checks the boundaries of the AI
 * @author: Vivian Ngo & Melanie Jacobson

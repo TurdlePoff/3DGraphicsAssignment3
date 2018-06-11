@@ -39,6 +39,7 @@ public:
 	void Wander(std::shared_ptr<CEnemy> _enemy);
 	void Pursuit(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy);
 	void Evade(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy);
+	void WallFollowing(std::vector<glm::vec3> points, std::shared_ptr<CEnemy>  _enemy);
 
 	void CheckBoundaries(std::shared_ptr<CEnemy>  _enemy);
 	int FindClosestPoint(std::vector<glm::vec3> _obstList, glm::vec3 _AI);

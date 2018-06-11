@@ -154,6 +154,14 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 			glm::vec3(40.0f, 0.0f, -35.0f),
 		};
 
+		wallPath =
+		{
+			glm::vec3(-45.0f, 0.0f, -40.0f),
+			glm::vec3(45.0f, 0.0f, -40.0f),
+			glm::vec3(45.0f, 0.0f, 50.0f),
+			glm::vec3(-45.0f, 0.0f, 50.0f),
+		};
+
 		//Create Powerup
 		std::shared_ptr<CSprite> lAppleSprite1(new CSprite(INVAPPLE, CUBE, glm::vec3(10.0f, 0.0f, 0.0)));
 		std::shared_ptr<CPowerUp> goodApple(new CPowerUp(lAppleSprite1, 1, POW_INVINCIBLE));
@@ -180,6 +188,10 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 
 		std::shared_ptr<CSprite> eSprite7(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-40.0f, 0.0f, 0.0)));
 		std::shared_ptr<CEnemy> enemyBad7(new CEnemy(eSprite7, ENMY_WANDER));
+
+		std::shared_ptr<CSprite> eSprite8(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-45.0f, 0.0f, 50.0)));
+		std::shared_ptr<CEnemy> enemyBad8(new CEnemy(eSprite8, ENMY_WALLFOLLOW));
+
 		eSprite2->SetColour(glm::vec4(0.3f, 1.0, 0.2f, 1.0f));
 
 		AddToEnemyList(enemyBad1);
@@ -188,6 +200,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		AddToEnemyList(enemyBad4);
 		AddToEnemyList(enemyBad5);
 		AddToEnemyList(enemyBad7);
+		AddToEnemyList(enemyBad8);
 
 		for (unsigned int i = 0; i < 8; ++i)
 		{
@@ -236,6 +249,10 @@ CLevel::~CLevel() {
 	while (pathToFollow.size() != 0)
 	{
 		pathToFollow.pop_back();
+	}
+	while (wallPath.size() != 0)
+	{
+		wallPath.pop_back();
 	}
 }
 
@@ -678,6 +695,11 @@ void CLevel::SetUpAI()
 					case ENMY_WANDER:
 					{
 						CAIManager::GetInstance()->Wander(m_pEnemyList[eList]);
+						break;
+					}
+					case ENMY_WALLFOLLOW:
+					{
+						CAIManager::GetInstance()->WallFollowing(wallPath, m_pEnemyList[eList]);
 						break;
 					}
 				}
