@@ -114,8 +114,8 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 	}
 	else
 	{
-		float halfHeight = _fHeight / 2;
-		float halfWidth = _fWidth / 2;
+		float halfHeight = _fHeight;//_fHeight / 2;
+		float halfWidth = _fWidth;//_fWidth / 2;
 
 		m_shape = _shape;
 
@@ -237,11 +237,16 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 		// Set Image via SOIL library
 		int width, height;
 		unsigned char* image = SOIL_load_image(filename, &width, &height, 0, SOIL_LOAD_RGBA);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-
-
-		//Generate Mipmap
-		glGenerateMipmap(GL_TEXTURE_2D);
+		
+		if (image)
+		{
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+			glGenerateMipmap(GL_TEXTURE_2D); //Generate Mipmap
+		}
+		else
+		{
+			std::cout << "Failed to load texture";
+		}
 
 		// Free soil image
 		SOIL_free_image_data(image);

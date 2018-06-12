@@ -12,6 +12,10 @@
 // Mail			: vivian.ngo7572@mediadesign.school.nz
 //
 
+//$(ProjectDir)\Dependencies\vld\2.5\include
+//$(ProjectDir)\Dependencies\vld\2.5\lib
+
+
 #include "stdafx.h"
 #include "ShaderLoader.h"
 #include "Input.h"
@@ -27,7 +31,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <vld.h>
+//#include <vld.h>
 
 void Init();
 void Render(void);

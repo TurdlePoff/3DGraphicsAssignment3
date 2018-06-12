@@ -146,7 +146,7 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 		case STARTSCR:
 		{
 			m_filename = "Resources/images/bubblesBg.jpg";
-			m_vScale = glm::vec3(15, 0.2f, 60);
+			m_vScale = glm::vec3(60, 0.2f, 60);
 			m_vRotation = glm::vec3(0.0f, 0.0f, 180.0f);
 			break;
 		}
