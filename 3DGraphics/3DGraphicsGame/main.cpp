@@ -55,9 +55,9 @@ void Init()
 
 	//Create programs with shaderloader
 	ShaderLoader sLoader;
-	Utils::program = sLoader.CreateProgram("Shaders/VertexShader.txt", "Shaders/FragmentShader.txt");
-	Utils::programTextured = sLoader.CreateProgram("Shaders/TextureVertexShader.txt", "Shaders/TextureFragmentShader.txt");
-	Utils::programCMap = sLoader.CreateProgram("Shaders/CMapVertexShader.txt", "Shaders/CMapFragmentShader.txt");
+	Utils::program = sLoader.CreateProgram("Resources/Shaders/VertexShader.txt", "Resources/Shaders/FragmentShader.txt");
+	Utils::programTextured = sLoader.CreateProgram("Resources/Shaders/TextureVertexShader.txt", "Resources/Shaders/TextureFragmentShader.txt");
+	Utils::programCMap = sLoader.CreateProgram("Resources/Shaders/CMapVertexShader.txt", "Resources/Shaders/CMapFragmentShader.txt");
 	
 	
 

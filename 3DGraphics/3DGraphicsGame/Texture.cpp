@@ -326,7 +326,8 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 		}
 		}
 	}
-	
+	glUseProgram(0);
+
 }
 
 /***********************
@@ -338,7 +339,7 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 ***********************/
 void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 {
-	if (m_shape == CUBEMAP)
+	if (shape == CUBEMAP)
 	{
 		glDepthMask(GL_FALSE);
 		glUseProgram(Utils::programCMap);
@@ -350,14 +351,14 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 		glUniform1i(glGetUniformLocation(Utils::programCMap, "cubeSampler"), 0);
 		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(-80.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
 		glm::mat4 model = glm::scale(glm::mat4(), glm::vec3(1000.0f, 1000.0f, 1000.0f));
-		glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-		glm::mat4 MVP =  CCamera::GetInstance()->GetProjection() *  CCamera::GetInstance()->GetView() * model * ROT;
-		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(40.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
+
+		glm::mat4 MVP =  CCamera::GetInstance()->GetProjection() *  CCamera::GetInstance()->GetView() * model;
+		/*CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(40.0f), glm::vec3(1.0f, 0.0f, 0.0f)));*/
 		glUniformMatrix4fv(glGetUniformLocation(Utils::programCMap, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 
 		glBindVertexArray(vao);
 		glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
-		glUseProgram(0);
+		//glUseProgram(0);
 		glDepthMask(GL_TRUE);
 		glDisable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 	}
@@ -377,7 +378,7 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 		glUniform1i(glGetUniformLocation(Utils::programTextured, "tex"), 0); //not sending in texture itself
 		glUseProgram(Utils::programTextured);
 		glBindVertexArray(vao);
-		if (m_shape == PYRAMID)
+		if (shape == PYRAMID)
 		{
 			glDrawElements(GL_TRIANGLES, sizeof(indicesPyramid) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		}
@@ -389,7 +390,6 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 		{
 			glDrawElements(GL_TRIANGLES, sizeof(indices) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		}
-		glUseProgram(0);
 
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -397,5 +397,6 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 
 		//glDisable(GL_CULL_FACE);
 	}
-	
+	glUseProgram(0);
+
 }

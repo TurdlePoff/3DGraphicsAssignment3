@@ -29,7 +29,7 @@ CTextLabel::CTextLabel(std::string newText, std::string newFont, glm::vec2 pos)
 	color = glm::vec3(1.0, 1.0, 1.0); 
 	scale = 1.0; 
 	SetPosition(pos);
-	Utils::programText = shaderLoader.CreateProgram("Shaders/TextVertexShader.txt", "Shaders/TextFragmentShader.txt");
+	Utils::programText = shaderLoader.CreateProgram("Resources/Shaders/TextVertexShader.txt", "Resources/Shaders/TextFragmentShader.txt");
 	glm::mat4 proj = glm::ortho(0.0f, (GLfloat)SCR_WIDTH, 0.0f, (GLfloat)SCR_HEIGHT);
 	glUseProgram(Utils::programText);
 	glUniformMatrix4fv(glGetUniformLocation(Utils::Utils::programText, "proj"), 1, GL_FALSE, glm::value_ptr(proj));	// Initiate the font Lib 
