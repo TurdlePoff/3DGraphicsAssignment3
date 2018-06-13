@@ -24,7 +24,7 @@
 class CScene
 {
 public:
-	CScene() { m_iEnemiesRemaining = 0; };
+	CScene() {};
 	~CScene() {};
 
 	virtual void Render();
@@ -35,8 +35,6 @@ public:
 	void AddToEnemyList(std::shared_ptr<CEnemy> _ene);
 	void AddToPowerUpList(std::shared_ptr<CPowerUp> _pow);
 	void AddToBulletList(std::shared_ptr<CBullet> _blt);
-	void SetRemainingEnemies(int remaining);
-	int GetRemainingEnemies();
 
 	std::shared_ptr<CPlayer> GetPlayer();
 
@@ -45,7 +43,6 @@ public:
 protected:
 
 	int m_iLevelNumber;
-	int m_iEnemiesRemaining;
 
 	std::vector<std::shared_ptr<CSprite>> m_pSpriteList;
 	std::vector<std::shared_ptr<CEnemy>> m_pEnemyList;

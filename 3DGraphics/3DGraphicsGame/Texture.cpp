@@ -81,7 +81,6 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 
 		glBufferData(GL_ARRAY_BUFFER, sizeof(verticesCubeMap), verticesCubeMap, GL_STATIC_DRAW);
 
-
 		glVertexAttribPointer(
 			0, // Layout location on vertex shader
 			3, // 3 float components (eg position)
@@ -114,8 +113,8 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 	}
 	else
 	{
-		float halfHeight = _fHeight;//_fHeight / 2;
-		float halfWidth = _fWidth;//_fWidth / 2;
+		float halfHeight = _fHeight / 2;
+		float halfWidth = _fWidth / 2;
 
 		m_shape = _shape;
 
@@ -220,8 +219,6 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 		// Create local variables (Not needed after binding complete
 		GLuint vbo;
 		GLuint ebo;
-		//GLuint vao;
-		//GLuint texture;
 
 		// Generating and binding texture (Set up)
 		glGenTextures(1, &_texture);
@@ -282,9 +279,6 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 			break;
 		}
 		}
-
-		//glGenTextures(1, &texture);
-		//glBindTexture(GL_TEXTURE_2D, texture);
 
 		glVertexAttribPointer(
 			0, // Layout location on vertex shader
@@ -348,29 +342,22 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 	{
 		glDepthMask(GL_FALSE);
 		glUseProgram(Utils::programCMap);
-
 		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 		glDisable(GL_CULL_FACE);
 
 		glActiveTexture(GL_TEXTURE0);
-
 		glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
 		glUniform1i(glGetUniformLocation(Utils::programCMap, "cubeSampler"), 0);
 		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(-80.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
 		glm::mat4 model = glm::scale(glm::mat4(), glm::vec3(1000.0f, 1000.0f, 1000.0f));
-		glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(-80.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		glm::mat4 MVP =  CCamera::GetInstance()->GetProjection() *  CCamera::GetInstance()->GetView() * model * ROT;
-		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
+		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(40.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
 		glUniformMatrix4fv(glGetUniformLocation(Utils::programCMap, "MVP"), 1, GL_FALSE, glm::value_ptr(MVP));
 
 		glBindVertexArray(vao);
-
-		//glDrawArrays(GL_TRIANGLES, 0, 36);
 		glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
-
-		//glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		glUseProgram(0);
-
 		glDepthMask(GL_TRUE);
 		glDisable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 	}
@@ -394,9 +381,9 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 		{
 			glDrawElements(GL_TRIANGLES, sizeof(indicesPyramid) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		}
-		else if (m_shape == CUBE)
+		else if (shape == CUBE)
 		{
-			glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
+ 			glDrawElements(GL_TRIANGLES, sizeof(indicesCube) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		}
 		else
 		{
@@ -404,7 +391,6 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 		}
 		glUseProgram(0);
 
-		//glDrawElements(GL_TRIANGLES, sizeof(indicesPyramid) / sizeof(GLuint), GL_UNSIGNED_INT, 0);
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 		glDisable(GL_BLEND);

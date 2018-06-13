@@ -31,7 +31,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-//#include <vld.h>
+#include <vld.h>
 
 void Init();
 void Render(void);
@@ -57,7 +57,6 @@ void Init()
 	ShaderLoader sLoader;
 	Utils::program = sLoader.CreateProgram("Shaders/VertexShader.txt", "Shaders/FragmentShader.txt");
 	Utils::programTextured = sLoader.CreateProgram("Shaders/TextureVertexShader.txt", "Shaders/TextureFragmentShader.txt");
-	/*Utils::programCubeMap = sLoader.CreateProgram("Shaders/CubeMapVertexShader.txt", "Shaders/CubeMapFragmentShader.txt");*/
 	Utils::programCMap = sLoader.CreateProgram("Shaders/CMapVertexShader.txt", "Shaders/CMapFragmentShader.txt");
 	
 	
@@ -65,7 +64,7 @@ void Init()
 	//Initialise fmod, load the audio and play it
 	sndManager->InitFmod();
 	sndManager->LoadAudio();
-	sndManager->InitBackground();
+	//sndManager->InitBackground();
 }
 
 /***********************

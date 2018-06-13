@@ -97,28 +97,6 @@ void CScene::AddToBulletList(std::shared_ptr<CBullet> _blt)
 }
 
 /***********************
-* SetRemainingEnemies: Sets remaining enemies in level
-* @author: Vivian Ngo & Melanie Jacobson
-* @date: 8/06/18
-* @parameter: remaining - remaining enemies
-***********************/
-void CScene::SetRemainingEnemies(int remaining)
-{
-	m_iEnemiesRemaining = remaining;
-}
-
-/***********************
-* GetRemainingEnemies:
-* @author: Vivian Ngo & Melanie Jacobson
-* @date: 8/06/18
-* @return: m_iEnemiesRemaining - remaining enemies in level
-***********************/
-int CScene::GetRemainingEnemies()
-{
-	return m_iEnemiesRemaining;
-}
-
-/***********************
 * GetLevelNum: Gets the current level number/scene
 * @author: Vivian Ngo & Melanie Jacobson
 * @date: 08/05/18
