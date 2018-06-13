@@ -62,7 +62,7 @@ private:
 
 	GLfloat currentTime;
 	static glm::mat4 MVP;
-	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+	glm::mat4 ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 };
 

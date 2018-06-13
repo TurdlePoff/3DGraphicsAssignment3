@@ -46,12 +46,11 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 
 	//std::shared_ptr<CSprite> skyBox(new CSprite(SKYBOX, CUBEMAP, glm::vec3(0.0f, 0.0f, 0.0)));
 	//AddToSpriteList(skyBox);
-	std::shared_ptr<CCubeMap> cubeMap(new CCubeMap());
-	cMap = cubeMap;
-
+	/*std::shared_ptr<CCubeMap> cubeMap(new CCubeMap());
+	cMap = cubeMap;*/
 	if (m_iLevelNumber == 10)	//IF THE LEVEL IS THE START SCREEN
 	{
-		player->GetSprite()->Translate(glm::vec3(0.0f, player->GetSprite()->GetPos().y, 0.0f));
+		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
 		//Create text for level
 		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("BUBBLETRON", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 100.0f, SCR_HEIGHT / 2 + 200)));
@@ -72,7 +71,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 	}
 	else if (m_iLevelNumber == 11)	//IF THE LEVEL IS THE INSTRUCTIONS SCREEN
 	{
-		player->GetSprite()->Translate(glm::vec3(0.0f, player->GetSprite()->GetPos().y, 0.0f));
+		player->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
 
 		//Create text for level
 		std::shared_ptr<CTextLabel> titleText1(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, SCR_HEIGHT / 2 + 200)));
@@ -207,7 +206,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		{
 			std::shared_ptr<CSprite> eSprite6(new CSprite(ROTTENAPPLE, CUBE, glm::vec3(-35.0f - i, 0.0f, -35.0f + i)));
 			std::shared_ptr<CEnemy> enemyBad6(new CEnemy(eSprite6, ENMY_PFOLLOW));
-			//eSprite6->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
+			eSprite6->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 			AddToEnemyList(enemyBad6);
 		}
 	
@@ -235,7 +234,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		actualLivesText->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(actualLivesText);
 	}
-	cubeMap->Render();
+	//cubeMap->Render();
 }
 
 /***********************
@@ -265,7 +264,7 @@ CLevel::~CLevel() {
 void CLevel::Render()
 {
 	//Draw/Render every item in scene
-	cMap->Render();
+	//cMap->Render();
 
 	m_pBackgroundSprite->Draw();
 
@@ -298,11 +297,8 @@ void CLevel::Render()
 
 	for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 	{
-		if (m_pPlayerBulletList[bList]->GetIsDead() != true)
-			m_pPlayerBulletList[bList]->GetSprite()->Draw();
+		m_pPlayerBulletList[bList]->GetSprite()->Draw();
 	}
-
-
 }
 
 /***********************
@@ -326,8 +322,10 @@ void CLevel::Update()
 		//Process player input to shoot bullet
 		if (Utils::SpaceState[' '] == INPUT_HOLD)
 		{
-			std::shared_ptr<CBullet> newBullet = GetPlayer()->CreateBullet();
-			AddToBulletList(newBullet);
+			/*std::shared_ptr<CBullet> newBullet = GetPlayer()->CreateBullet();
+			newBullet->Draw();
+			newBullet->Update();
+			AddToBulletList(newBullet);*/
 			Utils::SpaceState[' '] = INPUT_RELEASED;
 		}
 
@@ -341,7 +339,7 @@ void CLevel::Update()
 
 		//CheckEnemyCollision(player);	//Not trying to kill player as showing AI
 		CheckPowerUpCollision(player);
-		CheckBulletEnemyCollision();	//Not trying to kill Enemies as showing AI
+		//CheckBulletEnemyCollision();	//Not trying to kill Enemies as showing AI
 		CheckBulletBoundaries();
 
 		//Set updated score and live texts
@@ -374,7 +372,6 @@ void CLevel::Update()
 			}
 		}
 
-		//Switch to game over/winning scene if player has no more lives or no enemies are left
 		if (GetPlayer()->GetPlayerLives() <= 0 || m_pEnemyList.size() == 0)
 		{
 			GetPlayer()->GetSprite()->Translate(glm::vec3(0.0f, player->GetPos().y, 0.0f));
@@ -387,13 +384,16 @@ void CLevel::Update()
 			}
 			CSceneManager::GetInstance()->SwitchScene(12);
 		}
+
+		//m_pTextList[6]->SetText((GetPlayer()->GetInvincible() ? "invincible" : "nOPE"));
+
 	}
 	
-	//Check UI functions
+
+
 	CheckButtonHovered();
 	HandleStartScreenButtons();
 
-	//If ending screen
 	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 12)
 	{
 		m_pTextList[3]->SetText(std::to_string(GetPlayer()->GetScore()));
@@ -472,28 +472,27 @@ void CLevel::CheckPowerUpCollision(std::shared_ptr<CSprite> player)
 ***********************/	
 void CLevel::CheckBulletEnemyCollision()
 {
+	
 	for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 	{
 		for (unsigned int eList = 0; eList < m_pEnemyList.size(); ++eList)
 		{
-			if (m_pPlayerBulletList.size() == 0)
-				break;
-			if (!m_pEnemyList[eList]->GetIsDead() && !m_pPlayerBulletList[bList]->GetIsDead())
+			if (!m_pEnemyList[eList]->GetIsHit())
 			{
 				if (m_pPlayerBulletList[bList]->GetSprite()->IsCollidingWith(m_pEnemyList[eList]->GetSprite()))
 				{
-					m_pPlayerBulletList[bList]->SetIsDead(true);
+ 					m_pEnemyList[eList]->SetIsHit(true);
 					m_pEnemyList[eList]->SetIsDead(true);
 
 					GetPlayer()->SetScore(m_pPlayer->GetScore() + m_pEnemyList[eList]->GetGainPoint());
 				
 					m_pEnemyList.erase(m_pEnemyList.begin() + eList);
+
+					m_pPlayerBulletList.erase(m_pPlayerBulletList.begin() + bList);
+
+					SetRemainingEnemies(GetRemainingEnemies() - 1);
 				}
 			}
-		}
-		if (m_pPlayerBulletList.size() == 0)
-		{
-			break;
 		}
 	}
 }
@@ -507,10 +506,10 @@ void CLevel::CheckBulletBoundaries()
 {
 	for (unsigned int bList = 0; bList < m_pPlayerBulletList.size(); ++bList)
 	{
-		if (m_pPlayerBulletList[bList]->GetSprite()->GetPos().x <= SCR_LEFT ||
-			m_pPlayerBulletList[bList]->GetSprite()->GetPos().x >= SCR_RIGHT || 
-			m_pPlayerBulletList[bList]->GetSprite()->GetPos().z <= SCR_TOP ||
-			m_pPlayerBulletList[bList]->GetSprite()->GetPos().z >= SCR_BOT)
+		if (m_pPlayerBulletList[bList]->GetSprite()->GetPos().x < SCR_LEFT ||
+			m_pPlayerBulletList[bList]->GetSprite()->GetPos().x > SCR_RIGHT || 
+			m_pPlayerBulletList[bList]->GetSprite()->GetPos().z < SCR_TOP ||
+			m_pPlayerBulletList[bList]->GetSprite()->GetPos().z > SCR_BOT)
 		{
 			m_pPlayerBulletList.erase(m_pPlayerBulletList.begin() + bList);
 		}

@@ -17,7 +17,7 @@
 #include "Sprite.h"
 #include "Bullet.h"
 
-class CPlayer 
+class CPlayer : public CSprite
 {
 public:
 	CPlayer(){};

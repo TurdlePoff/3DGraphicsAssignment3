@@ -15,7 +15,6 @@
 #include "Player.h"
 #include "Input.h"
 #include "SoundManager.h"
-#include "SceneManager.h"
 
 /***********************
 * CPlayer: Player constructor
@@ -148,7 +147,6 @@ void CPlayer::MovePlayer()
 		m_fX + GetSprite()->GetPos().x, 
 		m_fY + GetSprite()->GetPos().y, 
 		m_fZ + GetSprite()->GetPos().z));
-	CSceneManager::GetInstance()->SetPlayerPos(GetSprite()->GetPos());
 }
 
 /***********************
@@ -210,8 +208,8 @@ float CPlayer::GetPowerUpEndTime()
 ***********************/
 std::shared_ptr<CBullet> CPlayer::CreateBullet()
 {
-	std::shared_ptr<CSprite> newBulletSprite(new CSprite(BUBBLE, CUBE, glm::vec3(0.0f, 0.0f, 0.0)));
-	//newBulletSprite->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
+	std::shared_ptr<CSprite> newBulletSprite = std::make_shared<CSprite>(BUBBLE, CUBE, glm::vec3(-10.0f, 0.0f, 0.0));
+	newBulletSprite->SetScale(glm::vec3(1.0f, 1.0f, 1.0f));
 	newBulletSprite->SetRotatation(GetSprite()->GetRot());
 
 	if (GetSprite()->GetRot().z == 0.0f) //up
@@ -219,31 +217,31 @@ std::shared_ptr<CBullet> CPlayer::CreateBullet()
 		newBulletSprite->Translate(glm::vec3(
 			GetSprite()->GetPos().x,
 			GetSprite()->GetPos().y,
-			GetSprite()->GetPos().z - 2.0f));
+			GetSprite()->GetPos().z - 0.4f));
 	}
 	else if (GetSprite()->GetRot().z == 180.0f) //down
 	{
 		newBulletSprite->Translate(glm::vec3(
 			GetSprite()->GetPos().x,
 			GetSprite()->GetPos().y,
-			GetSprite()->GetPos().z + 2.0f));
+			GetSprite()->GetPos().z + 0.4f));
 	}
 	else if (GetSprite()->GetRot().z == 90.0f) //left
 	{
 		newBulletSprite->Translate(glm::vec3(
-			GetSprite()->GetPos().x - 2.0f,
+			GetSprite()->GetPos().x - 0.4f,
 			GetSprite()->GetPos().y,
 			GetSprite()->GetPos().z));
 	}
 	else if (GetSprite()->GetRot().z == -90.0f) //left
 	{
 		newBulletSprite->Translate(glm::vec3(
-			GetSprite()->GetPos().x + 2.0f,
+			GetSprite()->GetPos().x + 0.4f,
 			GetSprite()->GetPos().y,
 			GetSprite()->GetPos().z));
 	}
 
-	std::shared_ptr<CBullet> newBullet(new CBullet(newBulletSprite, 1, BLT_NORM));
+	std::shared_ptr<CBullet> newBullet = std::make_shared<CBullet>(newBulletSprite, 1, BLT_NORM);
 	CSoundManager::GetInstance()->InitThump();
 	return newBullet;
 }

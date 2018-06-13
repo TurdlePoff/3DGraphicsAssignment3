@@ -32,8 +32,6 @@ public:
 	void RenderScene(std::shared_ptr<CScene> scene);
 	void SetWinner(bool winner) { m_bWinner = winner; }
 	bool GetWinner() { return m_bWinner; }
-	void SetPlayerPos(glm::vec3 pos) { pPos = pos; }
-	glm::vec3 GetPlayerPosition() { return pPos; }
 
 	std::shared_ptr<CScene> GetCurrentScene();
 	int GetCurrentSceneNumber();
@@ -46,7 +44,6 @@ private:
 	std::vector<std::shared_ptr<CScene>> scenesList;
 	std::shared_ptr<CScene> currentScene;
 
-	glm::vec3 pPos;
 	bool m_bWinner;
 
 };

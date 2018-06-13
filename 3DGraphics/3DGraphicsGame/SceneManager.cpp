@@ -16,7 +16,7 @@
 #include "Level.h"
 
 CSceneManager* CSceneManager::s_pSceneInstance = 0;
-//static glm::vec3 pPos = glm::vec3();
+//bool CSceneManager::winner = false;
 
 /***********************
 * GetInstance: Gets scene manager Instance

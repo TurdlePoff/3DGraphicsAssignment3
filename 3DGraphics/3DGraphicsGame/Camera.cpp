@@ -15,7 +15,6 @@
 #include "Camera.h"
 #include "Time.h"
 #include "Input.h"
-#include "SceneManager.h"
 
 CCamera* CCamera::s_pCameraInstance = 0;
 glm::vec3 CCamera::cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -81,21 +80,14 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	//Moves the camera when WASD input is pressed
 	float cameraSpeed = 0.01f * CTime::GetInstance()->GetCurTimeSecs();
 
-	cameraPos = glm::vec3(CSceneManager::GetInstance()->GetPlayerPosition().x, -CSceneManager::GetInstance()->GetPlayerPosition().y, CSceneManager::GetInstance()->GetPlayerPosition().z);
-	cameraPos.z += 50;
-	cameraPos.y += 50;
-
-
-	translate = glm::translate(glm::mat4(), glm::vec3());
-
 	CameraMovement(cameraSpeed);
 
 	//ROTATE CAMERA TO VIEW AS EAGLE EYE
 	/*ROT = glm::rotate(glm::mat4(), glm::radians(80.0f), glm::vec3(1.0f, 0.0f, 0.0f));*/
-	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
+	view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp) * ROT;
 	projection = glm::perspective(m_fov, (GLfloat)SCR_WIDTH / (GLfloat)SCR_HEIGHT, 0.1f, 10000.0f);
 
-	MVP = (projection * ROT) * view * Model;
+	MVP = projection * view * Model;
 	glUseProgram(Utils::programTextured);
 	GLint MVPLoc = glGetUniformLocation(Utils::programTextured, "MVP");
 	glUniformMatrix4fv(MVPLoc, 1, GL_FALSE, glm::value_ptr(MVP));
