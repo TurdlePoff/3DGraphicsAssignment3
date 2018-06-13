@@ -260,7 +260,7 @@ void CAIManager::Wander(std::shared_ptr<CEnemy> _enemy)
 	m_wanderEnd = CTime::GetCurTimeSecs();
 	//m_wanderStart = CTime::GetCurTimeSecs();
 
-	if (m_wanderEnd - m_wanderStart > 0.5f)
+	if (m_wanderEnd - m_wanderStart > 1.0f)
 	{
 		int x = (int)_enemy->GetXPos();
 		int z = (int)_enemy->GetZPos();
@@ -268,16 +268,14 @@ void CAIManager::Wander(std::shared_ptr<CEnemy> _enemy)
 		x = rand() % 45;
 		z = rand() % 45;
 
-		int r = rand() % 1;
-		
+		int r = rand() % 2;
+		int r2 = rand() % 2;
+
 		if (r == 1)
-		{
-			x *= 1;
-		}
-		else
-		{
+			x *= -1;
+
+		if (r2 == 1)
 			z *= -1;
-		}
 
 		randWander = { x, 0.0f, z };
 
@@ -298,7 +296,7 @@ void CAIManager::Wander(std::shared_ptr<CEnemy> _enemy)
 ***********************/
 void CAIManager::Pursuit(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
 {
-	glm::vec3 dist = glm::normalize(_target->GetSprite()->GetPos() - _enemy->GetSprite()->GetPos());
+	glm::vec3 dist = _target->GetSprite()->GetPos() - _enemy->GetSprite()->GetPos();
 	float ahead = glm::length(dist) / m_maxVelocity;
 	glm::vec3 futurePos = _target->GetSprite()->GetPos() + (_target->GetSprite()->GetVel() * ahead);
 	Seek(futurePos, _enemy);
@@ -313,8 +311,9 @@ void CAIManager::Pursuit(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnem
 ***********************/
 void CAIManager::Evade(std::shared_ptr<CPlayer> _target, std::shared_ptr<CEnemy> _enemy)
 {
-	glm::vec3 dist = glm::normalize(_target->GetSprite()->GetPos() - _enemy->GetSprite()->GetPos());
-	float ahead = glm::length(dist) / m_maxVelocity;
+	glm::vec3 dist = _target->GetSprite()->GetPos() - _enemy->GetSprite()->GetPos();
+	float l = glm::length(dist);
+	float ahead = l / m_maxVelocity;
 	glm::vec3 futurePos = _target->GetSprite()->GetPos() + (_target->GetSprite()->GetVel() * ahead);
 	Flee(futurePos, _enemy);
 }

@@ -50,7 +50,7 @@ private:
 	static CAIManager* s_pAIInstance;
 	CAIManager() {};
 
-	float m_maxVelocity = 0.2f;
+	float m_maxVelocity = 0.6f;
 	float m_maxforce = 1.0f;
 	float m_mass = 100.0f;
 	float m_radius = 50.0f;
