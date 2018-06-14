@@ -8,7 +8,7 @@
 ***********************/
 CCubeMap::CCubeMap()
 {
-	Texture::BindTexture("", 0.0f, 0.0f, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), m_vao, m_texture, CUBEMAP);
+	Texture::BindTexture("", 0.0f, 0.0f, glm::vec4(1.0f, 1.0f, 1.0f, 1.0f), m_vao, m_vbo, m_ebo, m_texture, CUBEMAP);
 }
 
 /***********************

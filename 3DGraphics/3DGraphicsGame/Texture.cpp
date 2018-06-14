@@ -14,6 +14,7 @@
 
 #include "Texture.h"
 #include "Camera.h"
+#include "ShaderLoader.h"
 
 Texture::Texture() {}
 
@@ -33,14 +34,17 @@ EShape Texture::m_shape = TWOD;
 * @parameter: _texture - the texture variable passed in by reference
 * @parameter: _shape - the specific shape of the object (enum)
 ***********************/
-void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, glm::vec4 _colour, GLuint & _vao, GLuint & _texture, EShape _shape)
+void Texture::BindTexture(const char* filename, float _fWidth,
+	float _fHeight, glm::vec4 _colour, GLuint& _vao,
+	GLuint& vbo, GLuint& ebo, GLuint& _texture, EShape _shape)
 {
 	m_shape = _shape;
 
 	if (_shape == CUBEMAP)
 	{
-		GLuint vbo;
-		GLuint ebo;
+		static ShaderLoader shaderLoader;
+
+		//Utils::programCMap = shaderLoader.CreateProgram("Resources/Shaders/CMapFragmentShader.txt", "Resources/Shaders/CMapFragmentShader.txt");
 
 		// Set Image via SOIL library
 		int width, height;
@@ -216,10 +220,6 @@ void Texture::BindTexture(const char * filename, float _fWidth, float _fHeight, 
 			}
 		}
 
-		// Create local variables (Not needed after binding complete
-		GLuint vbo;
-		GLuint ebo;
-
 		// Generating and binding texture (Set up)
 		glGenTextures(1, &_texture);
 		glBindTexture(GL_TEXTURE_2D, _texture);
@@ -341,12 +341,12 @@ void Texture::Render(GLuint vao, GLuint texture, EShape shape)
 	if (m_shape == CUBEMAP)
 	{
 		glDepthMask(GL_FALSE);
-		glUseProgram(Utils::programCMap);
-		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 		glDisable(GL_CULL_FACE);
-
+		glEnable(GL_TEXTURE_CUBE_MAP_SEAMLESS);
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_CUBE_MAP, texture);
+		glUseProgram(Utils::programCMap);
+
 		glUniform1i(glGetUniformLocation(Utils::programCMap, "cubeSampler"), 0);
 		CCamera::GetInstance()->SetRotation(glm::rotate(glm::mat4(), glm::radians(-80.0f), glm::vec3(1.0f, 0.0f, 0.0f)));
 		glm::mat4 model = glm::scale(glm::mat4(), glm::vec3(1000.0f, 1000.0f, 1000.0f));

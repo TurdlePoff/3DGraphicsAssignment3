@@ -25,6 +25,9 @@ public:
 
 private:
 	GLuint m_vao;
+	GLuint m_vbo;
+	GLuint m_ebo;
+
 	GLuint m_texture;
 
 };

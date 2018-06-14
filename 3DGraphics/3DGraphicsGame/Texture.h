@@ -22,7 +22,9 @@ public:
 	Texture();
 	~Texture();
 
-	static void BindTexture(const char* filename, float _fHalfWidth, float _fHalfHeight, glm::vec4 _colour, GLuint& vao, GLuint& texture, EShape _shape);
+	static void BindTexture(const char* filename, float _fHalfWidth, 
+		float _fHalfHeight, glm::vec4 _colour, GLuint& vao, 
+		GLuint& vbo, GLuint& ebo, GLuint& texture, EShape _shape);
 	static void Render(GLuint vao, GLuint texture, EShape shape);
 	GLuint tex;
 

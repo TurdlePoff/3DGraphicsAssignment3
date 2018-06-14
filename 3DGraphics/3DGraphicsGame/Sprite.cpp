@@ -97,7 +97,7 @@ void CSprite::SetScale(glm::vec3 scale)
 
 void CSprite::SetColour(glm::vec4 colour)
 {
-	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, colour, m_vao, m_texture, m_eShape);
+	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, colour, m_vao, m_vbo, m_ebo, m_texture, m_eShape);
 }
 
 void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
@@ -178,7 +178,7 @@ void CSprite::ChangeSprite(EImage _spriteType, EShape _shape, glm::vec3 _pos)
 	m_vTopLeft = glm::vec3(-((m_fWidth / 2) + m_vPos.x), (m_fHeight / 2) + m_vPos.z, 0.0f);
 	m_fBotRight = glm::vec3((m_fWidth / 2) + m_vPos.x, -((m_fHeight / 2) + m_vPos.z), 0.0f);
 
-	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, m_vColour, m_vao, m_texture, m_eShape);
+	Texture::BindTexture(m_filename, m_fWidth, m_fHeight, m_vColour, m_vao, m_vbo, m_ebo, m_texture, m_eShape);
 }
 
 /***********************
