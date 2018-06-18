@@ -265,8 +265,8 @@ void CAIManager::Wander(std::shared_ptr<CEnemy> _enemy)
 		int x = (int)_enemy->GetXPos();
 		int z = (int)_enemy->GetZPos();
 
-		x = rand() % 45;
-		z = rand() % 45;
+		x = rand() % (int)SCR_RIGHT;
+		z = rand() % (int)SCR_BOT;
 
 		int r = rand() % 2;
 		int r2 = rand() % 2;
@@ -279,9 +279,6 @@ void CAIManager::Wander(std::shared_ptr<CEnemy> _enemy)
 
 		randWander = { x, 0.0f, z };
 
-		
-
-		//Do code
 		m_wanderStart = CTime::GetCurTimeSecs();
 	}
 	Seek(randWander, _enemy);
