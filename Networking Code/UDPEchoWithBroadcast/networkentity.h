@@ -17,6 +17,7 @@
 
 #include <string>
 #include <sstream>
+#include "stdafx.h"
 
 enum EMessageType : unsigned char
 {
@@ -55,6 +56,15 @@ struct TPacket
 		strcpy_s(PacketData, strlen(_pcToSend) + 1, _pcToSend);	//Copy over packet into packet data
 
 		PacketSize = static_cast<unsigned short>(_strToSend.size());	//Packet size is determined by string size
+	}
+
+	//vector version
+	void Serialize(EMessageType _MessageType, glm::vec3 _message)
+	{
+		// Serialise a vector
+
+		//....add code here...
+
 	}
 	
 	//Decode a packet
