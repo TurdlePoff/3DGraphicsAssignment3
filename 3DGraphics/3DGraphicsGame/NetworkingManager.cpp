@@ -1,25 +1,29 @@
-//
-// Bachelor of Software Engineering
-// Media Design School
-// Auckland
-// New Zealand
-//
-// (c) 2018 Media Design School
-//
-// File Name	: "NetworkingManager.cpp"
-// Description	: NetworkingManager.cpp
-// Author		: Vivian Ngo & Melanie Jacobson
-// Mail			: vivian.ngo7572@mediadesign.school.nz
-//
+
+ //Bachelor of Software Engineering
+ //Media Design School
+ //Auckland
+ //New Zealand
+
+ //(c) 2018 Media Design School
+
+ //File Name	: "NetworkingManager.cpp"
+ //Description	: NetworkingManager.cpp
+ //Author		: Vivian Ngo & Melanie Jacobson
+ //Mail			: vivian.ngo7572@mediadesign.school.nz
+
 
 #include "NetworkingManager.h"
 
 NetworkingManager* NetworkingManager::s_pNetworkInstance = 0;
 
-char* _pcPacketData = 0;
-CClient* _pClient = nullptr;
-CServer* _pServer = nullptr;
-CNetwork& _rNetwork = CNetwork::GetInstance();
+char* NetworkingManager::_pcPacketData = 0;
+CClient* NetworkingManager::_pClient = nullptr;
+CServer* NetworkingManager::_pServer = nullptr;
+CNetwork& NetworkingManager::_rNetwork = CNetwork::GetInstance();
+EEntityType NetworkingManager::_eNetworkEntityType = DEFAULT;
+char NetworkingManager::_cIPAddress[MAX_ADDRESS_LENGTH] = {};
+std::thread NetworkingManager::_ClientReceiveThread;
+std::thread NetworkingManager::_ServerReceiveThread;
 
 NetworkingManager::~NetworkingManager()
 {

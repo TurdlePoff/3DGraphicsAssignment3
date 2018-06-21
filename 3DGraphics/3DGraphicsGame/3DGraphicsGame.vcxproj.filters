@@ -102,8 +102,8 @@
     <ClInclude Include="WorkQueue.h">
       <Filter>Networking</Filter>
     </ClInclude>
-    <ClInclude Include="LevelManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="NetworkingManager.h">
+      <Filter>Networking</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -185,8 +185,8 @@
     <ClCompile Include="socket.cpp">
       <Filter>Networking</Filter>
     </ClCompile>
-    <ClCompile Include="LevelManager.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="NetworkingManager.cpp">
+      <Filter>Networking</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

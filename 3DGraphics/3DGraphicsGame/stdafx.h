@@ -34,6 +34,15 @@
 
 #include "Time.h"
 
+//Library Includes
+#include <Windows.h>
+#include <cassert>
+//#include <vld.h>
+#include <thread>
+
+//Local Includes
+#include <functional>
+
 static const unsigned int SCR_WIDTH = 900;
 static const unsigned int SCR_HEIGHT = 800;
 
