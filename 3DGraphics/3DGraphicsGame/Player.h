@@ -51,8 +51,9 @@ private:
 	//int m_iCurrentLevel;	
 	int m_iCurrentLives;	//Number of player lives
 	int m_iScore;			//Player score
-	int m_bulletStrength;	//Strength of the player's bullets
+	//int m_bulletStrength;	//Strength of the player's bullets
 	bool m_invincible;		//determines whether player is invisible or not
+
 	float m_fInvStartTime;	//invincible start time
 	float m_fInvEndTime;	//invincible start time
 };
