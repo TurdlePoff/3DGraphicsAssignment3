@@ -13,6 +13,7 @@
 //
 
 //Library Includes
+#include "stdafx.h"
 #include <WS2tcpip.h>
 #include <Windows.h>
 #include <iostream>
@@ -416,6 +417,14 @@ void CClient::ProcessData(char* _pcDataReceived)
 	}
 	case DATA:
 	{
+		glm::vec4 test = {0.1f, 2.0f, 6.4f, 4.5f};
+		std::string bla = Vec4ToString(test);
+		TPacket _packet;
+		_packet.Serialize(VECTOR4, (char*)bla.c_str());
+
+		SendData(_packet.PacketData);
+
+
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 10);
 		std::cout <<  _packetRecvd.MessageContent << std::endl;
 		break;

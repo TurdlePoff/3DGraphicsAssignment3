@@ -27,7 +27,9 @@ enum EMessageType : unsigned char
 	QUIT,
 	CLIST,
 	BROADCAST,
-	STARTKA
+	STARTKA,
+	VECTOR4,
+	VECTOR3
 };
 
 struct TPacket 

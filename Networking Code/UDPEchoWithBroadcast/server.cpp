@@ -13,6 +13,7 @@
 //
 
 //Library Includes
+#include "stdafx.h"
 #include <WS2tcpip.h>
 #include <iostream>
 #include <utility>
@@ -342,6 +343,21 @@ void CServer::ProcessData(char* _pcDataReceived)
 
 		break;
 	}
+	case VECTOR4:
+	{
+		glm::vec4 rec = ToVec4(message);
+
+		std::cout << "Result: " << rec.r << "f," << rec.g << "f, " << rec.b << "f, " << rec.a << "f";
+
+		break;
+	}
+	case VECTOR3:
+	{
+		glm::vec3 rec = ToVec3(message);
+		std::cout << "Result: " << rec.x << "f, " << rec.y << "f, " << rec.z << "f";
+
+		break;
+	}
 	case BROADCAST:
 	{
 		std::cout << "Received a broadcast packet" << std::endl;
@@ -398,38 +414,6 @@ void CServer::ProcessData(char* _pcDataReceived)
 		}
 
 		std::cout << "	[" << userName << "]: \"" << "[IS ALIVE]" << "\"" << std::endl;
-
-		////Check through every client in server and see if they are alive
-		//int deadClient = 0;
-		//for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
-		//{
-		//	if (ToString(it->second.m_ClientAddress) == ToString(m_ClientAddress))
-		//	{
-		//		it->second.isOnline = true;
-		//	}
-		//}
-
-		//std::string disconnectedList = "";
-
-		//if (deadClient != 0)
-		//{
-		//	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
-		//	{
-		//		if (it->second.isOnline == false)
-		//		{
-		//			disconnectedList += it->second.m_strName;
-		//			disconnectedList += ", ";
-		//			m_pConnectedClients->erase(it);
-		//			--it;
-		//		}
-		//	}
-
-		//	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
-		//	{
-		//		_packetToSend.Serialize(DATA, (char*)disconnectedList.c_str());
-		//		SendData(_packetToSend.PacketData);
-		//	}
-		//}
 		break;
 	}
 	default:

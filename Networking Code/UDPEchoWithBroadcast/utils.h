@@ -7,7 +7,10 @@
 #include <WS2tcpip.h>
 #include <string>
 #include <strstream>
+#include <sstream>
 #include "control.h"
+#include "stdafx.h"
+
 // Local Includes
 
 // Types
@@ -32,6 +35,36 @@ namespace {
 
 		return _strAddressPort;
 	}
+
+	std::string Vec3ToString(glm::vec3& _vector)
+	{
+		std::strstream theStream;
+		theStream << _vector.x << " " << _vector.y << " " << _vector.z << std::ends;
+		return (theStream.str());
+	}
+
+	std::string Vec4ToString(glm::vec4& _vector4)
+	{
+		std::strstream theStream;
+		theStream << _vector4.r << " " << _vector4.g << " " << _vector4.b << " " << _vector4.a << std::ends;
+		return (theStream.str());
+	}
+
+	glm::vec3 ToVec3(std::string _vectorString)
+	{
+		std::stringstream ss(_vectorString);
+		float x, y, z;
+		ss >> x >> y >> z;
+		return glm::vec3{ x, y, z };
+	}
+
+	glm::vec4 ToVec4(std::string _vectorString)
+	{
+		std::stringstream ss(_vectorString);
+		float r, g, b, a;
+		ss >> r >> g >> b >> a;
+		return glm::vec4{ r, g, b, a };
+	}
 }
 
 template<typename T>
@@ -42,6 +75,12 @@ std::string ToString(const T& _value)
 	return (theStream.str());
 }
 
-
 #endif    // __UTILS_H__
+
+class Utils
+{
+public:
+	Utils();
+	~Utils();
+};
 
