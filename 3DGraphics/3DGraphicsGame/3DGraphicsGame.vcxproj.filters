@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Networking">
+      <UniqueIdentifier>{f4b25135-648b-4f96-9e15-00b6169f6554}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -75,6 +78,33 @@
     <ClInclude Include="CubeMap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="client.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="consoletools.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="InputLineBuffer.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="networkentity.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="server.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="socket.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="WorkQueue.h">
+      <Filter>Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp">
@@ -135,6 +165,27 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="CubeMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="client.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="consoletools.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="inputlinebuffer.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="server.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="socket.cpp">
+      <Filter>Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

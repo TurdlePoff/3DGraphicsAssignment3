@@ -14,7 +14,7 @@
 
 //$(ProjectDir)\Dependencies\vld\2.5\include
 //$(ProjectDir)\Dependencies\vld\2.5\lib
-
+#pragma comment(lib, "Ws2_32.lib")
 
 #include "stdafx.h"
 #include "ShaderLoader.h"
@@ -58,16 +58,13 @@ void Init()
 	Utils::program = sLoader.CreateProgram("Resources/Shaders/VertexShader.txt", "Resources/Shaders/FragmentShader.txt");
 	Utils::programTextured = sLoader.CreateProgram("Resources/Shaders/TextureVertexShader.txt", "Resources/Shaders/TextureFragmentShader.txt");
 	Utils::programCMap = sLoader.CreateProgram("Resources/Shaders/CMapVertexShader.txt", "Resources/Shaders/CMapFragmentShader.txt");
-	
-	/*Utils::program = sLoader.CreateProgram("Resources/Shaders/VertexShader.txt", "Resources/Shaders/FragmentShader.txt");
-	Utils::programTextured = sLoader.CreateProgram("Resources/Shaders/TextureVertexShader.txt", "Resources/Shaders/TextureFragmentShader.txt");
-	Utils::programCMap = sLoader.CreateProgram("Resources/Shaders/CMapVertexShader.txt", "Resources/Shaders/CMapFragmentShader.txt");*/
-	
 
 	//Initialise fmod, load the audio and play it
 	sndManager->InitFmod();
 	sndManager->LoadAudio();
 	//sndManager->InitBackground();
+
+
 }
 
 /***********************
@@ -92,12 +89,12 @@ void Render(void)
 void Update()
 {
 	//Update everything in the current scene
-	CTime::GetInstance()->SetEndTime();
+	CTime::GetInstance()->SetUpdateEndTime();
 
-	if (CTime::GetInstance()->GetDeltaTime() > 0.005f)
+	if (CTime::GetUpdateEndTime() - CTime::GetUpdateStartTime() > 0.01f)
 	{
 		scManager->UpdateScene(scManager->GetCurrentScene());
-		CTime::GetInstance()->SetStartTime();
+		CTime::GetInstance()->SetUpdateStartTime();
 	}
 	glutPostRedisplay(); //render function is called
 }

@@ -40,7 +40,9 @@ public:
 	void SetText(std::string newText) { text = newText; }; 
 	void SetColor(glm::vec3 newColor) { color = newColor; }; 
 	void SetScale(GLfloat newScale) { scale = newScale; }; 
-	void SetPosition(glm::vec2 newPosition) { position = newPosition; };
+	GLfloat GetScale() { return scale; }
+
+	void SetPosition(glm::vec2 newPosition) { position = newPosition; }
 	glm::vec2 GetPosition();
 	float GetTextWidth() { return m_widthText; }
 	float GetTextHeight() { return m_heightText; }

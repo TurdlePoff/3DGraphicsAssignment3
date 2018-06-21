@@ -21,18 +21,21 @@ public:
 
 	static float GetCurTimeSecs();
 
-	static void SetStartTime();
-	static void SetEndTime();
-	static float GetDeltaTime();
+	static void SetUpdateStartTime();
+	static void SetUpdateEndTime();
+	static float GetUpdateStartTime();
+	static float GetUpdateEndTime();
 
-	static float deltaTime;	// Time between current frame and last frame
-	static float lastFrame; // Time of last frame
-	static float startFrame; // Time of last frame
+	static float GetDeltaTime();
 
 private:
 	CTime();
 	~CTime();
 	static CTime* s_pTimeInstance;
+	static float oldTime;
+	static float deltaTime;	// Time between current frame and last frame
+	static float lastUpdate; // Time of last update
+	static float startUpdate; // Time of last update
 
 };
 

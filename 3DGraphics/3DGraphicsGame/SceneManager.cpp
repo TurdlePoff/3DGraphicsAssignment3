@@ -67,9 +67,14 @@ void CSceneManager::SetUpScenes()
 	std::shared_ptr<CScene> startScreen(new CLevel(10, STARTSCR, playerWithSprite));
 	std::shared_ptr<CScene> instructions(new CLevel(11, STARTSCR, playerWithSprite));
 	std::shared_ptr<CScene> endScreen(new CLevel(12, STARTSCR, playerWithSprite));
+	std::shared_ptr<CScene> multiHostScreen(new CLevel(13, STARTSCR, playerWithSprite));
+	std::shared_ptr<CScene> multiClientScreen(new CLevel(14, STARTSCR, playerWithSprite));
+
 	AddScene(startScreen);
 	AddScene(instructions);
 	AddScene(endScreen);
+	AddScene(multiHostScreen);
+	AddScene(multiClientScreen);
 
 	SwitchScene(10); //Start with start screen
 }

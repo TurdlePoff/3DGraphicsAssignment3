@@ -58,15 +58,19 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		titleText1->SetColor(glm::vec3(1.0f, 1.0f, 1.0f));
 		AddToTextList(titleText1);
 
-		std::shared_ptr<CTextLabel> startText(new CTextLabel("START", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 5.0f, ((SCR_HEIGHT / 2)))));
+		std::shared_ptr<CTextLabel> startText(new CTextLabel("SINGLE PLAYER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 250.0f - 5.0f, ((SCR_HEIGHT / 2) + 50))));
 		startText->SetColor(glm::vec3(0.0f, 0.5f, 0.5f));
 		AddToTextList(startText);
 
-		std::shared_ptr<CTextLabel> multiText(new CTextLabel("MULTIPLAYER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 100))));
-		multiText->SetColor(glm::vec3(0.0f, 0.5f, 0.5f));
-		AddToTextList(multiText);
+		std::shared_ptr<CTextLabel> multiHost(new CTextLabel("MULTI - HOST", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 50))));
+		multiHost->SetColor(glm::vec3(0.0f, 0.5f, 0.5f));
+		AddToTextList(multiHost);
 
-		std::shared_ptr<CTextLabel> instrText(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, ((SCR_HEIGHT / 2) - 200))));
+		std::shared_ptr<CTextLabel> multiClient(new CTextLabel("MULTI - JOIN", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 120.0f, ((SCR_HEIGHT / 2) - 150))));
+		multiClient->SetColor(glm::vec3(0.0f, 0.5f, 0.5f));
+		AddToTextList(multiClient);
+
+		std::shared_ptr<CTextLabel> instrText(new CTextLabel("INSTRUCTIONS", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 110.0f - 130.0f, ((SCR_HEIGHT / 2) - 250))));
 		instrText->SetColor(glm::vec3(0.0f, 0.5f, 0.5f));
 		AddToTextList(instrText);
 	}
@@ -134,7 +138,7 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		actualScoreText->SetColor(glm::vec3(0.6f, 0.1f, 0.3f));
 		AddToTextList(actualScoreText);
 
-		std::shared_ptr<CTextLabel> gameOver(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, SCR_HEIGHT / 2)));//SCR_HEIGHT - 200.0f));
+		std::shared_ptr<CTextLabel> gameOver(new CTextLabel("GAME OVER", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, SCR_HEIGHT / 2)));
 		gameOver->SetScale(1.0f);
 		gameOver->SetColor(glm::vec3(0.0f, 1.0f, 0.0f));
 		AddToTextList(gameOver);
@@ -142,6 +146,80 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		std::shared_ptr<CTextLabel> mmText(new CTextLabel("MAIN MENU", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 150.0f - 20.0f, ((SCR_HEIGHT / 2) - 300))));
 		mmText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(mmText);
+	}
+	else if (m_iLevelNumber == 14)	//IF THE LEVEL IS THE MULTIPLAYER HOST SCREEN
+	{
+		//Create text for level
+		std::shared_ptr<CTextLabel> mHTitle(new CTextLabel("MULTIPLAYER - CLIENT", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 320.0f, SCR_HEIGHT / 2 + 300)));
+		mHTitle->SetScale(0.8f);
+		mHTitle->SetColor(glm::vec3(0.6f, 0.1f, 0.3f));
+		AddToTextList(mHTitle);
+
+		std::shared_ptr<CTextLabel> waitText(new CTextLabel("Client Lobby. Waiting for servers to host.", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 380.0f, SCR_HEIGHT / 2 + 200)));
+		waitText->SetScale(0.5f);
+		waitText->SetColor(glm::vec3(0.9f, 0.3f, 0.7f));
+		AddToTextList(waitText);
+
+		std::shared_ptr<CTextLabel> c1Text(new CTextLabel("---- SERVER SLOT 1 ----", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 370.0f, ((SCR_HEIGHT / 2) + 100))));
+		c1Text->SetScale(0.8f);
+		c1Text->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(c1Text);
+
+		std::shared_ptr<CTextLabel> c2Text(new CTextLabel("---- SERVER SLOT 2 ----", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 370.0f, ((SCR_HEIGHT / 2) + 0))));
+		c2Text->SetScale(0.8f);
+		c2Text->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(c2Text);
+
+		std::shared_ptr<CTextLabel> c3Text(new CTextLabel("---- SERVER SLOT 3 ----", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 370.0f, ((SCR_HEIGHT / 2) - 100))));
+		c3Text->SetScale(0.8f);
+		c3Text->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(c3Text);
+
+		std::shared_ptr<CTextLabel> c4Text(new CTextLabel("---- SERVER SLOT 4 ----", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 370.0f, ((SCR_HEIGHT / 2) - 200))));
+		c4Text->SetScale(0.8f);
+		c4Text->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(c4Text);
+
+		std::shared_ptr<CTextLabel> back(new CTextLabel("BACK", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 100.0f, ((SCR_HEIGHT / 2) - 390.0f))));
+		back->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(back);
+	}
+	else if (m_iLevelNumber == 13)	//IF THE LEVEL IS THE MULTIPLAYER CLIENT SCREEN
+	{
+		//Create text for level
+		std::shared_ptr<CTextLabel> mCTitle(new CTextLabel("MULTIPLAYER - HOST", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 300.0f, SCR_HEIGHT / 2 + 300)));
+		mCTitle->SetScale(0.8f);
+		mCTitle->SetColor(glm::vec3(0.6f, 0.1f, 0.3f));
+		AddToTextList(mCTitle);
+
+		std::shared_ptr<CTextLabel> waitText(new CTextLabel("Host Lobby. Waiting for players to join.", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 380.0f, SCR_HEIGHT / 2 + 200)));
+		waitText->SetScale(0.5f);
+		waitText->SetColor(glm::vec3(0.9f, 0.3f, 0.7f));
+		AddToTextList(waitText);
+
+		std::shared_ptr<CTextLabel> c1Text(new CTextLabel("---- CLIENT SLOT 1 ----", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 350.0f, ((SCR_HEIGHT / 2) + 100))));
+		c1Text->SetScale(0.8f);
+		c1Text->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(c1Text);
+
+		std::shared_ptr<CTextLabel> c2Text(new CTextLabel("---- CLIENT SLOT 2 ----", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 350.0f, ((SCR_HEIGHT / 2) + 0))));
+		c2Text->SetScale(0.8f);
+		c2Text->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(c2Text);
+
+		std::shared_ptr<CTextLabel> c3Text(new CTextLabel("---- CLIENT SLOT 3 ----", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 350.0f, ((SCR_HEIGHT / 2) - 100))));
+		c3Text->SetScale(0.8f);
+		c3Text->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(c3Text);
+
+		std::shared_ptr<CTextLabel> c4Text(new CTextLabel("---- CLIENT SLOT 4 ----", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 350.0f, ((SCR_HEIGHT / 2) - 200))));
+		c4Text->SetScale(0.8f);
+		c4Text->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(c4Text);
+
+		std::shared_ptr<CTextLabel> back(new CTextLabel("BACK", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 100.0f, ((SCR_HEIGHT / 2) - 390.0f))));
+		back->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+		AddToTextList(back);
 	}
 	else if (m_iLevelNumber == 1)	//IF LEVEL 1
 	{
@@ -402,6 +480,14 @@ void CLevel::Update()
 			m_pTextList[4]->SetText(" WINNER");
 		}
 	}
+
+	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 14)
+	{
+		for (unsigned int i = 0; i < playerList.size(); ++i)
+		{
+			//m_pTextList[2 + i]->SetText(playerList[i]->Get);
+		}
+	}
 }
 
 /***********************
@@ -526,10 +612,16 @@ void CLevel::CheckBulletBoundaries()
 ***********************/
 bool CLevel::IsMouseOverButton(std::shared_ptr<CTextLabel> text)
 {
+	float defFloat = 1.0f;
+	if (text->GetScale() != 1.0f)
+	{
+		defFloat = text->GetScale() * 3;
+	}
+
 	if (Utils::mouseX > (text->GetPosition().x)
-		&& Utils::mouseX < (text->GetPosition().x + text->GetTextWidth()) &&
+		&& Utils::mouseX < (text->GetPosition().x + text->GetTextWidth() * defFloat) &&
 		abs(SCR_HEIGHT - Utils::mouseY) > ((text->GetPosition().y))
-		&& abs(SCR_HEIGHT - Utils::mouseY) < ((text->GetPosition().y + text->GetTextHeight())))
+		&& abs(SCR_HEIGHT - Utils::mouseY) < ((text->GetPosition().y + text->GetTextHeight() * defFloat)))
 	{
 		text->SetIsHovering(true);
 		return true;
@@ -551,7 +643,7 @@ void CLevel::CheckButtonHovered()
 {
 	if (m_iLevelNumber == 10) //Start Screen
 	{
-		for (unsigned int i = 3; i <= 5; ++i)
+		for (unsigned int i = 3; i <= 6; ++i)
 		{
 			if (IsMouseOverButton(m_pTextList[i]))//Hover over all hoverable text in start screen
 			{
@@ -585,6 +677,34 @@ void CLevel::CheckButtonHovered()
 			m_pTextList[5]->SetColor(glm::vec3(0.0f, 0.8f, 1.0f));
 		}
 	}
+	else if (m_iLevelNumber == 13) //MultiHost screen
+	{
+		for (unsigned int i = 4; i <= 8; ++i)
+		{
+			if (IsMouseOverButton(m_pTextList[i]))//Hover button in host room
+			{
+				m_pTextList[i]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+			}
+			else
+			{
+				m_pTextList[i]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+			}
+		}
+	}
+	else if (m_iLevelNumber == 14) //MultiClient screen
+	{
+		for (unsigned int i = 4; i <= 8; ++i)
+		{
+			if (IsMouseOverButton(m_pTextList[i]))//Hover button in client room
+			{
+				m_pTextList[i]->SetColor(glm::vec3(0.0f, 1.0f, 0.3f));
+			}
+			else
+			{
+				m_pTextList[i]->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
+			}
+		}
+	}
 }
 
 /***********************
@@ -606,15 +726,25 @@ void CLevel::HandleStartScreenButtons()
 			}
 		}
 		
-		if(m_pTextList[4]->GetIsHovering())//Multiplayer
+		if(m_pTextList[4]->GetIsHovering())//Multiplayer Host hover
 		{
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{
-				//Multiplayer
+				//Multiplayer HOST
+				CSceneManager::GetInstance()->SwitchScene(13);
 			}
 		}
 
-		if (m_pTextList[5]->GetIsHovering())//Instructions
+		if (m_pTextList[5]->GetIsHovering())//Multiplayer Client hover
+		{
+			if (Utils::MouseState[0] == INPUT_HOLD)
+			{
+				//Multiplayer CLIENT
+				CSceneManager::GetInstance()->SwitchScene(14);
+			}
+		}
+
+		if (m_pTextList[6]->GetIsHovering())//Instructions
 		{
 			if (Utils::MouseState[0] == INPUT_HOLD)
 			{
@@ -642,6 +772,26 @@ void CLevel::HandleStartScreenButtons()
 			{
 				//Multiplayer
 				CSceneManager::GetInstance()->ResetLevels(GetPlayer());
+				CSceneManager::GetInstance()->SwitchScene(10);		//RETURN TO MAIN MENU
+			}
+		}
+	}
+	else if (m_iLevelNumber == 13) //Host screen
+	{
+		if (m_pTextList[8]->GetIsHovering()) //Returning to start screen
+		{
+			if (Utils::MouseState[0] == INPUT_HOLD)
+			{
+				CSceneManager::GetInstance()->SwitchScene(10);		//RETURN TO MAIN MENU
+			}
+		}
+	}
+	else if (m_iLevelNumber == 14) //Client screen
+	{
+		if (m_pTextList[8]->GetIsHovering()) //Returning to start screen
+		{
+			if (Utils::MouseState[0] == INPUT_HOLD)
+			{
 				CSceneManager::GetInstance()->SwitchScene(10);		//RETURN TO MAIN MENU
 			}
 		}

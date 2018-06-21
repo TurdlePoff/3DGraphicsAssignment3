@@ -50,4 +50,9 @@ private:
 	std::shared_ptr<CCubeMap> cMap;
 	std::vector<glm::vec3> pathToFollow;
 	std::vector<glm::vec3> wallPath;
+
+	std::vector<std::shared_ptr<CPlayer>> playerList;
+	std::vector<sockaddr_in> serverList;
+
+	bool isHost;
 };

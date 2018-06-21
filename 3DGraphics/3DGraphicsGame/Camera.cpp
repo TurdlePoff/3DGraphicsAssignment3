@@ -79,7 +79,7 @@ void CCamera::SetMVP(glm::vec3 _trans, glm::vec3 _scale, glm::vec3 _rot)
 	glm::mat4 Model = translate * rotation * scale;
 
 	//Moves the camera when WASD input is pressed
-	float cameraSpeed = 0.01f * CTime::GetInstance()->GetCurTimeSecs();
+	float cameraSpeed = 0.01f * CTime::GetInstance()->GetDeltaTime();
 
 	cameraPos = glm::vec3(CSceneManager::GetInstance()->GetPlayerPosition().x, -CSceneManager::GetInstance()->GetPlayerPosition().y, CSceneManager::GetInstance()->GetPlayerPosition().z);
 	cameraPos.z += 50;

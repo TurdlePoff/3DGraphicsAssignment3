@@ -398,6 +398,38 @@ void CServer::ProcessData(char* _pcDataReceived)
 		}
 
 		std::cout << "	[" << userName << "]: \"" << "[IS ALIVE]" << "\"" << std::endl;
+
+		////Check through every client in server and see if they are alive
+		//int deadClient = 0;
+		//for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
+		//{
+		//	if (ToString(it->second.m_ClientAddress) == ToString(m_ClientAddress))
+		//	{
+		//		it->second.isOnline = true;
+		//	}
+		//}
+
+		//std::string disconnectedList = "";
+
+		//if (deadClient != 0)
+		//{
+		//	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
+		//	{
+		//		if (it->second.isOnline == false)
+		//		{
+		//			disconnectedList += it->second.m_strName;
+		//			disconnectedList += ", ";
+		//			m_pConnectedClients->erase(it);
+		//			--it;
+		//		}
+		//	}
+
+		//	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
+		//	{
+		//		_packetToSend.Serialize(DATA, (char*)disconnectedList.c_str());
+		//		SendData(_packetToSend.PacketData);
+		//	}
+		//}
 		break;
 	}
 	default:
