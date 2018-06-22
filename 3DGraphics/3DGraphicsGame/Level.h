@@ -55,4 +55,5 @@ private:
 	std::vector<sockaddr_in> serverList;
 
 	bool isHost;
+	bool lobbyFirst;
 };

@@ -25,9 +25,11 @@
 #include "network.h"
 #include "networkentity.h"
 #include "socket.h"
+#include "Time.h"
 
 //This includes
 #include "client.h"
+#include "NetworkingManager.h"
 
 
 CClient::CClient()
@@ -108,48 +110,69 @@ bool CClient::ConnectToServer()
 	//Use a boolean flag to determine if a valid server has been chosen by the client or not
 	bool _bServerChosen = false;
 
+	float startTime = 0;
+	float endTime = 0;
+
 	do {
 #pragma region _GETSERVER_
-		unsigned char _ucChoice = QueryOption("Do you want to broadcast for servers or manually connect (B/M)?", "BM");
+		/*unsigned char _ucChoice = QueryOption("Do you want to broadcast for servers or manually connect (B/M)?", "BM");*/
+		unsigned char _ucChoice = 'B';
 
 		switch (_ucChoice)
 		{
 			case 'B':
 			{
 				//Question 7: Broadcast 
+				NetworkingManager* nManager = NetworkingManager::GetInstance();
 
-				m_bDoBroadcast = true;
-				m_pClientSocket->EnableBroadcast();
-				BroadcastForServers();
-				if (m_vecServerAddr.size() == 0)
+				while(!_bServerChosen)
 				{
-					std::cout << "No Servers Found " << std::endl;
-					continue;
-				}
-				else
-				{
-
-					//Give a list of servers for the user to choose from :
-					for (unsigned int i = 0; i < m_vecServerAddr.size(); i++)
+					endTime = CTime::GetInstance()->GetCurTimeSecs();
+					if (endTime - startTime > 3.0f)
 					{
-						std::cout << std::endl << "[" << i << "]" << " SERVER : found at " << ToString(m_vecServerAddr[i]) << std::endl;
+						m_bDoBroadcast = true;
+						m_pClientSocket->EnableBroadcast();
+						BroadcastForServers();
+
+						if (nManager->GetServerList().size() == 0)
+						{
+							std::cout << "No Servers Found " << std::endl;
+							startTime = CTime::GetInstance()->GetCurTimeSecs();
+
+							continue;
+						}
+						else
+						{
+
+							//Give a list of servers for the user to choose from :
+							for (unsigned int i = 0; i < nManager->GetServerList().size(); i++)
+							{
+								std::cout << std::endl << "[" << i << "]" << " SERVER : found at " << ToString(nManager->GetServerList()[i]) << std::endl;
+							}
+							startTime = CTime::GetInstance()->GetCurTimeSecs();
+
+							std::cout << "Choose a server number to connect to :";
+							gets_s(_cServerChosen);
+
+							_uiServerIndex = atoi(_cServerChosen);
+							m_ServerSocketAddress.sin_family = AF_INET;
+							m_ServerSocketAddress.sin_port = nManager->GetServerList()[_uiServerIndex].sin_port;
+							m_ServerSocketAddress.sin_addr.S_un.S_addr = nManager->GetServerList()[_uiServerIndex].sin_addr.S_un.S_addr;
+							std::string _strServerAddress = ToString(nManager->GetServerList()[_uiServerIndex]);
+							std::cout << "Attempting to connect to server at " << _strServerAddress << std::endl;
+
+							////Reject
+
+							_bServerChosen = true;
+						}
+
+						m_bDoBroadcast = false;
+						m_pClientSocket->DisableBroadcast();
+
 					}
-					std::cout << "Choose a server number to connect to :";
-					gets_s(_cServerChosen);
-
-					_uiServerIndex = atoi(_cServerChosen);
-					m_ServerSocketAddress.sin_family = AF_INET;
-					m_ServerSocketAddress.sin_port = m_vecServerAddr[_uiServerIndex].sin_port;
-					m_ServerSocketAddress.sin_addr.S_un.S_addr = m_vecServerAddr[_uiServerIndex].sin_addr.S_un.S_addr;
-					std::string _strServerAddress = ToString(m_vecServerAddr[_uiServerIndex]);
-					std::cout << "Attempting to connect to server at " << _strServerAddress << std::endl;
-
-					//Reject
-
-					_bServerChosen = true;
 				}
-				m_bDoBroadcast = false;
-				m_pClientSocket->DisableBroadcast();
+
+				
 				break;
 			}
 			case 'M':
@@ -280,19 +303,20 @@ void CClient::ReceiveBroadcastMessages(char* _pcBufferToReceiveData)
 		}
 		else
 		{
+			NetworkingManager* nManager = NetworkingManager::GetInstance();
 			//There is valid data received.
 			strcpy_s(_pcBufferToReceiveData, strlen(_buffer) + 1, _buffer);
 			m_ServerSocketAddress = _FromAddress;
 			bool exists = false;
-			for (unsigned int i = 0; i < m_vecServerAddr.size(); ++i)
+			for (unsigned int i = 0; i < nManager->GetServerList().size(); ++i)
 			{
-				if (ToString(m_vecServerAddr[i]) == ToString(m_ServerSocketAddress))
+				if (ToString(nManager->GetServerList()[i]) == ToString(m_ServerSocketAddress))
 					exists = true;
 			}
 
 			if (!exists)
 			{
-				m_vecServerAddr.push_back(m_ServerSocketAddress);
+				nManager->AddToServerList(m_ServerSocketAddress);
 			}
 		}
 	}//End of while loop

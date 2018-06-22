@@ -22,19 +22,20 @@ CServer* NetworkingManager::_pServer = nullptr;
 CNetwork& NetworkingManager::_rNetwork = CNetwork::GetInstance();
 EEntityType NetworkingManager::_eNetworkEntityType = DEFAULT;
 char NetworkingManager::_cIPAddress[MAX_ADDRESS_LENGTH] = {};
-std::thread NetworkingManager::_ClientReceiveThread;
-std::thread NetworkingManager::_ServerReceiveThread;
+std::thread _ClientReceiveThread;
+std::thread _ServerReceiveThread;
+std::vector<sockaddr_in> NetworkingManager::m_vecServerAddresses;
 
 NetworkingManager::~NetworkingManager()
 {
-	_ClientReceiveThread.join();
+	/*_ClientReceiveThread.join();
 	_ServerReceiveThread.join();
-
+*/
 	//Shut Down the Network
 	_rNetwork.ShutDown();
 	_rNetwork.DestroyInstance();
 
-	delete[] _pcPacketData;
+	//delete[] _pcPacketData;
 }
 
 /***********************
@@ -59,6 +60,14 @@ NetworkingManager * NetworkingManager::GetInstance()
 ***********************/
 void NetworkingManager::DestroyInstance()
 {
+	/*_ClientReceiveThread.join();
+	_ServerReceiveThread.join();*/
+
+	//Shut Down the Network
+	_rNetwork.ShutDown();
+	_rNetwork.DestroyInstance();
+
+	delete[] _pcPacketData;
 	if (s_pNetworkInstance != 0) // If there is an instance of this class
 	{
 		//Delete the instance
@@ -87,8 +96,9 @@ void NetworkingManager::Initialise()
 void NetworkingManager::StartupClient()
 {
 	_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
-	_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
+	//_ClientReceiveThread = std::thread(&CClient::ReceiveData, _pClient, std::ref(_pcPacketData));
 	_eNetworkEntityType = CLIENT;
+	//_rNetwork.GetInstance().Initialise(_eNetworkEntityType);
 }
 
 /***********************
@@ -99,8 +109,9 @@ void NetworkingManager::StartupClient()
 void NetworkingManager::StartupServer()
 {
 	_pServer = static_cast<CServer*>(_rNetwork.GetInstance().GetNetworkEntity());
-	_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
+	//_ServerReceiveThread = std::thread(&CServer::ReceiveData, _pServer, std::ref(_pcPacketData));
 	_eNetworkEntityType = SERVER;
+	//_rNetwork.GetInstance().Initialise(_eNetworkEntityType);
 }
 
 /***********************
@@ -114,6 +125,7 @@ void NetworkingManager::ProcessNetwork()
 	{
 		if (_eNetworkEntityType == CLIENT) //if network entity is a client
 		{
+			_pClient = static_cast<CClient*>(_rNetwork.GetInstance().GetNetworkEntity());
 			if (_pClient != nullptr)
 			{
 				//If the message queue is empty 
@@ -145,4 +157,9 @@ void NetworkingManager::ProcessNetwork()
 			}
 		}
 	}
+}
+
+void NetworkingManager::StartUpNetwork()
+{
+	_rNetwork.GetInstance().Initialise(_eNetworkEntityType);
 }

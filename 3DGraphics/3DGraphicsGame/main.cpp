@@ -24,6 +24,7 @@
 #include "Scene.h"
 #include "Level.h"
 #include "SceneManager.h"
+#include "NetworkingManager.h"
 #include "AI.h"
 #include "Lighting.h"
 #include "CubeMap.h"
@@ -31,7 +32,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-//#include <vld.h>
+#include <vld.h>
 
 void Init();
 void Render(void);
@@ -63,8 +64,6 @@ void Init()
 	sndManager->InitFmod();
 	sndManager->LoadAudio();
 	//sndManager->InitBackground();
-
-
 }
 
 /***********************
@@ -113,6 +112,8 @@ void Exit()
 	CTime::DestroyInstance();
 	CAIManager::DestroyInstance();
 	CLighting::DestroyInstance();
+	NetworkingManager::DestroyInstance();
+
 }
 
 /***********************

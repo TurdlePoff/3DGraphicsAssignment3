@@ -17,6 +17,7 @@
 #include "Time.h"
 #include "AI.h"
 #include "SoundManager.h"
+#include "NetworkingManager.h"
 
 CLevel::CLevel(){}
 
@@ -147,8 +148,9 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		mmText->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(mmText);
 	}
-	else if (m_iLevelNumber == 14)	//IF THE LEVEL IS THE MULTIPLAYER HOST SCREEN
+	else if (m_iLevelNumber == 14)	//IF THE LEVEL IS THE MULTIPLAYER CLIENT SCREEN
 	{
+		lobbyFirst = true;
 		//Create text for level
 		std::shared_ptr<CTextLabel> mHTitle(new CTextLabel("MULTIPLAYER - CLIENT", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 320.0f, SCR_HEIGHT / 2 + 300)));
 		mHTitle->SetScale(0.8f);
@@ -184,8 +186,9 @@ CLevel::CLevel(int levelNum, EImage bgSprite, std::shared_ptr<CPlayer> player)
 		back->SetColor(glm::vec3(0.0f, 0.0f, 1.0f));
 		AddToTextList(back);
 	}
-	else if (m_iLevelNumber == 13)	//IF THE LEVEL IS THE MULTIPLAYER CLIENT SCREEN
+	else if (m_iLevelNumber == 13)	//IF THE LEVEL IS THE MULTIPLAYER HOST SCREEN
 	{
+		lobbyFirst = true;
 		//Create text for level
 		std::shared_ptr<CTextLabel> mCTitle(new CTextLabel("MULTIPLAYER - HOST", "Resources/Fonts/bubble.TTF", glm::vec2((SCR_WIDTH / 2) - 300.0f, SCR_HEIGHT / 2 + 300)));
 		mCTitle->SetScale(0.8f);
@@ -390,6 +393,31 @@ void CLevel::Render()
 ***********************/
 void CLevel::Update()
 {
+	if (m_iLevelNumber == 13 || m_iLevelNumber == 14)
+	{
+		if (lobbyFirst)
+		{
+			NetworkingManager::GetInstance()->StartUpNetwork();
+			lobbyFirst = false;
+		}
+		
+
+		if (m_iLevelNumber == 14)
+		{
+			//NetworkingManager::GetInstance()->BroadCastServers();
+
+			if (NetworkingManager::GetInstance()->GetServerList().size() != 0)
+			{//4567
+				
+				for (unsigned int sList = 0; sList < NetworkingManager::GetInstance()->GetServerList().size(); ++sList)
+				{
+					m_pTextList[4+sList]->SetText(ToString(NetworkingManager::GetInstance()->GetServerList()[sList]));
+				}
+					
+			}
+		}
+	}
+
 	//m_pSpriteList[1]->Draw();
 	m_pTextList[0]->SetText(std::to_string(Utils::mouseX));
 	m_pTextList[1]->SetText(std::to_string(Utils::mouseY));
@@ -481,12 +509,14 @@ void CLevel::Update()
 		}
 	}
 
-	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 14)
+	if (CSceneManager::GetInstance()->GetCurrentSceneNumber() == 14) //Client
 	{
-		for (unsigned int i = 0; i < playerList.size(); ++i)
-		{
-			//m_pTextList[2 + i]->SetText(playerList[i]->Get);
-		}
+		//NetworkingManager::GetInstance()->ProcessNetwork();
+
+		//for (unsigned int i = 0; i < playerList.size(); ++i)
+		//{
+		//	//m_pTextList[2 + i]->SetText(playerList[i]->Get);
+		//}
 	}
 }
 
@@ -732,6 +762,8 @@ void CLevel::HandleStartScreenButtons()
 			{
 				//Multiplayer HOST
 				CSceneManager::GetInstance()->SwitchScene(13);
+				NetworkingManager::GetInstance()->Initialise();
+				NetworkingManager::GetInstance()->StartupServer();
 			}
 		}
 
@@ -741,6 +773,8 @@ void CLevel::HandleStartScreenButtons()
 			{
 				//Multiplayer CLIENT
 				CSceneManager::GetInstance()->SwitchScene(14);
+				NetworkingManager::GetInstance()->Initialise();
+				NetworkingManager::GetInstance()->StartupClient();
 			}
 		}
 

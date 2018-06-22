@@ -167,6 +167,9 @@ void CSceneManager::ResetLevels(std::shared_ptr<CPlayer> _player)
 ***********************/
 void CSceneManager::UpdateScene(std::shared_ptr<CScene> scene)
 {
+	if (currentScene->GetLevelNum() == 13 || currentScene->GetLevelNum() == 14)
+	{
+	}
 	scene->Update();
 }
 

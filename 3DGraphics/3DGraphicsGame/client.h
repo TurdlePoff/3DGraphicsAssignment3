@@ -62,6 +62,8 @@ private:
 	//A client has a socket object to create the UDP socket at its end.
 	CSocket* m_pClientSocket;
 	// A Sockaddress structure which will have the details of the server 
+	sockaddr_in m_ClientSocketAddress;
+
 	sockaddr_in m_ServerSocketAddress;
 	//A username to associate with a client
 	char m_cUserName[50];

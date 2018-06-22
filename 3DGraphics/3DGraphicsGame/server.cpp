@@ -47,7 +47,7 @@ CServer::~CServer()
 
 	delete m_pWorkQueue;
 	m_pWorkQueue = 0;
-	
+
 	delete[] m_pcPacketData;
 	m_pcPacketData = 0;
 }
@@ -55,7 +55,7 @@ CServer::~CServer()
 bool CServer::Initialise()
 {
 	m_pcPacketData = new char[MAX_MESSAGE_LENGTH];
-	
+
 	//Create a work queue to distribute messages between the main  thread and the receive thread.
 	m_pWorkQueue = new CWorkQueue<char*>();
 
@@ -72,7 +72,7 @@ bool CServer::Initialise()
 	}
 
 	//Qs 2: Create the map to hold details of all connected clients
-	m_pConnectedClients = new std::map < std::string, TClientDetails >() ;
+	m_pConnectedClients = new std::map < std::string, TClientDetails >();
 
 	return true;
 }
@@ -83,7 +83,7 @@ bool CServer::AddClient(std::string _strClientName)
 	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
 	{
 		//Check to see that the client to be added does not already exist in the map, 
-		if(it->first == ToString(m_ClientAddress))
+		if (it->first == ToString(m_ClientAddress))
 		{
 			return false;	//Exited server
 		}
@@ -99,14 +99,14 @@ bool CServer::AddClient(std::string _strClientName)
 	_clientToAdd.m_ClientAddress = this->m_ClientAddress;
 
 	std::string _strAddress = ToString(m_ClientAddress);
-	m_pConnectedClients->insert(std::pair < std::string, TClientDetails > (_strAddress, _clientToAdd));
+	m_pConnectedClients->insert(std::pair < std::string, TClientDetails >(_strAddress, _clientToAdd));
 	return true;
 }
 
 bool CServer::SendData(char* _pcDataToSend)
 {
 	int _iBytesToSend = (int)strlen(_pcDataToSend) + 1;
-	
+
 	int iNumBytes = sendto(
 		m_pServerSocket->GetSocketHandle(),				// socket to send through.
 		_pcDataToSend,									// data to send
@@ -114,7 +114,7 @@ bool CServer::SendData(char* _pcDataToSend)
 		0,												// flags
 		reinterpret_cast<sockaddr*>(&m_ClientAddress),	// address to be filled with packet target
 		sizeof(m_ClientAddress)							// size of the above address struct.
-		);
+	);
 	//iNumBytes;
 	if (_iBytesToSend != iNumBytes)
 	{
@@ -128,8 +128,6 @@ bool CServer::SendData(char* _pcDataToSend)
 void CServer::ReceiveData(char* _pcBufferToReceiveData) //constantly listen and if pick up add to workqueue
 
 {
-	
-
 	int iSizeOfAdd = sizeof(m_ClientAddress);
 	int _iNumOfBytesReceived;
 	int _iPacketSize;
@@ -176,12 +174,12 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData) //constantly listen and 
 			strcpy_s(_pcBufferToReceiveData, _iPacketSize, _buffer);
 			char _IPAddress[100];
 			inet_ntop(AF_INET, &m_ClientAddress.sin_addr, _IPAddress, sizeof(_IPAddress));
-			
+
 			std::string cUsername = "";
 
 			for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
 			{
-				if(ToString(it->second.m_ClientAddress) == ToString(this->m_ClientAddress))
+				if (ToString(it->second.m_ClientAddress) == ToString(this->m_ClientAddress))
 					cUsername = it->second.m_strName;
 			}
 
@@ -204,12 +202,12 @@ void CServer::ReceiveData(char* _pcBufferToReceiveData) //constantly listen and 
 					std::cout << "	[" << cUsername << "]: \"" << userMessage << "\"" << std::endl;
 				}
 			}
-			
+
 			//Push this packet data into the WorkQ
 			m_pWorkQueue->push(_pcBufferToReceiveData);
 		}
 		//std::this_thread::yield();
-		
+
 	} //End of while (true)
 }
 
@@ -300,7 +298,7 @@ void CServer::ProcessData(char* _pcDataReceived)
 			}
 			std::cout << clientList << std::endl;	//Print the list to server console
 
-			//Send the client list string to the client
+													//Send the client list string to the client
 			_packetToSend.Serialize(DATA, (char*)clientList.c_str());
 			SendData(_packetToSend.PacketData);
 
@@ -398,44 +396,12 @@ void CServer::ProcessData(char* _pcDataReceived)
 		}
 
 		std::cout << "	[" << userName << "]: \"" << "[IS ALIVE]" << "\"" << std::endl;
-
-		////Check through every client in server and see if they are alive
-		//int deadClient = 0;
-		//for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
-		//{
-		//	if (ToString(it->second.m_ClientAddress) == ToString(m_ClientAddress))
-		//	{
-		//		it->second.isOnline = true;
-		//	}
-		//}
-
-		//std::string disconnectedList = "";
-
-		//if (deadClient != 0)
-		//{
-		//	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
-		//	{
-		//		if (it->second.isOnline == false)
-		//		{
-		//			disconnectedList += it->second.m_strName;
-		//			disconnectedList += ", ";
-		//			m_pConnectedClients->erase(it);
-		//			--it;
-		//		}
-		//	}
-
-		//	for (auto it = m_pConnectedClients->begin(); it != m_pConnectedClients->end(); ++it)
-		//	{
-		//		_packetToSend.Serialize(DATA, (char*)disconnectedList.c_str());
-		//		SendData(_packetToSend.PacketData);
-		//	}
-		//}
 		break;
 	}
 	default:
 		break;
 	}
-	
+
 }
 
 CWorkQueue<char*>* CServer::GetWorkQueue()
